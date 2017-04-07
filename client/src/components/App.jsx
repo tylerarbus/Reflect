@@ -1,9 +1,16 @@
 import React from 'react'
+import { fetchEntries } from '../actions/actions.js';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchEntries());
   }
 
   render() {
@@ -14,4 +21,10 @@ class App extends React.Component {
 
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    ...state
+  }
+}
+
+export default connect(mapStateToProps)(App);
