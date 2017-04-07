@@ -9,7 +9,9 @@
   },
   "scripts": {
     "test": "jest",
-    "dev": "webpack -d --watch"
+    "dev": "webpack -d --watch",
+    "start": "node ./server/server.js",
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
