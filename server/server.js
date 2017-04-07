@@ -8,6 +8,6 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.resolve(__dirname, '../client/public')));
 
-app.listen(3000, function() {
+app.listen(3000, () => {
   console.log('listening on port 3000...');
 });
