@@ -1,8 +1,8 @@
-var express = require('express')
-var bodyParser = require('body-parser')
-var path = require('path')
+const express = require('express')
+const bodyParser = require('body-parser')
+const path = require('path')
 
-var app = express();
+const app = express();
 
 app.use(bodyParser.json());
 
