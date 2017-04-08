@@ -1,5 +1,6 @@
-client/public/bundle.js
+client/public/
 .env
+!client/public/index.html
 
 ### node etc ###
 
