@@ -89,6 +89,36 @@ Here is a list of possible tests for React Components
 1. Start and Stop the server for each Unit Test
 Aside from testing a complex scenario, we want to always test a clean server without any residue from the previous unit tests. Otherwise our tests will pass or fail depending on the order, which is an extremely undesirable and flaky testing approach. Starting and stopping the server for each unit test makes them order-independent.
 
+#### Testing Redux Components
+From the [docs](http://redux.js.org/docs/recipes/WritingTests.html)
+
+1. Action Creators
+In Redux, action creators are functions which return plain objects. When testing action creators we want to test whether the correct action creator was called and also whether the right action was returned.
+
+Example
+```javascript
+export function addTodo(text) {
+  return {
+    type: 'ADD_TODO',
+    text
+  }
+}
+// can be tested like
+
+import * as actions from '../../actions/TodoActions'
+import * as types from '../../constants/ActionTypes'
+
+describe('actions', () => {
+  it('should create an action to add a todo', () => {
+    const text = 'Finish docs'
+    const expectedAction = {
+      type: types.ADD_TODO,
+      text
+    }
+    expect(actions.addTodo(text)).toEqual(expectedAction)
+  })
+})
+```
 
 
 ### Sample Tests
