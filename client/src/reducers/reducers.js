@@ -14,7 +14,7 @@ function entries(state = {
         entries: action.entries,
         receivedAt: action.receivedAt,
         isFetching: action.isFetching
-      },
+      }
     case REQUEST_ENTRIES:
       return {
         ...state,
