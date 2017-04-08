@@ -6,3 +6,4 @@ import { App } from '../../client/src/components/App.jsx';
 it('should render without crashing', () => {
   const wrapper = shallow(<App />);
 });
+
