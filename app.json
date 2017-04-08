@@ -1,0 +1,24 @@
+{
+  "name": "Reflect",
+  "scripts": {
+    "postdeploy": "webpack -p --config ./webpack.prod.config.js --progress"
+  },
+  "env": {
+    "NODE_ENV": {
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
