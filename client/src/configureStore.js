@@ -3,12 +3,19 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import rootReducer from './reducers/reducers.js';
 
-const loggerMiddleware = createLogger();
+import createHistory from 'history/createBrowserHistory';
+import { routerMiddleware } from 'react-router-redux';
 
-export default function configureStore(preloadedState) {
+const loggerMiddleware = createLogger();
+const history = createHistory();
+const router = routerMiddleware(history);
+
+const configureStore = function (preloadedState) {
   return createStore(
     rootReducer,
     preloadedState,
-    applyMiddleware(thunkMiddleware, loggerMiddleware)
+    applyMiddleware(thunkMiddleware, loggerMiddleware, router)
   )
 }
+
+export { history, configureStore }
