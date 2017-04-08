@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
+import Nav from './components/Nav.jsx';
 import { Provider } from 'react-redux';
 import { history, configureStore } from './configureStore.js';
 import { Route } from 'react-router-dom';
