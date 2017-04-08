@@ -10,12 +10,13 @@ const loggerMiddleware = createLogger();
 const history = createHistory();
 const router = routerMiddleware(history);
 
-const configureStore = function (preloadedState) {
-  return createStore(
+const configureStore = preloadedState => {
+  const store = createStore(
     rootReducer,
     preloadedState,
     applyMiddleware(thunkMiddleware, loggerMiddleware, router)
-  )
+  );
+  
+  return store;
 }
-
 export { history, configureStore }
