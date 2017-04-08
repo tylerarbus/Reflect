@@ -10,7 +10,9 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack -d --watch",
-    "run-dev": "npm run dev & nodemon server/server.js"
+    "run-dev": "npm run dev & nodemon server/server.js",
+    "start": "node ./server/server.js",
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
