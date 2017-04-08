@@ -16,14 +16,7 @@ const configureStore = preloadedState => {
     preloadedState,
     applyMiddleware(thunkMiddleware, loggerMiddleware, router)
   );
-
-  // if(module.hot) {
-  //   module.hot.accept('./reducers/reducers.js', () => {
-  //     const nextReducer = require('./reducers/reducers.js').default;
-  //     store.replaceReducer(nextReducer);
-  //   });
-  // }
-
+  
   return store;
 }
 export { history, configureStore }
