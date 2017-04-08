@@ -16,7 +16,9 @@ export class App extends Component {
 
   render() {
     return (
-      <Entries />
+      <div className="ui three column divided grid">
+        <Entries />
+      </div>
     )
   }
 
@@ -29,3 +31,4 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(App);
+
