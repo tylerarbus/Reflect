@@ -9,8 +9,7 @@
   },
   "scripts": {
     "test": "jest",
-    "dev": "webpack -d --watch",
-    "run-dev": "webpack-dev-server",
+    "dev": "webpack-dev-server",
     "start": "node server/server.js",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "lint": "eslint client server"
@@ -49,8 +48,8 @@
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
     "regenerator-runtime": "^0.10.3",
-    "webpack-dev-server": "^2.4.2"
-    "react-addons-test-utils": "^15.5.0",
+    "webpack-dev-server": "^2.4.2",
+    "react-addons-test-utils": "^15.5.0"
   },
   "babel": {
     "presets": [
