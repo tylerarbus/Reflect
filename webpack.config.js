@@ -5,10 +5,22 @@ const APP_DIR = path.resolve(__dirname, 'client/src');
 const BUILD_DIR = path.resolve(__dirname, 'client/public');
 
 const config = {
-  entry: APP_DIR + '/index.jsx',
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    APP_DIR + '/index.jsx'
+  ],
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
+  devtool: 'inline-source-map',
+  devServer: {
+    hot: true,
+    contentBase: BUILD_DIR,
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -21,7 +33,11 @@ const config = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+  ]
 };
 
 module.exports = config;
