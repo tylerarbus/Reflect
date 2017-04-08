@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 export default (props) => (
-  <div>
-    <b>Date:</b> {props.date}
-    <b>Text:</b> {props.text}
+  <div class="ui piled container segment">
+    <h4 class="ui header">{props.date}</h4>
+    <p>{props.text}</p>
   </div>
 )
 

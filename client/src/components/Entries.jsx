@@ -23,7 +23,7 @@ export default class Entries extends Component {
   render() {
     
     return (
-      <div>
+      <div className="eight wide column">
         {dummyEntries.map(entry => <Entry date={entry.date} text={entry.text} key={entry.date}/>)}
       </div>
     )
