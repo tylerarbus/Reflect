@@ -17,12 +17,12 @@ const configureStore = preloadedState => {
     applyMiddleware(thunkMiddleware, loggerMiddleware, router)
   );
 
-  if(module.hot) {
-    module.hot.accept('./reducers/reducers.js', () => {
-      const nextReducer = require('./reducers/reducers.js').default;
-      store.replaceReducer(nextReducer);
-    });
-  }
+  // if(module.hot) {
+  //   module.hot.accept('./reducers/reducers.js', () => {
+  //     const nextReducer = require('./reducers/reducers.js').default;
+  //     store.replaceReducer(nextReducer);
+  //   });
+  // }
 
   return store;
 }

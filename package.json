@@ -10,8 +10,8 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack -d --watch",
-    "run-dev": "npm run dev & nodemon server/server.js",
-    "start": "webpack-dev-server",
+    "run-dev": "webpack-dev-server",
+    "start": "node server/server.js",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "lint": "eslint client server"
   },
