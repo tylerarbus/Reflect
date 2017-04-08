@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { fetchEntries } from '../actions/actions.js';
 import { connect } from 'react-redux';
+import Entries from './Entries.jsx';
 
-class App extends React.Component {
+export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -15,7 +16,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>Hello World</div>
+      <Entries />
     )
   }
 
