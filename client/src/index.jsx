@@ -14,11 +14,15 @@ const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <div>
-            <Route exact path="/" component={App}/>
+        <div>
+          <Nav />
+          <ConnectedRouter history={history}>
+            <div>
+              <Route exact path="/" component={App}/>
+              <Route path="/entries" component={App}/>
+            </div>
+          </ConnectedRouter>
           </div>
-        </ConnectedRouter>
       </Provider>
     </AppContainer>, document.getElementById('app')
   );
