@@ -3,7 +3,7 @@ import { fetchEntries } from '../actions/actions.js';
 import { connect } from 'react-redux';
 import Entries from './Entries.jsx';
 import Timeline from './Timeline.jsx';
-import { dummyEntryData, dummyTimelineData }from '../dummyData.js';
+import { dummyEntryData, dummyTimelineData } from '../dummyData.js';
 
 export class App extends Component {
   constructor(props) {
