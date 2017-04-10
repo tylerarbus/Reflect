@@ -3,7 +3,7 @@
 
 import request from 'supertest';
 import express from 'express';
-var app;
+let app;
 
 describe('Calling API tests', () => {
 	beforeEach(() => {
