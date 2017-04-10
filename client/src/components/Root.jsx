@@ -12,7 +12,7 @@ export default class Root extends React.Component {
       <Provider store={this.props.store} >
         <Nav>
           <ConnectedRouter history={this.props.history}>
-            <Route path='/' component={App} />
+            <Route exact path='/' component={App} />
           </ConnectedRouter>
         </Nav>
       </Provider>
