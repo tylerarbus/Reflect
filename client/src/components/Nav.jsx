@@ -22,12 +22,10 @@ export class Nav extends Component {
   render() {
     return(
       <div id="navbar" className="ui menu">
-        <div className="ui container">
-          <a onClick={this.onClickHome} className="item">Reflective</a>
-          <a onClick={this.onClickEntries} className="item">Entries</a>
-          <div className="right menu">
-            <a className="item">Profile</a>
-          </div>
+        <a onClick={this.onClickHome} className="item">Reflective</a>
+        <a onClick={this.onClickEntries} className="item">Entries</a>
+        <div className="right menu">
+          <a className="item">Profile</a>
         </div>
       </div>
     )
