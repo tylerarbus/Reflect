@@ -7,7 +7,7 @@ const BUILD_DIR = path.resolve(__dirname, 'client/public');
 const config = {
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-hot-middleware/client',
     'webpack/hot/only-dev-server',
     APP_DIR + '/index.jsx'
   ],
@@ -37,6 +37,7 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 };
 
