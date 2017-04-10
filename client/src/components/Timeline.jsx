@@ -15,7 +15,7 @@ export default class Timeline extends Component {
         <div className="ui left vertical inverted sidebar menu visible">
           <div className="item header">2017</div>
           {Object.keys(months).map(month => 
-            <a className="item">
+            <a className="item month">
               {month}
               <div className="ui label">{months[month].length}</div>
             </a>
