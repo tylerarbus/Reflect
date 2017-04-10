@@ -12,6 +12,7 @@ describe('Nav Component', () => {
   });
 
   it('should render without crashing', () => {
+    expect(callNow.exists()).toBe(true);
   });
 
   it('should render a button with id "call-now"', () => {

@@ -10,7 +10,7 @@ export default class CallMeNow extends Component {
     return (
       <div className="right floated right aligned four wide column">
         <button id="call-now" className="huge ui button green">
-        Call Me Now
+          Call Me Now
         </button>
       </div>
     )
