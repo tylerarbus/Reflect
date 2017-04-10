@@ -6,7 +6,9 @@ const dev = require('./dev.js');
 
 const app = express();
 
-dev.webpack(app);
+if (process.env.NODE_ENV !== 'production') {
+  dev.webpack(app);
+}
 
 app.use(bodyParser.json());
 
