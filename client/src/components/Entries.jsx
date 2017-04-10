@@ -14,7 +14,13 @@ export default class Entries extends Component {
     
     return (
       <div className="eight wide column">
-        {entries.map(entry => <Entry date={entry.date} text={entry.text} key={entry.date}/>)}
+        {entries.map(entry => 
+          <Entry 
+            date={entry.date} 
+            text={entry.text} 
+            key={entry.date}
+          />
+        )}
       </div>
     )
   }
