@@ -4,7 +4,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 
 import App from './App.jsx';
-import Nav from './components/Nav.jsx';
+import Nav from './Nav.jsx';
 
 export default class Root extends React.Component {
   render() {
