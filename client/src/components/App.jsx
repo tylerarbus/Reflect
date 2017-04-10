@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { fetchEntries } from '../actions/actions.js';
 import { connect } from 'react-redux';
+import Nav from './Nav.jsx';
 import Entries from './Entries.jsx';
 import Timeline from './Timeline.jsx';
 import { dummyEntryData, dummyTimelineData } from '../dummyData.js';
@@ -18,9 +19,12 @@ export class App extends Component {
 
   render() {
     return (
-      <div className="ui three column grid">
-        <Timeline months={dummyTimelineData}/>
-        <Entries entries={dummyEntryData}/>
+      <div>
+        <Nav />
+        <div className="ui three column grid">
+          <Timeline months={dummyTimelineData}/>
+          <Entries entries={dummyEntryData}/>
+        </div>
       </div>
     )
   }

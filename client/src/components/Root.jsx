@@ -10,11 +10,9 @@ export default class Root extends React.Component {
   render() {
     return (
       <Provider store={this.props.store} >
-        <Nav>
-          <ConnectedRouter history={this.props.history}>
-            <Route exact path='/' component={App} />
-          </ConnectedRouter>
-        </Nav>
+        <ConnectedRouter history={this.props.history}>
+          <Route exact path='/' component={App} />
+        </ConnectedRouter>
       </Provider>
     )
   }
