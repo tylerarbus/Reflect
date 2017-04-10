@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
+import Nav from './components/Nav.jsx';
 import { Provider } from 'react-redux';
 import { history, configureStore } from './configureStore.js';
 import { Route } from 'react-router-dom';
@@ -13,11 +14,15 @@ const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <div>
-            <Route exact path="/" component={App}/>
+        <div>
+          <Nav />
+          <ConnectedRouter history={history}>
+            <div>
+              <Route exact path="/" component={App}/>
+              <Route path="/entries" component={App}/>
+            </div>
+          </ConnectedRouter>
           </div>
-        </ConnectedRouter>
       </Provider>
     </AppContainer>, document.getElementById('app')
   );
