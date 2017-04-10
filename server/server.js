@@ -2,8 +2,13 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const dev = require('./dev.js');
 
 const app = express();
+
+if (process.env.NODE_ENV !== 'production') {
+  dev.webpack(app);
+}
 
 app.use(bodyParser.json());
 
