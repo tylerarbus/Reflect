@@ -2,26 +2,11 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const dev = require('./dev.js');
 
 const app = express();
 
-if (process.env.NODE_ENV !== 'production') {
-  const webpack = require('webpack');
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpackHotMiddleware = require('webpack-hot-middleware');
-  const config = require('../webpack.config.js');
-  const compiler = webpack(config);
-
-  app.use(webpackHotMiddleware(compiler));
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: '/',
-    stats: {
-      colors: true,
-    },
-    hot: true,
-    noInfo: true,
-  }));
-}
+dev.webpack(app);
 
 app.use(bodyParser.json());
 
