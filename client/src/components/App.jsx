@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Nav from './Nav.jsx';
 import Entries from './Entries.jsx';
 import Timeline from './Timeline.jsx';
+import CallMeNow from './CallMeNow.jsx';
 import { dummyEntryData, dummyTimelineData } from '../dummyData.js';
 
 export class App extends Component {
@@ -24,6 +25,7 @@ export class App extends Component {
         <div className="ui three column grid">
           <Timeline months={dummyTimelineData}/>
           <Entries entries={dummyEntryData}/>
+          <CallMeNow />
         </div>
       </div>
     )
