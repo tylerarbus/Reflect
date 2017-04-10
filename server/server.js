@@ -10,7 +10,7 @@ const callingHandler = require('./calling/callingHandler.js');
 
 const app = express();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   dev.webpack(app);
 }
 

@@ -7,12 +7,14 @@ let app;
 
 describe('Calling API tests', () => {
 	beforeEach(() => {
+ 		process.env.NODE_ENV = 'test';
  		app = require('../../../server/server.js');
 	});
 
 	afterEach((done) => {
 		app.close(done);
-	})
+		delete process.env.NODE_ENV;
+	});
 
 	it('should run a test', (done) => {
 			return request(app)
