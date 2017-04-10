@@ -10,8 +10,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack --config ./webpack.config.js",
-    "client-dev": "webpack-dev-server",
-    "server-dev": "npm build && nodemon server.js --ignore /client",
+    "dev": "npm build && nodemon server.js --ignore /client",
     "start": "node server/server.js",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "lint": "eslint client server"
