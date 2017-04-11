@@ -9,12 +9,19 @@ if (process.env.DATABASE_URL) {
 
 const db = pgp(url);
 
-schema(db)
-  .then(() => {
-    console.log('Success loading db');
-  })
-  .catch((error) => {
-    console.log('Error loading db', error);
-  })
+const loadDb = (db) => {
+  return schema(db);
+}
 
-module.exports = db;
+if (process.env.NODE_ENV !== 'test') {
+  loadDb(db)
+    .then(() => {
+      console.log('Database successfully loaded.');
+    })
+    .catch(() => {
+      console.error('Error loading database.');
+    })
+}
+
+module.exports.db = db;
+module.exports.loadDb = loadDb;
