@@ -21,6 +21,9 @@
     },
     "TWILIO_SID": {
       "required": true
+    },
+    "JWT_SECRET": {
+      "required": true
     }
   },
   "formation": {
