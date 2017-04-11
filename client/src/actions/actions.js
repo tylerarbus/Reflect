@@ -87,7 +87,7 @@ export function createUser(firstName, lastName, phone, email, password) {
 
   return (dispatch) => {
     dispatch(creatingUser());
-    return fetch('/auth/signup', config)
+    return fetch('/api/auth/signup', config)
       .then(response => {
         localStorage.setItem('id_token', response.token)
         dispatch(receiveUserInfo(response.user))
