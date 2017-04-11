@@ -23,5 +23,4 @@ if (process.env.NODE_ENV !== 'test') {
     })
 }
 
-module.exports.db = db;
-module.exports.loadDb = loadDb;
+module.exports = { db, loadDb };
