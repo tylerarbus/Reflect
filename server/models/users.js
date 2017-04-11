@@ -3,8 +3,8 @@ const { db } = require('../../db/config.js');
 module.exports.new = (user) => {
   return db.one(
     'INSERT INTO users\
-    (email, first_name, last_name, password, phone, salt)\
-    VALUES (${email}, ${first_name}, ${last_name}, ${password}, ${phone}, ${salt})\
+    (email, first_name, last_name, password, phone)\
+    VALUES (${email}, ${first_name}, ${last_name}, ${password}, ${phone})\
     RETURNING user_id',
     user)
 }

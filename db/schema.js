@@ -6,7 +6,6 @@ module.exports = (db) => {
     last_name VARCHAR(20) NOT NULL,\
     password VARCHAR(200) NOT NULL,\
     phone VARCHAR(20),\
-    salt VARCHAR(10) NOT NULL,\
     created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
     modified TIMESTAMPTZ\
     );")

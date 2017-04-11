@@ -39,8 +39,7 @@ describe('Users table', () => {
       first_name: 'John',
       last_name: 'Smith',
       password: 'password',
-      phone: '123-456-7890',
-      salt: '12345'
+      phone: '123-456-7890'
     }
     return Users.new(newUser)
       .then(userId => {
