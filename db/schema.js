@@ -29,16 +29,6 @@ module.exports = (db) => {
       );")
   })
   .then(() => {
-    return db.query("CREATE TABLE IF NOT EXISTS sessions(\
-      session_id SERIAL PRIMARY KEY,\
-      salt VARCHAR(10) NOT NULL,\
-      hash VARCHAR(200) NOT NULL,\
-      user_id INT REFERENCES users,\
-      created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
-      expiration TIMESTAMPTZ\
-      );")
-  })
-  .then(() => {
     return db.query("CREATE OR REPLACE FUNCTION update_modified_column()\
       RETURNS TRIGGER AS $$\
       BEGIN\
