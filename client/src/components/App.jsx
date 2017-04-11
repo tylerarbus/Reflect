@@ -21,7 +21,6 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <Nav />
         <div className="ui three column grid">
           <Timeline months={dummyTimelineData}/>
           <Entries entries={dummyEntryData}/>
