@@ -81,6 +81,7 @@ function user(state = {
 
 const rootReducer = combineReducers({
   entries,
+  signUp,
   user,
   router: routerReducer
 });
