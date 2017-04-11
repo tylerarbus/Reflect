@@ -9,19 +9,19 @@ beforeAll(() => {
 })
 
 afterAll(() => {
-  delete process.env.NODE_ENV;
   return db.one("DELETE FROM users WHERE first_name = 'John'");
+  delete process.env.NODE_ENV;
 })
 
 describe('Database exists', () => {
-
   it('should connect to the database', () => {
     expect(db).toBeDefined();
   })
-
 })
 
 describe('Users table', () => {
+
+  let userId = null;
 
   it('should have a users table', (done) => {
     db.any('SELECT * FROM users')
@@ -42,7 +42,7 @@ describe('Users table', () => {
       phone: '123-456-7890',
       salt: '12345'
     }
-    return Users.addUser(newUser)
+    return Users.new(newUser)
       .then(userId => {
         expect(userId).toBeDefined();
       });
@@ -50,11 +50,37 @@ describe('Users table', () => {
 
   it('should find newly added users', () => {
     const email = 'test@example.com';
-    return Users.find(email)
+    return Users.findByEmail(email)
       .then(user => {
         expect(user.first_name).toEqual('John');
         expect(user.last_name).toEqual('Smith');
       })
   })
 
+  it('should have a created timestamp that is defined and a modified timestamp that is undefined', () => {
+    return Users.findByPhone('123-456-7890')
+      .then(user => {
+        expect(user.created).toBeDefined();
+        expect(user.modified).toBe(null);
+        userId = user.user_id;
+      })
+  })
+
+  it('should change email when requested and update the modified timestamp', () => {
+    return Users.update(userId, 'email', 'test2@example.com')
+      .then(user => {
+        expect(user[0].email).toBe('test2@example.com');
+        expect(user[0].modified).toBeDefined(); 
+      })
+  })
+
+  it('should delete a user', () => {
+    return Users.delete(userId)
+      .then(() => {
+        return Users.findByPhone('123-456-7890')
+      })
+      .then((user) => {
+        expect(user).toBe(null);
+      })
+  })
 })
