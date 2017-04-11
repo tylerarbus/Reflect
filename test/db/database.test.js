@@ -9,8 +9,8 @@ beforeAll(() => {
 })
 
 afterAll(() => {
-  return db.one("DELETE FROM users WHERE first_name = 'John'");
   delete process.env.NODE_ENV;
+  return db.one("DELETE FROM users WHERE first_name = 'John'");
 })
 
 describe('Database exists', () => {
