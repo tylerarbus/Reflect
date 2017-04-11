@@ -3,6 +3,10 @@ const schema = require('./schema.js');
 
 const url = process.env.DATABASE_URL || 'postgres://@localhost:5432/reflective'
 
+if (process.env.DATABASE_URL) {
+  pgp.pg.defaults.ssl = true;
+};
+
 const db = pgp(url);
 
 schema(db)
