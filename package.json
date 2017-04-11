@@ -11,6 +11,7 @@
     "test": "jest",
     "dev": "nodemon server/server.js --ignore /client",
     "start": "node server/server.js",
+    "resetdb": "psql -c 'DROP DATABASE IF EXISTS reflective;' && psql -c 'CREATE DATABASE reflective;'",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "lint": "eslint client server"
   },
