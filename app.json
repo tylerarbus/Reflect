@@ -12,6 +12,15 @@
     "NPM_CONFIG_PRODUCTION": {
       "required": true,
       "value": "true"
+    },
+    "DATABASE_URL": {
+      "required": true
+    },
+    "TWILIO_AUTH_TOKEN": {
+      "required": true
+    },
+    "TWILIO_SID": {
+      "required": true
     }
   },
   "formation": {
