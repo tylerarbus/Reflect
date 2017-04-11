@@ -16,7 +16,7 @@ describe('Calling API tests', () => {
 		// delete process.env.NODE_ENV;
 	});
 
-	it('should run a test', (done) => {
+	it('should run a test', () => {
 		expect(true).toBe(true);
 	});
 });
