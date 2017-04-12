@@ -46,6 +46,7 @@
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
     "twilio": "^2.11.1",
+    "watson-developer-cloud": "^2.28.1",
     "webpack": "^2.3.3",
     "xml": "^1.0.1"
   },
