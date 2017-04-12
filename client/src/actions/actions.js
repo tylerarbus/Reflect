@@ -1,4 +1,4 @@
-// import http client 
+// import http client
 
 // Entries Actions
 export const FETCH_ENTRIES = 'FETCH_ENTRIES';
@@ -10,10 +10,12 @@ export const USER_SUBMIT_EMAIL = 'USER_SUBMIT_EMAIL';
 export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
 
 // SignUp Actions
-export const CREATE_USER = 'CREATE_USER';
 export const CREATING_USER = 'CREATING_USER';
 export const SIGN_UP_ERROR = 'SIGN_UP_ERROR';
 export const USER_CREATED = 'USER_CREATED';
+export const ACCOUNT_PAGE_SUBMIT = 'ACCOUNT_PAGE_SUBMIT';
+export const PHONE_VERIFY_SUBMIT = 'PHONE_VERIFY_SUBMIT';
+export const PHONE_PREFERENCES_SUBMIT = 'PHONE_PREFERENCES_SUBMIT';
 
 export function fetchEntries() {
   return dispatch => {
@@ -48,6 +50,18 @@ export function userSubmitEmail(email) {
   }
 }
 
+export function accountPageSubmit() {
+  return {
+    type: ACCOUNT_PAGE_SUBMIT
+  }
+}
+
+export function phoneVerifySubmit() {
+  return {
+    type: PHONE_VERIFY_SUBMIT
+  }
+}
+
 function creatingUser() {
   return {
     type: CREATING_USER
@@ -78,17 +92,21 @@ function userCreated() {
   }
 }
 
-export function createUser(firstName, lastName, phone, email, password) {
+export function createUser(user, email) {
   let config = {
     method: 'POST',
-    headers: { 'Content-Type:':'application/json' },
-    body: {firstName: firstName, lastName: lastName, phone: phone, email: email, password: password}
+    headers: {
+      'Content-Type':'application/json',
+      protocol :'http:'
+    },
+    body: {firstName: user.firstName, lastName: user.lastName, phone: user.phone, email: email, password: user.password}
   }
 
   return (dispatch) => {
     dispatch(creatingUser());
     return fetch('/api/auth/signup', config)
       .then(response => {
+        console.log(response);
         localStorage.setItem('id_token', response.token)
         dispatch(receiveUserInfo(response.user))
       })
