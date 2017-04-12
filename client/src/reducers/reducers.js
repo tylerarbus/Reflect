@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED } from '../actions/actions.js';
+import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT } from '../actions/actions.js';
 
 function entries(state = {
   entries: [],
@@ -28,15 +28,32 @@ function entries(state = {
 
 function signUp(state = {
   isCreatingUser: false,
-  errorMessage: null
+  errorMessage: null,
+  accountPage: true,
+  phoneVerificationPage: false,
+  phonePreferencesPage: false,
 }, action) {
   switch (action.type) {
+    case ACCOUNT_PAGE_SUBMIT:
+      return {
+        ...state,
+        accountPage: false,
+        phoneVerificationPage: true,
+        phonePreferencesPage: false
+      }
+    case PHONE_VERIFY_SUBMIT:
+      return {
+        ...state,
+        accountPage: false,
+        phoneVerificationPage: false,
+        phonePreferencesPage: true
+      }
     case CREATING_USER:
       return {
         ...state,
         isCreatingUser: true
       }
-    case SIGN_UP_ERROR: 
+    case SIGN_UP_ERROR:
       return {
         ...state,
         errorMessage: action.errorMessage
@@ -74,7 +91,7 @@ function user(state = {
         phone: action.phone,
         password: action.password
       }
-    default: 
+    default:
       return state;
   }
 }
