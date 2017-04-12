@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { userSubmitEmail } from '../actions/actions.js';
 
+const bgStyle = {
+  backgroundImage: 'url(./assets/reflective_wallpaper.jpg)',
+  height: '100%',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover'
+}
+
 export class Home extends Component {
   constructor(props) {
     super(props);
@@ -22,9 +30,11 @@ export class Home extends Component {
 
   render() {
     return (
-      <div className="ui inverted vertical masthead center aligned segment">
+      <div className="ui vertical masthead center aligned segment"
+        style={bgStyle}>
         <div className="ui text container">
           <h1 className="ui inverted header">Reflective</h1>
+          <h3>Get a 60 second phone call every day to record your how your day went.</h3>
           <form className="ui form">
             <div className="field">
               <input type="text" placeholder="E-mail address"
@@ -49,3 +59,4 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(Home);
+
