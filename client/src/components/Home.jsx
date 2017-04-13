@@ -9,7 +9,11 @@ const bgStyle = {
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover'
-}
+};
+
+const containerStyle = {
+  marginTop: '12%'
+};
 
 export class Home extends Component {
   constructor(props) {
@@ -30,14 +34,15 @@ export class Home extends Component {
 
   render() {
     return (
-      <div className="ui vertical masthead center aligned segment"
+      <div className="ui vertical mastheadcenter aligned segment"
         style={bgStyle}>
-        <div className="ui text container">
+        <div className="ui text container"
+          style={containerStyle}>
           <h1 className="ui inverted header">Reflective</h1>
           <h3>Get a 60 second phone call every day to record your how your day went.</h3>
           <form className="ui form">
             <div className="field">
-              <input type="text" placeholder="E-mail address"
+              <input type="email" placeholder="E-mail address"
                      onChange={(e) => {this.onEmailFieldChange(e.target.value)}}></input>
             </div>
             <div className="ui fluid large teal submit button"
