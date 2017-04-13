@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR } from '../actions/actions.js';
+import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from '../actions/actions.js';
 
 function entries(state = {
   entries: [],
@@ -93,7 +93,9 @@ function user(state = {
   firstName: '',
   lastName: '',
   phone: '',
-  email: ''
+  email: '',
+  isLoggingIn: false,
+  error: null
 }, action) {
   switch (action.type) {
     case USER_SUBMIT_EMAIL:
@@ -108,6 +110,27 @@ function user(state = {
         firstName: action.firstName,
         lastName: action.lastName,
         phone: action.phone,
+      }
+    case LOGIN_SUBMIT:
+      return {
+        ...state,
+        isLoggingIn: true
+      }
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        isLoggingIn: false,
+        error: action.error
+      }
+    case LOGIN_SUCCESSFUL:
+      return {
+        ...state,
+        id: action.id,
+        firstName: action.firstName,
+        lastName: action.lastName,
+        phone: action.phone,
+        isLoggingIn: false,
+        error: null
       }
     default:
       return state;
