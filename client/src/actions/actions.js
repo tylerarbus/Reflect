@@ -92,14 +92,14 @@ function userCreated() {
   }
 }
 
-export function createUser(user, email) {
+export function createUser(user) {
   let config = {
     method: 'POST',
     headers: {
       'Content-Type':'application/json',
       protocol :'http:'
     },
-    body: {firstName: user.firstName, lastName: user.lastName, phone: user.phone, email: email, password: user.password}
+    body: {firstName: user.firstName, lastName: user.lastName, phone: user.phone, email: user.email, password: user.password}
   }
 
   return (dispatch) => {

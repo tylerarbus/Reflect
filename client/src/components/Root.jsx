@@ -12,10 +12,10 @@ export default class Root extends React.Component {
   render() {
     return (
       <Provider store={this.props.store} >
-        <div>
+        <div style={{'height':'100%'}}>
           <Nav/>
           <ConnectedRouter history={this.props.history}>
-            <div>
+            <div style={{'height': 'calc(100% - 42px)'}}>
               <Route exact path='/' component={Home} />
               <Route path='/entries' component={App} />
               <Route path='/signup' component={SignUp} />
