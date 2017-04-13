@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { phoneVerifySubmit } from '../actions/actions.js';
+import { verifyPhoneCode } from '../actions/actions.js';
 
 export class SignUpPhoneVerification extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      verificationCode: null
+    };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
   }
 
   onClickSubmit() {
-    this.props.dispatch(phoneVerifySubmit());
+    // this.props.dispatch(phoneVerifySubmit());
+    this.props.dispatch(verifyPhoneCode(this.state.verificationCode));
+  }
+
+  onChangeCode(code) {
+    this.setState({
+      verificationCode: code
+    });
   }
 
   render() {
@@ -23,7 +32,8 @@ export class SignUpPhoneVerification extends Component {
             <label>Verification Code</label>
             <div className="fields">
               <div className="field">
-                <input type="text" placeholder="Enter Code"/>
+                <input type="text" placeholder="Enter Code"
+                  onChange={(e) => {this.onChangeCode(e.target.value)}}/>
               </div>
             </div>
           </div>
