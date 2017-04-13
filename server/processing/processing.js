@@ -27,7 +27,7 @@ module.exports.process = (entry_id, filePath) => {
       });
 
       console.log('final result: ', text);
-      EntryText.insert(entry_id, text);
+      EntryText.new(entry_id, text, filePath);
     }
   });
 }
