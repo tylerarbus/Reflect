@@ -9,6 +9,7 @@ export class Nav extends Component {
 
     this.onClickHome = this.onClickHome.bind(this);
     this.onClickEntries = this.onClickEntries.bind(this);
+    this.onClickProfile = this.onClickProfile.bind(this);
   }
 
   onClickHome() {
@@ -19,13 +20,26 @@ export class Nav extends Component {
     this.props.dispatch(push('/entries'));
   }
 
+  onClickProfile() {
+    this.props.dispatch(push('/signup'));
+  }
+
   render() {
     return(
       <div id="navbar" className="ui menu">
-        <a onClick={this.onClickHome} className="item">Reflective</a>
-        <a onClick={this.onClickEntries} className="item">Entries</a>
+        <a className="item"
+           onClick={this.onClickHome}>
+          Reflective
+        </a>
+        <a className="item"
+           onClick={this.onClickEntries}>
+          Entries
+        </a>
         <div className="right menu">
-          <a className="item">Profile</a>
+          <a className="item"
+             onClick={this.onClickProfile}>
+            Profile
+          </a>
         </div>
       </div>
     )
