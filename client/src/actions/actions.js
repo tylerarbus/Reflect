@@ -16,6 +16,9 @@ export const USER_CREATED = 'USER_CREATED';
 export const ACCOUNT_PAGE_SUBMIT = 'ACCOUNT_PAGE_SUBMIT';
 export const PHONE_VERIFY_SUBMIT = 'PHONE_VERIFY_SUBMIT';
 export const PHONE_PREFERENCES_SUBMIT = 'PHONE_PREFERENCES_SUBMIT';
+export const VERIFYING_CODE = 'VERIFYING_CODE';
+export const CODE_VERIFIED = 'CODE_VERIFIED';
+export const CODE_ERROR = 'CODE_ERROR';
 
 export function fetchEntries() {
   return dispatch => {
@@ -107,11 +110,60 @@ export function createUser(user) {
     return fetch('/api/auth/signup', config)
       .then(response => {
         console.log(response);
-        localStorage.setItem('id_token', response.token)
-        dispatch(receiveUserInfo(response.user))
+        localStorage.setItem('id_token', response.token);
+        dispatch(receiveUserInfo(response.user));
+        dispatch(userCreated())
+        dispatch(accountPageSubmit());
       })
-      .then(() => dispatch(userCreated()))
       .catch(error => dispatch(signUpError(error)))
   }
 }
+
+function verifyingCode() {
+  return {
+    type: VERIFYING_CODE
+  }
+}
+
+function codeVerified() {
+  return {
+    type: CODE_VERIFIED
+  }
+}
+
+function codeError(error) {
+  return {
+    type: CODE_ERROR,
+    error
+  }
+}
+
+export function verifyPhoneCode(code) {
+  let config = {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json',
+      protocol :'http:',
+      authorization: 'Bearer ' + localStorage.getItem('id_token')
+    },
+    body: {verificationCode: code}
+  };
+
+  return (dispatch) => {
+    dispatch(verifyingCode());
+    return fetch('/api/auth/verify', config)
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          dispatch(codeVerified());
+          dispatch(phoneVerifySubmit());
+        } else {
+          throw new Error('bad response from server at /api/auth/verify');
+        }
+      })
+      .catch( error => { dispatch(codeError(error)) })
+  }
+}
+
+
 
