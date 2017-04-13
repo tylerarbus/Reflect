@@ -8,7 +8,7 @@ const speechToText = new SpeechToTextV1 ({
   password: process.env.SPEECH_PASSWORD
 });
 
-module.exports.process = (entry_id, filePath) {
+module.exports.process = (entry_id, filePath) => {
   const params = {
     // TODO: Change file to given filePath
     audio: fs.createReadStream(path.resolve(__dirname, 'files/20170412_151158.wav')),
