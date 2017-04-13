@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { checkCredentials } from '../actions/actions.js'
+import { checkCredentials } from '../actions/actions.js';
 
 export class Nav extends Component {
   constructor(props) {
@@ -49,7 +49,7 @@ export class Nav extends Component {
 
   render() {
     return(
-      <div id="navbar" className="ui menu">
+      <div id="navbar" className="ui inverted menu">
         <a className="item"
            onClick={this.onClickHome}>
           Reflective

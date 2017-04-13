@@ -15,7 +15,7 @@ export default class Root extends React.Component {
         <div style={{'height':'100%'}}>
           <Nav/>
           <ConnectedRouter history={this.props.history}>
-            <div style={{'height': 'calc(100% - 42px)'}}>
+            <div style={{'height': 'calc(100% - 48px)'}}>
               <Route exact path='/' component={Home} />
               <Route path='/entries' component={App} />
               <Route path='/signup' component={SignUp} />
