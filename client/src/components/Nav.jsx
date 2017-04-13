@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { checkCredentials } from '../actions/actions.js'
 
 export class Nav extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      email: null,
+      password: null
+    };
 
     this.onClickHome = this.onClickHome.bind(this);
     this.onClickEntries = this.onClickEntries.bind(this);
     this.onClickProfile = this.onClickProfile.bind(this);
+    this.onClickLogin = this.onClickLogin.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
   }
 
   onClickHome() {
@@ -24,6 +31,22 @@ export class Nav extends Component {
     this.props.dispatch(push('/signup'));
   }
 
+  onClickLogin() {
+    this.props.dispatch(checkCredentials(this.state));
+  }
+
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value
+    });
+  }
+
+  onChangePassword(e) {
+    this.setState({
+      password: e.target.value
+    });
+  }
+
   render() {
     return(
       <div id="navbar" className="ui menu">
@@ -35,12 +58,28 @@ export class Nav extends Component {
            onClick={this.onClickEntries}>
           Entries
         </a>
-        <div className="right menu">
-          <a className="item"
-             onClick={this.onClickProfile}>
-            Profile
-          </a>
-        </div>
+        { !this.props.user.id &&
+          <div className="right item">
+            <div className="ui input">
+              <input type="text" placeholder="E-mail"
+                onChange={this.onChangeEmail}/>
+            </div>
+            <div className="ui input">
+              <input type="password" placeholder="Password"
+                onChange={this.onChangePassword}/>
+            </div>
+            <div className={ this.props.user.isLoggingIn ? "ui loading primary button" : "ui primary button" }
+              onClick={this.onClickLogin}>Login</div>
+          </div>
+        }
+        { this.props.user.id &&
+          <div className="right menu">
+            <a className="item"
+               onClick={this.onClickProfile}>
+              Profile
+            </a>
+          </div>
+        }
       </div>
     )
   }
@@ -49,7 +88,7 @@ export class Nav extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state
+    user: state.user
   }
 }
 
