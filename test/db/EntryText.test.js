@@ -1,9 +1,10 @@
-const EntryText = require('../../server/models/entry-text.js');
 let db = null;
+let EntryText = null;
 
 beforeAll(() => {
   process.env.NODE_ENV = 'test';
-  process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
+  //process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
+  EntryText = require('../../server/models/entry-text.js');
   const dbConfig = require('../../db/config.js');
   db = dbConfig.db;
   return dbConfig.loadDb(db);
@@ -11,7 +12,7 @@ beforeAll(() => {
 
 afterAll(() => {
   delete process.env.NODE_ENV;
-  delete process.env.DATABASE_URL;
+  //delete process.env.DATABASE_URL;
   // TODO: delete anything you add to DB during test
   return db.one("DELETE from entry_text WHERE entry_id = 1");
 })
