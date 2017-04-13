@@ -4,18 +4,18 @@ import { shallow, mount, render } from 'enzyme';
 import { SignUpPhoneVerification } from '../../client/src/components/SignUpPhoneVerification.jsx';
 
 describe('SignUpPhoneVerification Component', () => {
-  let phoneVerfification;
+  let phoneVerification;
 
   beforeEach(() => {
-    phoneVerfification = shallow(<SignUpPhoneVerification />);
+    phoneVerification = shallow(<SignUpPhoneVerification />);
   })
 
   it('should render without crashing', () => {
-    expect(phoneVerfification.exists()).toBe(true);
+    expect(phoneVerification.exists()).toBe(true);
   });
 
   it('should render 1 input field', () => {
-    expect(phoneVerfification.find('input').length).toEqual(1);
+    expect(phoneVerification.find('input').length).toEqual(1);
   });
 
 })

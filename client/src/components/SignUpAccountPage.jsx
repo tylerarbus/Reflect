@@ -18,25 +18,26 @@ export class SignUpAccountPage extends Component {
   }
 
   onClickSubmit() {
+    const {firstName, lastName, phone, password, passwordVerify} = this.state;
     // this.props.dispatch(accountPageSubmit());
     // console.log(this.state);
 
-    if (this.state.firstName === null ||
-      this.state.lastName === null ||
-      this.state.phone === null ||
-      this.state.password === null ||
-      this.state.password !== this.state.passwordVerify) {
+    if (firstName === null ||
+      lastName === null ||
+      phone === null ||
+      password === null ||
+      password !== passwordVerify) {
       this.setState({
         fieldErrors: true
       })
     } else {
       console.log('fields ok')
       var user = {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        phone: this.state.phone,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
         email: this.props.user.email,
-        password: this.state.password
+        password: password
       }
       this.props.dispatch(createUser(user));
     }
@@ -96,7 +97,7 @@ export class SignUpAccountPage extends Component {
             <div className="fields">
               <div className="sixteen wide field">
                 <input type="text" placeholder="Phone Number"
-                onChange={(e) => {this.onChangePhone(e.target.value)}}/>
+                  onChange={(e) => {this.onChangePhone(e.target.value)}}/>
               </div>
             </div>
           </div>

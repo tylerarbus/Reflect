@@ -41,9 +41,12 @@ export class SignUp extends Component {
           <br/>
         </div>
         <div className="ten wide column centered">
-          {this.props.signUp.accountPage && <SignUpAccountPage />}
-          {this.props.signUp.phoneVerificationPage && <SignUpPhoneVerification />}
-          {this.props.signUp.phonePreferencesPage && <SignUpPhonePreferences />}
+          {this.props.signUp.accountPage &&
+            <SignUpAccountPage />}
+          {this.props.signUp.phoneVerificationPage &&
+            <SignUpPhoneVerification />}
+          {this.props.signUp.phonePreferencesPage &&
+            <SignUpPhonePreferences />}
         </div>
       </div>
     )
