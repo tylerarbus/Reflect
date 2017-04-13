@@ -1,5 +1,3 @@
-// import http client
-
 // Entries Actions
 export const FETCH_ENTRIES = 'FETCH_ENTRIES';
 export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES';
@@ -149,11 +147,10 @@ export function verifyPhoneCode(code) {
     body: {verificationCode: code}
   };
 
-  return (dispatch) => {
+  return dispatch => {
     dispatch(verifyingCode());
     return fetch('/api/auth/verify', config)
-      .then((response) => {
-        console.log(response);
+      .then(response => {
         if (response.ok) {
           dispatch(codeVerified());
           dispatch(phoneVerifySubmit());
