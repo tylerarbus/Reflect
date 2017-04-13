@@ -7,15 +7,11 @@ describe('SignUp Component', () => {
   let signup;
 
   beforeEach(() => {
-    signup = shallow(<SignUp />);
+    signup = mount(<SignUp signUp={{}}/>);
   })
 
   it('should render without crashing', () => {
     expect(signup.exists()).toBe(true);
-  });
-
-  it('should render a button', () => {
-    expect(signup.find('.button').exists()).toBe(true);
   });
 
 })

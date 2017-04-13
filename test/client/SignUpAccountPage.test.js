@@ -7,7 +7,7 @@ describe('SignUpAccountPage Component', () => {
   let acctpage;
 
   beforeEach(() => {
-    acctpage = shallow(<SignUpAccountPage />);
+    acctpage = mount(<SignUpAccountPage signUp={{}}/>);
   })
 
   it('should render without crashing', () => {
