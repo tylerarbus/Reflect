@@ -10,6 +10,7 @@ export class SignUpPhoneVerification extends Component {
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.onChangeCode = this.onChangeCode.bind(this);
   }
 
   onClickSubmit() {
