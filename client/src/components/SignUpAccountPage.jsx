@@ -9,20 +9,38 @@ export class SignUpAccountPage extends Component {
       firstName: null,
       lastName: null,
       phone: null,
-      password: null
+      password: null,
+      passwordVerify: null,
+      fieldErrors: false
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
-    this.onChangeFirstName = this.onChangeFirstName.bind(this);
-    this.onChangeLastName = this.onChangeLastName.bind(this);
-    this.onChangePhone = this.onChangePhone.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
   }
 
   onClickSubmit() {
-    this.props.dispatch(accountPageSubmit());
-    console.log(this.state);
-    this.props.dispatch(createUser(this.state, this.props.user.email));
+    // this.props.dispatch(accountPageSubmit());
+    // console.log(this.state);
+
+    if (this.state.firstName === null ||
+      this.state.lastName === null ||
+      this.state.phone === null ||
+      this.state.password === null ||
+      this.state.password !== this.state.passwordVerify) {
+      this.setState({
+        fieldErrors: true
+      })
+    } else {
+      console.log('fields ok')
+      var user = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        phone: this.state.phone,
+        email: this.props.user.email,
+        password: this.state.password
+      }
+      this.props.dispatch(createUser(user));
+    }
+
   }
 
   onChangeFirstName(firstName) {
@@ -46,6 +64,12 @@ export class SignUpAccountPage extends Component {
   onChangePassword(password) {
     this.setState({
       password: password
+    });
+  }
+
+  onChangePasswordVerify(password) {
+    this.setState({
+      passwordVerify: password
     });
   }
 
@@ -88,12 +112,24 @@ export class SignUpAccountPage extends Component {
           <div className="field">
             <div className="fields">
               <div className="sixteen wide field">
-                <input type="password" placeholder="Verify password"/>
+                <input type="password" placeholder="Verify password"
+                  onChange={(e) => {this.onChangePasswordVerify(e.target.value)}}/>
               </div>
             </div>
           </div>
         </form>
-        <div className="ui right floated submit button"
+        {this.state.fieldErrors &&
+          <div className="ui error message">
+            <div className="header">
+              There were some errors with your submission
+            </div>
+            <ul className="list">
+              <li>First Name and Last Name are required.</li>
+              <li>Phone number is required (e.g. '4151234567').</li>
+              <li>Passwords must match.</li>
+            </ul>
+          </div>}
+        <div className={this.props.signUp.isCreatingUser ? "ui loading right floated submit button" : "ui right floated submit button"}
           onClick={this.onClickSubmit}>
           Submit
         </div>
@@ -105,7 +141,8 @@ export class SignUpAccountPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user:state.user
+    user: state.user,
+    signUp: state.signUp
   }
 }
 
