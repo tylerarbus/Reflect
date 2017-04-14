@@ -8,12 +8,16 @@
     "node": ">=6.4.0"
   },
   "scripts": {
-    "test": "jest",
+    "test": "npm run test:db & npm run test:client & npm run test:server",
     "dev": "nodemon server/server.js --ignore /client",
     "start": "node server/server.js",
     "resetdb": "psql -c 'DROP DATABASE IF EXISTS reflective;' && psql -c 'CREATE DATABASE reflective;'",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
-    "lint": "eslint client server"
+    "lint": "eslint client server",
+    "jest": "jest",
+    "test:server": "jest --config test/jest.node.json test/server",
+    "test:client": "jest --config test/jest.json test/client",
+    "test:db": "jest --config test/jest.node.json test/db"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
@@ -26,9 +30,10 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "history": "^4.6.1",
+    "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^7.3.0",
-    "prop-types": "^15.5.6",
     "pg-promise": "^5.6.4",
+    "prop-types": "^15.5.6",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",

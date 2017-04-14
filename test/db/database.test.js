@@ -1,15 +1,18 @@
-const Users = require('../../server/models/users.js');
+require('dotenv').config();
 let db = null;
+let Users = null;
 
 beforeAll(() => {
-  process.env.NODE_ENV = 'test';
+  if (process.env.IS_ON === 'development') {
+    process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
+  }
+  Users = require('../../server/models/users.js');
   const dbConfig = require('../../db/config.js');
   db = dbConfig.db;
   return dbConfig.loadDb(db);
 })
 
 afterAll(() => {
-  delete process.env.NODE_ENV;
   return db.one("DELETE FROM users WHERE first_name = 'John'");
 })
 
@@ -39,11 +42,17 @@ describe('Users table', () => {
       first_name: 'John',
       last_name: 'Smith',
       password: 'password',
-      phone: '123-456-7890'
+      phone: '123-456-7890',
+      phone_verified: false
     }
     return Users.new(newUser)
-      .then(userId => {
-        expect(userId).toBeDefined();
+      .then(user => {
+        expect(user.user_id).toBeDefined();
+        expect(user.email).toEqual(newUser.email);
+        expect(user.first_name).toEqual(newUser.first_name);
+        expect(user.last_name).toEqual(newUser.last_name);
+        expect(user.phone).toEqual(newUser.phone);
+        expect(user.phone_verified).toEqual(newUser.phone_verified);
       });
   })
 
