@@ -11,7 +11,7 @@ const authHandler = require('./auth/authHandler.js');
 const auth = require('./auth/utils.js');
 const Call = require('./calling/config.js');
 
-const processingWorker = require('./processing/worker.js');
+const speechConvertWorker = require('./processing/speechConvertWorker.js');
 
 const app = express();
 
@@ -49,7 +49,7 @@ if (process.env.NODE_ENV !== 'test') {
 	});
 }
 
-processingWorker.start();
+speechConvertWorker.start();
 
 module.exports = { app };
 
