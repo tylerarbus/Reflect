@@ -40,9 +40,9 @@ module.exports = {
 			country_code: countryCode
 		});
 
-		fetch(`https://api.authy.com/protected/json/phones/verification/start?${params}`, config)
+		return fetch(`https://api.authy.com/protected/json/phones/verification/start?${params}`, config)
 			.then(response => {
-				console.log(response);
+				console.log('Verification sms sent successfully to: ', phone);
 			})
 			.catch(error => {
 				console.log(error);
@@ -59,13 +59,15 @@ module.exports = {
 			api_key: process.env.AUTHY_KEY,
 			phone_number: phoneNumber,
 			country_code: countryCode,
-			verification_code: verificationCode.toString()
+			verification_code: verificationCode
 		});
 
 		return fetch(`https://api.authy.com/protected/json/phones/verification/check?${params}`, config)
 			.then(response => {
 				if (response.status === 200) {
 					return true;
+				} else {
+					throw new Error('Invalid verification code');
 				}
 			})
 			.catch(error => {

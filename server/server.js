@@ -46,6 +46,4 @@ if (process.env.NODE_ENV !== 'test') {
 	});
 }
 
-module.exports = {
-	app: app
-};
+module.exports = { app };
