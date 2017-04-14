@@ -14,6 +14,7 @@
     "start": "node server/server.js",
     "resetdb": "psql -c 'DROP DATABASE IF EXISTS reflective;' && psql -c 'CREATE DATABASE reflective;'",
     "resetdb:test": "psql -c 'DROP DATABASE IF EXISTS reflectivetest;' && psql -c 'CREATE DATABASE reflectivetest;'",
+    "loadDummyData": "node db/dummyData.js",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "lint": "eslint client server",
     "jest": "jest",

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchData } from '../../actions/trends.js';
 import * as d3 from 'd3';
 
 export class Trends extends Component {
@@ -9,7 +11,11 @@ export class Trends extends Component {
 
   componentDidMount() {
 
-    //define data structure
+    const { dispatch } = this.props;
+    dispatch(fetchData());
+
+    console.log(this.props.trends.sentimentData);
+
     const data = [
       {timestamp: 1, sentiment: Math.random()},
       {timestamp: 2, sentiment: Math.random()},
@@ -18,8 +24,8 @@ export class Trends extends Component {
     ];
 
     const margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 560 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    width = d3.select('.chartContainer').property('clientWidth') - margin.top - margin.bottom,
+    height = d3.select('.chartContainer').property('clientHeight') - margin.top - margin.bottom;
 
     const parseTime = d3.timeFormat('%a %d');
 
@@ -41,7 +47,7 @@ export class Trends extends Component {
         .x(d => { return xScale(d.timestamp); })
         .y(d => { return yScale(d.sentiment); });
 
-    const svg = d3.select('div')
+    const svg = d3.select('.chart')
       .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
@@ -78,12 +84,25 @@ export class Trends extends Component {
     return false;
   }
 
+
   render() {
     return (
-      <div />
+      <div>
+        <div >
+          <div className="chartContainer" style={{width: '560px', height: '300px'}}>
+            <div className="chart" />
+          </div>
+        </div>
+      </div>
     )
   }
 
 }
 
-export default Trends;
+  const mapStateToProps = state => {
+    return {
+      ...state
+    }
+  }
+
+export default connect(mapStateToProps)(Trends);

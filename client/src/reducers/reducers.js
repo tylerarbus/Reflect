@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import trends from './trends.js';
 
 import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from '../actions/actions.js';
 
@@ -142,6 +143,7 @@ const rootReducer = combineReducers({
   entries,
   signUp,
   user,
+  trends,
   router: routerReducer
 });
 

@@ -38,6 +38,15 @@ module.exports = (db) => {
       );")
   })
   .then(() => {
+    // entry_id INT NOT NULL REFERENCES entries,\
+    return db.query("CREATE TABLE IF NOT EXISTS sentiment(\
+      sentiment_id SERIAL PRIMARY KEY,\
+      value REAL,\
+      created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
+      modified TIMESTAMPTZ\
+      );")
+  })
+  .then(() => {
     return db.query("CREATE OR REPLACE FUNCTION update_modified_column()\
       RETURNS TRIGGER AS $$\
       BEGIN\
@@ -59,6 +68,9 @@ module.exports = (db) => {
     return db.query("DROP TRIGGER IF EXISTS update_entry_text_changetimestamp ON entry_text")
   })
   .then(() => {
+    return db.query("DROP TRIGGER IF EXISTS update_sentiment_changetimestamp ON sentiment")
+  })
+  .then(() => {
     return db.query("CREATE TRIGGER update_users_changetimestamp BEFORE UPDATE\
       ON users FOR EACH ROW EXECUTE PROCEDURE \
       update_modified_column();")
@@ -76,6 +88,11 @@ module.exports = (db) => {
   .then(() => {
     return db.query("CREATE TRIGGER update_entry_text_changetimestamp BEFORE UPDATE\
       ON entry_text FOR EACH ROW EXECUTE PROCEDURE \
+      update_modified_column();")
+  })
+  .then(() => {
+    return db.query("CREATE TRIGGER update_sentiment_changetimestamp BEFORE UPDATE\
+      ON sentiment FOR EACH ROW EXECUTE PROCEDURE \
       update_modified_column();")
   })
 }

@@ -17,6 +17,7 @@ export class Nav extends Component {
     this.onClickLogin = this.onClickLogin.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onClickTrends = this.onClickTrends.bind(this);
   }
 
   onClickHome() {
@@ -47,6 +48,10 @@ export class Nav extends Component {
     });
   }
 
+  onClickTrends() {
+    this.props.dispatch(push('/trends'));
+  }
+
   render() {
     return(
       <div id="navbar" className="ui inverted menu">
@@ -57,6 +62,10 @@ export class Nav extends Component {
         <a className="item"
            onClick={this.onClickEntries}>
           Entries
+        </a>
+        <a className="item"
+           onClick={this.onClickTrends}>
+          Trends
         </a>
         { !this.props.user.id &&
           <div className="right item">
@@ -80,6 +89,12 @@ export class Nav extends Component {
             </a>
           </div>
         }
+        <div className="right menu">
+          <a className="item"
+             onClick={this.onClickProfile}>
+            Profile
+          </a>
+        </div>
       </div>
     )
   }
