@@ -22,7 +22,7 @@ describe('Audio table', () => {
   it('should have an audio table', () => {
     db.any('SELECT * FROM audio')
       .then(result => {
-        epxect(result).toBeDefined();
+        expect(result).toBeDefined();
       })
       .catch(error => {
         throw error;
@@ -34,7 +34,6 @@ describe('Audio table', () => {
 
     return Audio.new(path)
       .then(audioId => {
-        audioId = audioId;
         expect(audioId).toBeDefined();
       })
   })
@@ -43,16 +42,21 @@ describe('Audio table', () => {
     return Audio.findNotProcessed()
       .then(results => {
         expect(results).toBeDefined();
-        expect(results[0].path).toEqual('testPath');
+        expect(results.audio_path).toEqual('testPath');
       })
   })
 
   it('should update isProcessed property when requested', () => {
-    return Audio.update(audioId, 'isProcessed', true)
-      .then(file => {
-        expect(file.audio_id).toEqual(audioId);
-        expect(file.audio_path).toEqual('testPath');
-        expect(file.isProcessed).toEqual(true);
+    return Audio.findNotProcessed()
+      .then(results => {
+        const audioId = results.audio_id;
+        return Audio.update(audioId, 'isprocessed', true)
+          .then(results => {
+            const file = results[0];
+            expect(file.audio_id).toEqual(audioId);
+            expect(file.audio_path).toEqual('testPath');
+            expect(file.isprocessed).toEqual(true);
+          })
       })
   })
 
