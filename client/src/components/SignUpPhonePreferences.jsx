@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 export class SignUpPhonePreferences extends Component {
   constructor(props) {
@@ -7,7 +8,8 @@ export class SignUpPhonePreferences extends Component {
     this.state = {
       hour: null,
       minute: null,
-      ampm: null
+      ampm: null,
+      showError: false
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
@@ -33,6 +35,15 @@ export class SignUpPhonePreferences extends Component {
 
   onClickSubmit() {
     console.log(this.state);
+    if (this.state.hour === null ||
+      this.state.minute === null ||
+      this.state.ampm === null) {
+      this.setState({
+        showError: true
+      });
+    } else {
+      this.props.dispatch(push('/entries'));
+    }
   }
 
   render() {
@@ -91,6 +102,15 @@ export class SignUpPhonePreferences extends Component {
             </div>
           </div>
         </form>
+        {this.state.showError &&
+          <div className="ui error message">
+            <div className="header">
+              There were some errors with your submission
+            </div>
+            <ul className="list">
+              <li>This field is required for us to schedule your daily call.</li>
+            </ul>
+          </div>}
         <div className="ui right floated submit button"
           onClick={this.onClickSubmit}>
           Submit
