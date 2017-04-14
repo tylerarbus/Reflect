@@ -24,9 +24,6 @@ describe('Audio table', () => {
       .then(result => {
         expect(result).toBeDefined();
       })
-      .catch(error => {
-        throw error;
-      })
   })
 
   it('should add an audio file to the table', () => {

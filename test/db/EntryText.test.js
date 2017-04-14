@@ -25,9 +25,6 @@ describe('EntryText table', () => {
       .then(result => {
         done();
       })
-      .catch(error => {
-        throw error;
-      })
   })
 
 //TODO: write more tests when DB schemas are set
