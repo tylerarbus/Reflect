@@ -43,16 +43,16 @@ describe('Audio table', () => {
       })
   })
 
-  it('should update isProcessed property when requested', () => {
+  it('should update is_processed property when requested', () => {
     return Audio.findNotProcessed()
       .then(results => {
         const audioId = results.audio_id;
-        return Audio.update(audioId, 'isprocessed', true)
+        return Audio.update(audioId, 'is_processed', true)
           .then(results => {
             const file = results[0];
             expect(file.audio_id).toEqual(audioId);
             expect(file.audio_path).toEqual('testPath');
-            expect(file.isprocessed).toEqual(true);
+            expect(file.is_processed).toEqual(true);
           })
       })
   })

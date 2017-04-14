@@ -14,7 +14,7 @@ module.exports = (db) => {
     return db.query("CREATE TABLE IF NOT EXISTS audio(\
       audio_id SERIAL PRIMARY KEY,\
       audio_path VARCHAR(20) NOT NULL,\
-      isProcessed BOOLEAN DEFAULT FALSE,\
+      is_processed BOOLEAN DEFAULT FALSE,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );")
