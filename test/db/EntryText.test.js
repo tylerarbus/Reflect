@@ -35,34 +35,5 @@ describe('EntryText table', () => {
       })
   })
 
-  // it('should add a new entry_text into the table', () => {
-  //   const newUser = {
-  //     email: 'test@example.com',
-  //     first_name: 'John',
-  //     last_name: 'Smith',
-  //     password: 'password',
-  //     phone: '123-456-7890'
-  //   }    
-  //   const audioPath = 'test_path';
-  //   const entryText = 'I had a great day today';
-
-  //   let userId = null;
-  //   let audioId = null;
-
-  //   // add user to userDB
-  //   // add mock audio where userId = 1 from above
-  //   // add mock entry where entry ID = above (and maybe user id)
-  //   // add add mock entry text with all above
-
-  //   return Users.new(newUser)
-  //     .then(userId => {
-  //       userId = userId;
-  //       return Audio.new(audioPath)
-  //     })
-  //     .then(audioId => {
-  //       audioId = audioId;
-  //       return 
-  //     })
-
-  // })
+//TODO: write more tests when DB schemas are confirmed
 })
