@@ -9,7 +9,6 @@ beforeAll(() => {
   Audio = require('../../server/models/audio.js');
   const dbConfig = require('../../db/config.js');
   db = dbConfig.db;
-  return dbConfig.loadDb(db);
 })
 
 afterAll(() => {
@@ -20,10 +19,10 @@ describe('Audio table', () => {
 
   let audioId = null;
 
-  it('should have an audio table', (done) => {
+  it('should have an audio table', () => {
     db.any('SELECT * FROM audio')
       .then(result => {
-        done();
+        epxect(result).toBeDefined();
       })
       .catch(error => {
         throw error;
