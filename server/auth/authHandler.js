@@ -9,7 +9,7 @@ router.post('/signup', (req, res) => {
 	// #2 even if send is an error, sms gets sent
 	// #3 verifications sent are not recorded anywhere
 	// #4 what if user has been created and unvalidated, then user tries to signup again with the same credentials?
-	
+
 	const { email, firstName, lastName, password, phone } = req.body;
 	let user;
 
@@ -33,10 +33,10 @@ router.post('/signup', (req, res) => {
 			res.status(200).json({
 				user: user,
 				token: token
-			});	
+			});
 		})
 		.catch(err => {
-			// console.error('Error: ', err);
+			console.error('Error: ', err);
 			res.status(400).json({
 				error: 'Email exists.'
 			});
@@ -44,7 +44,7 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-	const { email, password } = req.body;	
+	const { email, password } = req.body;
 	let user;
 	User.findByEmail(email)
 		.then((userFromDb) => {
