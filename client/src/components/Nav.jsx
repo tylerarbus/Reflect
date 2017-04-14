@@ -29,7 +29,7 @@ export class Nav extends Component {
   }
 
   onClickProfile() {
-    this.props.dispatch(push('/signup'));
+    this.props.dispatch(push('/profile'));
   }
 
   onClickLogin() {
