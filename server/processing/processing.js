@@ -2,32 +2,42 @@ const SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
 const fs = require('fs');
 const path = require('path');
 const EntryText = require('../models/entry-text.js');
+const Audio = require('../models/audio.js');
 
 const speechToText = new SpeechToTextV1 ({
   username: process.env.SPEECH_USERNAME,
   password: process.env.SPEECH_PASSWORD
 });
 
-module.exports.process = (entry_id, filePath) => {
+const createEntryFromText = (watsonResponse) => {
+  let entry = '';
+
+  watsonResponse.results.forEach(result => {
+    entry += result.alternatives[0].transcript + '. ';
+  });
+
+  return entry;
+}
+
+module.exports = (audioId, filePath) => {
   const params = {
-    // TODO: Change file to given filePath
-    audio: fs.createReadStream(path.resolve(__dirname, 'files/20170412_151158.wav')),
+    // TODO: Change file to correct filePath depending on where files are stored
+    audio: fs.createReadStream(path.resolve(__dirname, `files/${filePath}`)),
     content_type: 'audio/wav',
     continuous: true
   };
 
-  speechToText.recognize(params, function(err, res) {
+  speechToText.recognize(params, (err, res) => {
     if (err) {
       console.log(err);
     } else {
-      let text = '';
+      const entry = createEntryFromText(res);
 
-      res.results.forEach(function(result) {
-        text += result.alternatives[0].transcript + '. ';
-      });
-
-      console.log('final result: ', text);
-      EntryText.new(entry_id, text, filePath);
+    //TODO: figure out with Terence how we will access entryId from DB
+      return EntryText.new(entry, filePath)
+        .then(() => {
+          Audio.update(audioId, 'isProcessed', true)
+        })
     }
   });
 }
