@@ -12,6 +12,8 @@ const processingHandler = require('./processing/processing.js');
 const auth = require('./auth/utils.js');
 const Call = require('./calling/config.js');
 
+const processingWorker = require('./processing/worker.js');
+
 const app = express();
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
@@ -48,4 +50,7 @@ if (process.env.NODE_ENV !== 'test') {
 	});
 }
 
+processingWorker.start();
+
 module.exports = { app };
+
