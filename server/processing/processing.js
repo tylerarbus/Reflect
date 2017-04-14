@@ -36,7 +36,7 @@ module.exports = (audioId, filePath) => {
     //TODO: figure out with Terence how we will access entryId from DB
       return EntryText.new(entry, filePath)
         .then(() => {
-          Audio.update(audioId, 'isProcessed', true)
+          Audio.update(audioId, 'is_processed', true)
         })
     }
   });
