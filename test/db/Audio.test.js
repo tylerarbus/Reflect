@@ -65,4 +65,18 @@ describe('Audio table', () => {
       })
   })
 
+  it('should return true if an entry exists', () => {
+    return Audio.exists(audio.call_id)
+      .then(results => {
+        expect(results).toBe(true);
+      })
+  })
+
+  it('should return false if an entry does not exist', () => {
+    return Audio.exists('fdssfh23432jklfds')
+      .then(results => {
+        expect(results).toBe(false);
+      });
+  })
+
 })

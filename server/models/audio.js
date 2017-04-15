@@ -16,3 +16,14 @@ module.exports.update = (audio_id, column, updatedValue) => {
 module.exports.findNotProcessed = () => {
   return db.oneOrNone('SELECT * FROM audio WHERE is_processed = $1', [false]);
 }
+
+module.exports.exists = (call_id) => {
+	return db.oneOrNone('SELECT * FROM audio WHERE call_id = $1', [call_id])
+		.then(result => {
+			if (result) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+}
