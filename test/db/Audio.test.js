@@ -2,6 +2,16 @@ require('dotenv').config();
 let db = null;
 let Audio = null;
 
+const audio = {
+  call_id: 'CAee9eb020ed511d453aee0f8aac8c0f8b',
+  remote_path: '/2010-04-01/Accounts/AC1ef0d59f0d5d4611c7953f8bc6f660ec/Recordings/RE0448c78482ac9f0805736389cdbea64c.json',
+  local_path: '',
+  is_processed: false,
+  is_downloaded: false,
+  recording_id: 'RE0448c78482ac9f0805736389cdbea64c',
+  date_file_created: 'Tue, 11 Apr 2017 16:48:38 +0000'
+}
+
 beforeAll(() => {
   if (process.env.IS_ON === 'development') {
     process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
@@ -12,7 +22,7 @@ beforeAll(() => {
 })
 
 afterAll(() => {
-  return db.one("DELETE FROM audio WHERE audio_path = 'testPath'");
+  return db.one("DELETE FROM audio WHERE call_id = 'CAee9eb020ed511d453aee0f8aac8c0f8b'");
 })
 
 describe('Audio table', () => {
@@ -27,11 +37,9 @@ describe('Audio table', () => {
   })
 
   it('should add an audio file to the table', () => {
-    const path = 'testPath';
-
-    return Audio.new(path)
-      .then(audioId => {
-        expect(audioId).toBeDefined();
+    return Audio.new(audio)
+      .then(audio => {
+        expect(audio).toBeDefined();
       })
   })
 
@@ -39,7 +47,7 @@ describe('Audio table', () => {
     return Audio.findNotProcessed()
       .then(results => {
         expect(results).toBeDefined();
-        expect(results.audio_path).toEqual('testPath');
+        expect(results.remote_path).toEqual(audio.remote_path);
       })
   })
 
@@ -51,7 +59,7 @@ describe('Audio table', () => {
           .then(results => {
             const file = results[0];
             expect(file.audio_id).toEqual(audioId);
-            expect(file.audio_path).toEqual('testPath');
+            expect(file.remote_path).toEqual(audio.remote_path);
             expect(file.is_processed).toEqual(true);
           })
       })

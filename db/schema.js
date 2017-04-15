@@ -13,8 +13,13 @@ module.exports = (db) => {
   .then(() => {
     return db.query("CREATE TABLE IF NOT EXISTS audio(\
       audio_id SERIAL PRIMARY KEY,\
-      audio_path VARCHAR(20) NOT NULL,\
+      call_id VARCHAR(50),\
+      remote_path VARCHAR(150),\
+      local_path VARCHAR(150),\
       is_processed BOOLEAN DEFAULT FALSE,\
+      is_downloaded BOOLEAN DEFAULT FALSE,\
+      recording_id VARCHAR(50),\
+      date_file_created TIMESTAMPTZ,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );")
@@ -23,7 +28,7 @@ module.exports = (db) => {
     return db.query("CREATE TABLE IF NOT EXISTS entries(\
       entry_id SERIAL PRIMARY KEY,\
       user_id INT NOT NULL REFERENCES users,\
-      audio_id INT REFERENCES audio,\
+      call_id INT,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );")

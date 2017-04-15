@@ -1,12 +1,12 @@
 const { db } = require('../../db/config.js');
 
-module.exports.new = (audioPath) => {
+module.exports.new = (audio) => {
   return db.one(
     'INSERT INTO audio\
-    (audio_path)\
-    VALUES ($1)\
+    (call_id, remote_path, local_path, is_processed, is_downloaded, recording_id, date_file_created)\
+    VALUES (${call_id}, ${remote_path}, ${local_path}, ${is_processed}, ${is_downloaded}, ${recording_id}, ${date_file_created})\
     RETURNING audio_id',
-    audioPath)
+    audio)
 }
 
 module.exports.update = (audio_id, column, updatedValue) => {
