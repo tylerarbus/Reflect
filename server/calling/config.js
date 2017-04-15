@@ -3,7 +3,6 @@ const fetch = require('isomorphic-fetch');
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = new twilio.RestClient(accountSid, authToken);
-const Audio = require('../models/audio.js');
 
 let downloaded = [];
 
@@ -35,7 +34,7 @@ module.exports = {
 
 		// TODO: Save user phone number without country code
 		// TODO: Get user's phone details from user_id
-		let params = buildParams({
+		let params = _buildParams({
 			api_key: process.env.AUTHY_KEY,
 			via: 'sms',
 			phone_number: phone,
@@ -57,7 +56,7 @@ module.exports = {
 			method: 'GET'
 		};
 
-		let params = buildParams({
+		let params = _buildParams({
 			api_key: process.env.AUTHY_KEY,
 			phone_number: phoneNumber,
 			country_code: countryCode,
@@ -78,44 +77,25 @@ module.exports = {
 		// TODO: Update date created when ready
 		// TODO: Download checking by call_sid even though 1 call_sid might have many audios
 		const fromDate = new Date();
-		const dateCreated = `${fromDate.getFullYear().toString()}-${leftPadTwoDigits(fromDate.getMonth() + 1)}-${leftPadTwoDigits(fromDate.getDate() - 1)}`;
-		client.recordings.list({
-			'dateCreated>': '2017-04-01',
-			'dateCreated<': dateCreated
-		}, function(err, data) {
-			if (err) { 
-				return console.error(err) 
-			};
-
-			if (data) {
-				data.recordings.forEach(call => {					
-					let hasBeenDownloaded = downloaded.filter(item => {
-						return item.call_sid === call.call_sid;
-					});
-
-					if (hasBeenDownloaded.length === 0) {
-						Audio.new({
-							call_id: call.call_sid,
-							remote_path: call.uri,
-							local_path: '',
-							is_processed: false,
-							is_downloaded: false,
-							recording_id: call.sid,
-							date_file_created: call.dateCreated
-						})
-						downloaded.push(call);
-						console.log('Download Worker: not found, saved');
-					} else {
-						// NOTE: if in downloaded, do nothing
-						console.log('Download Worker: found, doing nothing');
+		const dateCreated = `${fromDate.getFullYear().toString()}-${_leftPadTwoDigits(fromDate.getMonth() + 1)}-${_leftPadTwoDigits(fromDate.getDate() - 1)}`;
+		
+		return new Promise((resolve, reject) => {
+			client.recordings.list({
+				'dateCreated>': '2017-04-01',
+				'dateCreated<': dateCreated
+			}, function(err, data) {
+					if (err) {
+						reject(err);
+					}
+					if (data) {
+						resolve(data);
 					}
 				});
-			}
-		});
+			});
 	}
 }
 
-const leftPadTwoDigits = (value) => {
+const _leftPadTwoDigits = (value) => {
 	value = value.toString();
 	if (value.length === 1) {
 		value = '0' + value;
@@ -123,7 +103,7 @@ const leftPadTwoDigits = (value) => {
 	return value;
 }
 
-const buildParams = (params) => {
+const _buildParams = (params) => {
 	let paramString = '';
 	Object.keys(params).forEach((param, index) => {
 		paramString += param;
@@ -135,4 +115,3 @@ const buildParams = (params) => {
 	});
 	return paramString;
 }
-
