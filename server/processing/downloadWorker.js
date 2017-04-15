@@ -1,12 +1,13 @@
 const cron = require('node-cron');
 const Call = require('../calling/config.js');
 const Audio = require('../models/audio.js');
+const request = require('request');
+const fs = require('fs');
+
 let downloaded = [];
 
-module.exports = cron.schedule('10 * * * * *', () => {
-
-	console.log('DownloadWorker running...');
-	
+module.exports.getFileDetails = cron.schedule('10 * * * * *', () => {
+	console.log('DownloadWorker: getFileDetails running...');
 	Call.getRecordings()
 		.then(results => {
 			if (results.recordings) {
@@ -25,12 +26,12 @@ module.exports = cron.schedule('10 * * * * *', () => {
 										date_file_created: call.dateCreated
 									});
 									downloaded.push(call);
-									console.log('Download Worker: not found, saved');
+									console.log('DownloadWorker: getFileDetails: not Found, saved');
 								}
 							});
 					} else {
 						// NOTE: if in downloaded, do nothing
-						console.log('Download Worker: found, doing nothing');
+						console.log('DownloadWorker: getFileDetails: Found, doing nothing');
 					}
 				});
 			}
@@ -38,6 +39,30 @@ module.exports = cron.schedule('10 * * * * *', () => {
 		.catch(err => {
 			console.error(err);
 		});
+}, false);
+
+module.exports.downloadFiles = cron.schedule('5 * * * * *', () => {
+	console.log('DownloadWorker: downloadFiles running...');
+
+	Audio.findNotDownloaded()
+		.then(results => {
+			if (results) {
+				results.forEach(result => {
+					let call_sid = result.recording_id;
+					console.log('DW: Request to: ', result.recording_id)
+					request(`https://api.twilio.com/2010-04-01/Accounts/${process.env.TWILIO_SID}/Recordings/${result.recording_id}.wav`,
+						(error, response, body) => {
+							console.log('DW: Response status: ', response.statusCode);
+							response.pipe(fs.createWriteStream(`${__dirname}/files/${call_sid}.wav`)
+								.on('finish', () => {
+									console.log('DW: Trying to save: ', call_sid);
+									Audio.updateDownloaded(call_sid);
+								})
+							);
+						})	
+				});			
+			}
+		})		
 }, false);
 
 const _hasBeenDownloaded = (call) => {	
