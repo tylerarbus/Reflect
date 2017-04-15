@@ -40,15 +40,15 @@ export class Home extends Component {
           style={containerStyle}>
           <h1 className="ui inverted header">Reflective</h1>
           <h3>Get a 60 second phone call every day to record your how your day went.</h3>
-          <form className="ui form">
+          <form className="ui form"
+            onSubmit={this.onSubmitEmail}>
             <div className="field">
-              <input type="email" placeholder="E-mail address"
+              <input type="email" placeholder="E-mail address" required
                      onChange={(e) => {this.onEmailFieldChange(e.target.value)}}></input>
             </div>
-            <div className="ui fluid large teal submit button"
-                 onClick={this.onSubmitEmail}>
+            <button className="ui fluid large teal submit button" type="Submit">
               Get Started
-            </div>
+            </button>
           </form>
         </div>
       </div>

@@ -13,10 +13,12 @@ export const SIGN_UP_ERROR = 'SIGN_UP_ERROR';
 export const USER_CREATED = 'USER_CREATED';
 export const ACCOUNT_PAGE_SUBMIT = 'ACCOUNT_PAGE_SUBMIT';
 export const PHONE_VERIFY_SUBMIT = 'PHONE_VERIFY_SUBMIT';
-export const PHONE_PREFERENCES_SUBMIT = 'PHONE_PREFERENCES_SUBMIT';
+export const PHONE_PREFS_SUBMIT = 'PHONE_PREFS_SUBMIT';
 export const VERIFYING_CODE = 'VERIFYING_CODE';
 export const CODE_VERIFIED = 'CODE_VERIFIED';
 export const CODE_ERROR = 'CODE_ERROR';
+export const SENDING_PHONE_PREFS = 'SENDING_PHONE_PREFS';
+export const PHONE_PREFS_RECIEVED = 'PHONE_PREFS_RECIEVED';
 
 export function fetchEntries() {
   return dispatch => {
@@ -73,10 +75,9 @@ function receiveUserInfo(userInfo) {
   return {
     type: RECEIVE_USER_INFO,
     id: userInfo.user_id,
-    firstName: userInfo.firstName,
-    lastName: userInfo.lastName,
+    firstName: userInfo.first_name,
+    lastName: userInfo.last_name,
     phone: userInfo.phone,
-    password: userInfo.password
   }
 }
 
@@ -100,10 +101,10 @@ export function createUser(user) {
       'Content-Type':'application/json'
     },
     body: JSON.stringify({
-      firstName: user.firstName, 
-      lastName: user.lastName, 
-      phone: user.phone, 
-      email: user.email, 
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone,
+      email: user.email,
       password: user.password
     })
   }
@@ -117,7 +118,7 @@ export function createUser(user) {
       .then(responseJSON => {
         localStorage.setItem('id_token', responseJSON.token);
         dispatch(receiveUserInfo(responseJSON.user));
-        dispatch(userCreated())
+        dispatch(userCreated());
         dispatch(accountPageSubmit());
       })
       .catch(error => dispatch(signUpError(error)))
@@ -161,12 +162,11 @@ export function verifyPhoneCode(code) {
           dispatch(codeVerified());
           dispatch(phoneVerifySubmit());
         } else {
-          throw new Error('bad response from server at /api/auth/verify');
+          dispatch(codeError('Invalid Code'));
         }
       })
       .catch( error => { dispatch(codeError(error)) })
   }
 }
-
 
 

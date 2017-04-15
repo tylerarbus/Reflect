@@ -13,7 +13,6 @@ export class SignUpPhoneVerification extends Component {
   }
 
   onClickSubmit() {
-    // this.props.dispatch(phoneVerifySubmit());
     this.props.dispatch(verifyPhoneCode(this.state.verificationCode));
   }
 

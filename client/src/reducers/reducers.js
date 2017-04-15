@@ -108,7 +108,6 @@ function user(state = {
         firstName: action.firstName,
         lastName: action.lastName,
         phone: action.phone,
-        password: action.password
       }
     default:
       return state;
