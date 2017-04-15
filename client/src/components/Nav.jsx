@@ -73,11 +73,11 @@ export class Nav extends Component {
         }
         { !this.props.user.id &&
           <div className="right item">
-            <div className="ui input">
+            <div className={this.props.user.error === 'Invalid User/Password' ? "ui input error" : "ui input"}>
               <input type="text" placeholder="E-mail"
                 onChange={this.onChangeEmail}/>
             </div>
-            <div className="ui input">
+            <div className={this.props.user.error === 'Invalid User/Password' ? "ui input error" : "ui input"}>
               <input type="password" placeholder="Password"
                 onChange={this.onChangePassword}/>
             </div>
