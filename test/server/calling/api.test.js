@@ -44,4 +44,20 @@ describe('Calling API tests', () => {
 	xit('should get recordings', () => {
 		// Call.getRecordings();
 	});
+
+	xdescribe('Private functions: Utils, please export if you want to run this test', () => {
+		it('should return url query string from an object of params', () => {
+			const params = {
+				a: 'a',
+				b: 'b'
+			};
+			const result = Call.buildParams(params);
+			expect(result).toEqual('a=a&b=b');
+		});
+
+		it('should return left-padded 2 digit string if given a single digit value', () => {
+			const result = Call.leftPadTwoDigits(5)
+			expect(result).toEqual('05');
+		});
+	});
 });
