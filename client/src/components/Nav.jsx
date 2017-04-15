@@ -89,12 +89,6 @@ export class Nav extends Component {
             </a>
           </div>
         }
-        <div className="right menu">
-          <a className="item"
-             onClick={this.onClickProfile}>
-            Profile
-          </a>
-        </div>
       </div>
     )
   }
