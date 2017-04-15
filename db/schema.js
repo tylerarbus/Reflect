@@ -28,7 +28,7 @@ module.exports = (db) => {
     return db.query("CREATE TABLE IF NOT EXISTS entries(\
       entry_id SERIAL PRIMARY KEY,\
       user_id INT NOT NULL REFERENCES users,\
-      call_id INT,\
+      call_id VARCHAR(50),\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );")
