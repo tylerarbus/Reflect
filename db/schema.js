@@ -18,7 +18,7 @@ module.exports = (db) => {
       local_path VARCHAR(150),\
       is_processed BOOLEAN DEFAULT FALSE,\
       is_downloaded BOOLEAN DEFAULT FALSE,\
-      recording_id VARCHAR(50),\
+      recording_id VARCHAR(50) UNIQUE,\
       date_file_created TIMESTAMPTZ,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
