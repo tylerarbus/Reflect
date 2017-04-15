@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import trends from './trends.js';
 
-import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from '../actions/actions.js';
+import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL, CALLING_NOW, CALL_ERROR, CALL_SENT } from '../actions/actions.js';
 
 function entries(state = {
   entries: [],
@@ -96,6 +96,7 @@ function user(state = {
   phone: '',
   email: '',
   isLoggingIn: false,
+  isCalling: false,
   error: null
 }, action) {
   switch (action.type) {
@@ -133,6 +134,22 @@ function user(state = {
         email: action.email,
         isLoggingIn: false,
         error: null
+      }
+    case CALLING_NOW:
+      return {
+        ...state,
+        isCalling: true
+      }
+    case CALL_ERROR:
+      return {
+        ...state,
+        isCalling: false,
+        error: action.error
+      }
+    case CALL_SENT:
+      return {
+        ...state,
+        isCalling: false
       }
     default:
       return state;
