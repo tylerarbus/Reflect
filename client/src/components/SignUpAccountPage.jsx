@@ -15,6 +15,11 @@ export class SignUpAccountPage extends Component {
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.onChangeFirstName = this.onChangeFirstName.bind(this);
+    this.onChangeLastName = this.onChangeLastName.bind(this);
+    this.onChangePhone = this.onChangePhone.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangePasswordVerify = this.onChangePasswordVerify.bind(this);
   }
 
   onClickSubmit() {

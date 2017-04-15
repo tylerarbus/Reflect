@@ -20,6 +20,11 @@ export const CODE_ERROR = 'CODE_ERROR';
 export const SENDING_PHONE_PREFS = 'SENDING_PHONE_PREFS';
 export const PHONE_PREFS_RECIEVED = 'PHONE_PREFS_RECIEVED';
 
+// Login Actions
+export const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
+export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+
 export function fetchEntries() {
   return dispatch => {
     dispatch(requestEntries());
@@ -169,4 +174,54 @@ export function verifyPhoneCode(code) {
   }
 }
 
+function loginSubmit() {
+  return {
+    type: LOGIN_SUBMIT
+  }
+}
 
+function loginSuccess(userInfo) {
+  return {
+    type: LOGIN_SUCCESSFUL,
+    id: userInfo.user_id,
+    firstName: userInfo.first_name,
+    lastName: userInfo.last_name,
+    phone: userInfo.phone,
+    email: userInfo.email
+  }
+}
+
+function loginError(error) {
+  return {
+    type: LOGIN_ERROR,
+    error
+  }
+}
+
+export function checkCredentials(credentials) {
+  let config = {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify(credentials)
+  };
+
+  return dispatch => {
+    dispatch(loginSubmit());
+    return fetch('/api/auth/login', config)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Invalid User/Password');
+      }
+    })
+    .then(responseJSON => {
+      dispatch(loginSuccess(responseJSON.user));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(loginError(error)); })
+  }
+}

@@ -13,6 +13,9 @@ export class SignUpPhonePreferences extends Component {
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.onHourChange = this.onHourChange.bind(this);
+    this.onMinuteChange = this.onMinuteChange.bind(this);
+    this.onAmPmChange = this.onAmPmChange.bind(this);
   }
 
   onHourChange(hour) {

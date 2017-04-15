@@ -8,7 +8,7 @@ describe('Nav Component', () => {
   let navbar;
 
   beforeEach(() => {
-    navbar = shallow(<Nav />);
+    navbar = mount(<Nav user={{id:10}}/>);
   });
 
   it('should render without crashing', () => {
