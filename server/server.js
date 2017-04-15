@@ -8,6 +8,7 @@ const dev = require('./dev.js');
 const requestHandler = require('./requestHandler.js');
 const callingHandler = require('./calling/callingHandler.js');
 const authHandler = require('./auth/authHandler.js');
+const sentimentHandler = require('./sentiment/sentimentHandler.js');
 const auth = require('./auth/utils.js');
 const Call = require('./calling/config.js');
 
@@ -38,6 +39,10 @@ app.get('/testingverify', (req, res) => {
 
 app.use('/calls', express.static(path.join(__dirname, '/calling/files')))
 app.use('/api/calling', callingHandler);
+app.use('/api/sentiment', sentimentHandler);
+app.get('*', (req, res) => {
+  res.redirect('/');
+})
 
 app.use('/api/auth', authHandler);
 
