@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class CallMeNow extends Component {
+export class CallMeNow extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -17,3 +18,11 @@ export default class CallMeNow extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps)(CallMeNow);
