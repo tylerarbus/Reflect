@@ -5,7 +5,6 @@ import * as d3 from 'd3';
 export class Line extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   componentDidMount() {

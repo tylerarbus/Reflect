@@ -7,7 +7,7 @@ import App from './App.jsx';
 import Home from './Home.jsx';
 import Nav from './Nav.jsx';
 import SignUp from './SignUp.jsx';
-import Trends from './trends/Index.jsx';
+import Trends from './trends/Root.jsx';
 
 export default class Root extends React.Component {
   render() {

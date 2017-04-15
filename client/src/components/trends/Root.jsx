@@ -6,7 +6,6 @@ import Chart from './Chart.jsx';
 export class Trends extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   componentDidMount() {

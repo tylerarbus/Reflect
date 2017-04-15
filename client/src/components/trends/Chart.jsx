@@ -10,7 +10,6 @@ import Line from './Line.jsx';
 export class Chart extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   componentDidMount() {
