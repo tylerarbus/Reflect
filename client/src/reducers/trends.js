@@ -1,10 +1,10 @@
-import { FETCHING_DATA, FETCHED_DATA, SET_CONTAINER_SIZE, SET_X_SCALE, SET_Y_SCALE } from '../actions/trends.js';
+import { FETCHING_DATA, FETCHED_DATA, SET_CONTAINER_SIZE, SET_X_SCALE, SET_Y_SCALE, TRANSFORMED_DATA } from '../actions/trends.js';
 
 const initialState = {
   isFetching: true
 }
 
-function trends (state=initialState, action) {
+function trends (state = initialState, action) {
   switch (action.type) {
     case 'FETCHING_DATA':
       return {
@@ -15,7 +15,7 @@ function trends (state=initialState, action) {
       return {
         ...state,
         isFetching: false,
-        sentimentData: action.sentimentData
+        rawData: action.sentimentData
       }
     case 'SET_CONTAINER_SIZE':
       return {
@@ -33,6 +33,11 @@ function trends (state=initialState, action) {
       return {
         ...state,
         yScale: action.yScale
+      }
+    case 'TRANSFORMED_DATA':
+      return {
+        ...state,
+        transformedData: action.transformedData
       }
     default:
       return state;

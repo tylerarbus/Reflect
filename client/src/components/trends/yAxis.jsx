@@ -10,8 +10,6 @@ export class YAxis extends Component {
 
   componentDidMount() {
 
-    const parseTime = d3.timeFormat('%a %d');
-
     const yAxis = d3.axisLeft(this.props.trends.yScale)
 
     d3.select(".yAxis")

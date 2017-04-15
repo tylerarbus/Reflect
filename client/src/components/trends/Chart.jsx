@@ -23,12 +23,12 @@ export class Chart extends Component {
         .attr('transform', 'translate(' + this.props.trends.margin.left + ',' + this.props.trends.margin.top + ')');
 
     const xScale = d3.scaleLinear()
-        .range([0, this.props.trends.width])
-        .domain([1, 4]);
+        .domain([0, 6])
+        .range([0, this.props.trends.width]);
 
     const yScale = d3.scaleLinear()
-        .range([this.props.trends.height, 0])
-        .domain([0, 1]);
+        .domain([0, 1])
+        .range([this.props.trends.height, 0]);
 
     const { dispatch } = this.props;
     dispatch(setXScale(xScale));
@@ -37,14 +37,6 @@ export class Chart extends Component {
   }
 
   render() {
-
-    const data = [
-      {timestamp: 1, sentiment: Math.random()},
-      {timestamp: 2, sentiment: Math.random()},
-      {timestamp: 3, sentiment: Math.random()},
-      {timestamp: 4, sentiment: Math.random()}
-    ];
-
     return (
       <svg className="chart" >
         <g className="chartContainer">
@@ -52,14 +44,13 @@ export class Chart extends Component {
             <g>
               <XAxis />
               <YAxis />
-              <Line data={data} />
+              <Line />
             </g>
           }
         </g>
       </svg>
     )
   }
-
 }
 
 const mapStateToProps = state => {

@@ -10,11 +10,11 @@ export class XAxis extends Component {
 
   componentDidMount() {
 
-    const parseTime = d3.timeFormat('%a %d');
+    const parseTime = d3.timeFormat('%a');
 
     const xAxis = d3.axisBottom(this.props.trends.xScale)
         .ticks(7)
-        .tickFormat(d => { return parseTime(d); })
+        .tickFormat(d => { return parseTime(new Date(2017, 0, d + 2)); })
 
     d3.select(".xAxis")
         .attr("transform", "translate(0," + this.props.trends.height + ")")

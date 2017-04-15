@@ -11,11 +11,14 @@ export class Line extends Component {
   componentDidMount() {
 
     const line = d3.line()
-        .x(d => { return this.props.trends.xScale(d.timestamp); })
-        .y(d => { return this.props.trends.yScale(d.sentiment); });
+        .x(d => {
+          return this.props.trends.xScale(d.day);
+        })
+        .y(d => { return this.props.trends.yScale(d.value); })
+        .curve(d3.curveBasis);
 
     const path = d3.select(".line")
-        .attr('d', line(this.props.data))
+        .attr('d', line(this.props.trends.transformedData))
         .attr('class', 'line')
         .attr('fill', 'none')
         .style('stroke', 'steelblue')
