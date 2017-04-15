@@ -27,6 +27,8 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 // CallMeNow Actions
 export const CALLING_NOW = 'CALLING_NOW';
+export const CALL_ERROR = 'CALL_ERROR';
+export const CALL_SENT = 'CALL_SENT';
 
 export function fetchEntries() {
   return dispatch => {
@@ -227,4 +229,40 @@ export function checkCredentials(credentials) {
       console.log(error);
       dispatch(loginError(error)); })
   }
+}
+
+function callingNow() {
+  return {
+    type: CALLING_NOW
+  }
+}
+
+function callError(error) {
+  return {
+    type: CALL_ERROR,
+    error
+  }
+}
+
+function callSent() {
+  return {
+    type: CALL_SENT
+  }
+}
+
+export function makeCall() {
+  let config = {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json',
+      authorization: 'Bearer ' + localStorage.getItem('id_token')
+    }
+  };
+
+  return dispatch => {
+    dispatch(callingNow());
+    return fetch('api/calling/call', config)
+      .then()
+      .catch()
+    }
 }
