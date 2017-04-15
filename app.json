@@ -22,6 +22,12 @@
     "TWILIO_SID": {
       "required": true
     },
+    "TWILIO_XML_URL": {
+      "required": true
+    },
+    "TWILIO_FROM": {
+      "required": true
+    },
     "JWT_SECRET": {
       "required": true
     },
