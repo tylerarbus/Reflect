@@ -3,6 +3,9 @@ const fetch = require('isomorphic-fetch');
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = new twilio.RestClient(accountSid, authToken);
+const Audio = require('../models/audio.js');
+
+let downloaded = [];
 
 module.exports = {
 	call: function(user) {
@@ -24,7 +27,7 @@ module.exports = {
 		})
 	},
 
-	sendVerification: function(phone, countryCode = 1) {
+	sendVerification: (phone, countryCode = 1) => {
 
 		let config = {
 			method: 'POST'
@@ -48,7 +51,7 @@ module.exports = {
 			});
 	},
 
-	verify: function(phoneNumber, countryCode, verificationCode) {
+	verify: (phoneNumber, countryCode, verificationCode) => {
 
 		let config = {
 			method: 'GET'
@@ -69,7 +72,55 @@ module.exports = {
 					throw new Error('Invalid verification code');
 				}
 			});
+	},
+
+	getRecordings: () => {
+		// TODO: Update date created when ready
+		// TODO: Download checking by call_sid even though 1 call_sid might have many audios
+		const fromDate = new Date();
+		const dateCreated = `${fromDate.getFullYear().toString()}-${leftPadTwoDigits(fromDate.getMonth() + 1)}-${leftPadTwoDigits(fromDate.getDate() - 1)}`;
+		client.recordings.list({
+			'dateCreated>': '2017-04-01',
+			'dateCreated<': dateCreated
+		}, function(err, data) {
+			if (err) { 
+				return console.error(err) 
+			};
+
+			if (data) {
+				data.recordings.forEach(call => {					
+					let hasBeenDownloaded = downloaded.filter(item => {
+						return item.call_sid === call.call_sid;
+					});
+
+					if (hasBeenDownloaded.length === 0) {
+						Audio.new({
+							call_id: call.call_sid,
+							remote_path: call.uri,
+							local_path: '',
+							is_processed: false,
+							is_downloaded: false,
+							recording_id: call.sid,
+							date_file_created: call.dateCreated
+						})
+						downloaded.push(call);
+						console.log('Download Worker: not found, saved');
+					} else {
+						// NOTE: if in downloaded, do nothing
+						console.log('Download Worker: found, doing nothing');
+					}
+				});
+			}
+		});
 	}
+}
+
+const leftPadTwoDigits = (value) => {
+	value = value.toString();
+	if (value.length === 1) {
+		value = '0' + value;
+	}
+	return value;
 }
 
 const buildParams = (params) => {
