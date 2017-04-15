@@ -1,5 +1,8 @@
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const FETCHED_DATA = 'FETCHED_DATA';
+export const SET_CONTAINER_SIZE = 'SET_CONTAINER_SIZE';
+export const SET_X_SCALE = 'SET_X_SCALE';
+export const SET_Y_SCALE = 'SET_Y_SCALE';
 
 export function fetchingData() {
   return {
@@ -23,5 +26,28 @@ export function fetchData(user) {
       })
       .then(sentimentData => dispatch(receivedData(sentimentData)))
       .catch(error => console.log('error handling TBD'));
+  }
+}
+
+export function setContainerSize(margin, width, height) {
+  return {
+    type: 'SET_CONTAINER_SIZE',
+    margin,
+    width,
+    height
+  }
+}
+
+export function setXScale(xScale) {
+  return {
+    type: 'SET_X_SCALE',
+    xScale
+  }
+}
+
+export function setYScale(yScale) {
+  return {
+    type: 'SET_Y_SCALE',
+    yScale
   }
 }
