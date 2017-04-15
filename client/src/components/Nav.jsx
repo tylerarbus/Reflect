@@ -59,14 +59,18 @@ export class Nav extends Component {
            onClick={this.onClickHome}>
           Reflective
         </a>
-        <a className="item"
-           onClick={this.onClickEntries}>
-          Entries
-        </a>
-        <a className="item"
-           onClick={this.onClickTrends}>
-          Trends
-        </a>
+        {this.props.user.id &&
+          <a className="item"
+             onClick={this.onClickEntries}>
+            Entries
+          </a>
+        }
+        {this.props.user.id &&
+          <a className="item"
+             onClick={this.onClickTrends}>
+            Trends
+          </a>
+        }
         { !this.props.user.id &&
           <div className="right item">
             <div className="ui input">
