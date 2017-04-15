@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { callingNow } from '../actions/actions.js';
+import { makeCall } from '../actions/actions.js';
 
 export class CallMeNow extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export class CallMeNow extends Component {
   }
 
   onClickCall() {
-    this.props.dispatch(callingNow());
+    this.props.dispatch(makeCall());
   }
 
   render () {
