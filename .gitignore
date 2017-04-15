@@ -1,5 +1,7 @@
 client/public/bundle.js
 .env
+server/processing/files
+.DS_Store
 
 ### node etc ###
 

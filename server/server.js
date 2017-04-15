@@ -11,11 +11,14 @@ const authHandler = require('./auth/authHandler.js');
 const auth = require('./auth/utils.js');
 const Call = require('./calling/config.js');
 
+const speechConvertWorker = require('./processing/speechConvertWorker.js');
+
 const app = express();
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   dev.webpack(app);
 }
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -46,4 +49,7 @@ if (process.env.NODE_ENV !== 'test') {
 	});
 }
 
+speechConvertWorker.start();
+
 module.exports = { app };
+

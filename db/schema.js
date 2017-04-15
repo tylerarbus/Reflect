@@ -14,6 +14,7 @@ module.exports = (db) => {
     return db.query("CREATE TABLE IF NOT EXISTS audio(\
       audio_id SERIAL PRIMARY KEY,\
       audio_path VARCHAR(20) NOT NULL,\
+      is_processed BOOLEAN DEFAULT FALSE,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );")
@@ -21,9 +22,17 @@ module.exports = (db) => {
   .then(() => {
     return db.query("CREATE TABLE IF NOT EXISTS entries(\
       entry_id SERIAL PRIMARY KEY,\
-      content TEXT,\
       user_id INT NOT NULL REFERENCES users,\
       audio_id INT REFERENCES audio,\
+      created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
+      modified TIMESTAMPTZ\
+      );")
+  })
+  .then(() => {
+    return db.query("CREATE TABLE IF NOT EXISTS entry_text(\
+      entry_text_id SERIAL PRIMARY KEY,\
+      entry_id INT NOT NULL REFERENCES entries,\
+      text TEXT,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );")
@@ -47,6 +56,9 @@ module.exports = (db) => {
     return db.query("DROP TRIGGER IF EXISTS update_entries_changetimestamp ON entries")
   })
   .then(() => {
+    return db.query("DROP TRIGGER IF EXISTS update_entry_text_changetimestamp ON entry_text")
+  })
+  .then(() => {
     return db.query("CREATE TRIGGER update_users_changetimestamp BEFORE UPDATE\
       ON users FOR EACH ROW EXECUTE PROCEDURE \
       update_modified_column();")
@@ -59,6 +71,11 @@ module.exports = (db) => {
   .then(() => {
     return db.query("CREATE TRIGGER update_entries_changetimestamp BEFORE UPDATE\
       ON entries FOR EACH ROW EXECUTE PROCEDURE \
+      update_modified_column();")
+  })
+  .then(() => {
+    return db.query("CREATE TRIGGER update_entry_text_changetimestamp BEFORE UPDATE\
+      ON entry_text FOR EACH ROW EXECUTE PROCEDURE \
       update_modified_column();")
   })
 }
