@@ -56,6 +56,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 speechConvertWorker.start();
-downloadWorker.start();
+downloadWorker.getFileDetails.start();
+downloadWorker.downloadFiles.start();
 
 module.exports = { app };
