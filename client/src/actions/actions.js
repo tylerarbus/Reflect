@@ -183,10 +183,11 @@ function loginSubmit() {
 function loginSuccess(userInfo) {
   return {
     type: LOGIN_SUCCESSFUL,
-    id: userInfo.id,
-    firstName: userInfo.firstName,
-    lastName: userInfo.lastName,
-    phone: userInfo.phone
+    id: userInfo.user_id,
+    firstName: userInfo.first_name,
+    lastName: userInfo.last_name,
+    phone: userInfo.phone,
+    email: userInfo.email
   }
 }
 
@@ -203,21 +204,24 @@ export function checkCredentials(credentials) {
     headers: {
       'Content-Type':'application/json'
     },
-    body: credentials
+    body: JSON.stringify(credentials)
   };
 
   return dispatch => {
     dispatch(loginSubmit());
     return fetch('/api/auth/login', config)
     .then(response => {
-      console.log('response', response);
       if (response.ok) {
-        dispatch(loginSuccess(response.user));
+        return response.json();
       } else {
-        dispatch(loginError('Invalid User/Password'));
+        throw new Error('Invalid User/Password');
       }
     })
-    .catch(error => { dispatch(loginError(error)); })
+    .then(responseJSON => {
+      dispatch(loginSuccess(responseJSON.user));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(loginError(error)); })
   }
 }
-

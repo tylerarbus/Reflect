@@ -129,6 +129,7 @@ function user(state = {
         firstName: action.firstName,
         lastName: action.lastName,
         phone: action.phone,
+        email: action.email,
         isLoggingIn: false,
         error: null
       }
