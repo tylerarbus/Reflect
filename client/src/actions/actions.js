@@ -206,13 +206,16 @@ export function checkCredentials(credentials) {
     body: credentials
   };
 
-  console.log(credentials);
-
   return dispatch => {
     dispatch(loginSubmit());
     return fetch('/api/auth/login', config)
     .then(response => {
-      dispatch(loginSuccess(response.user));
+      console.log('response', response);
+      if (response.ok) {
+        dispatch(loginSuccess(response.user));
+      } else {
+        dispatch(loginError('Invalid User/Password'));
+      }
     })
     .catch(error => { dispatch(loginError(error)); })
   }
