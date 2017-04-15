@@ -25,6 +25,9 @@ export const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
 export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 
+// CallMeNow Actions
+export const CALLING_NOW = 'CALLING_NOW';
+
 export function fetchEntries() {
   return dispatch => {
     dispatch(requestEntries());
