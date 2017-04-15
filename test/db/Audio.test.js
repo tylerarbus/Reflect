@@ -47,21 +47,29 @@ describe('Audio table', () => {
     return Audio.findNotProcessed()
       .then(results => {
         expect(results).toBeDefined();
-        expect(results.remote_path).toEqual(audio.remote_path);
+        expect(results[0].remote_path).toEqual(audio.remote_path);
       })
   })
 
   it('should update is_processed property when requested', () => {
     return Audio.findNotProcessed()
       .then(results => {
-        const audioId = results.audio_id;
+        const audioId = results[0].call_id;
         return Audio.update(audioId, 'is_processed', true)
           .then(results => {
             const file = results[0];
-            expect(file.audio_id).toEqual(audioId);
+            expect(file.call_id).toEqual(audioId);
             expect(file.remote_path).toEqual(audio.remote_path);
             expect(file.is_processed).toEqual(true);
           })
+      })
+  })
+
+  it('should find files that have not been downloaded', () => {
+    return Audio.findNotDownloaded()
+      .then(results => {
+        expect(results).toBeDefined();
+        expect(results[0].is_downloaded).toEqual(false);
       })
   })
 

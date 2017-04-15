@@ -10,11 +10,19 @@ module.exports.new = (audio) => {
 }
 
 module.exports.update = (audio_id, column, updatedValue) => {
-  return db.query('UPDATE audio SET $1~ = $2 WHERE audio_id = $3 RETURNING *', [column, updatedValue, audio_id]);
+  return db.query('UPDATE audio SET $1~ = $2 WHERE call_id = $3 RETURNING *', [column, updatedValue, audio_id]);
 }
 
 module.exports.findNotProcessed = () => {
-  return db.oneOrNone('SELECT * FROM audio WHERE is_processed = $1', [false]);
+  return db.manyOrNone('SELECT * FROM audio WHERE is_processed = $1', [false]);
+}
+
+module.exports.findNotDownloaded = () => {
+	return db.manyOrNone('SELECT * FROM audio WHERE is_downloaded = $1', [false]);
+}
+
+module.exports.updateDownloaded = (recording_id) => {
+  return db.query('UPDATE audio SET $1~ = $2 WHERE recording_id = $3 RETURNING *', ['is_downloaded', true, recording_id]);
 }
 
 module.exports.exists = (call_id) => {
