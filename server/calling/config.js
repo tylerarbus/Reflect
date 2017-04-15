@@ -5,24 +5,23 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = new twilio.RestClient(accountSid, authToken);
 
 module.exports = {
-	call: function(userId) {
-		// TODO: From DB, grab phone based on userId
-		let user = {
-			phone: '+16505421376'
-		}
-
-		client.calls.create({
-			url: process.env.TWILIO_XML_URL,
-			from: process.env.TWILIO_FROM,
-			to: user.phone,
-			method: 'GET'
-		}, (err, call) => {
-			if (err) {
-				console.error('Error: ', err);
-			} else {
-				console.log('Call SID: ', call.sid);			
-			}
-		});
+	call: function(user) {
+		// TODO: Extra security: Verify user phone with user id from DB
+		return new Promise((resolve, reject) => {
+			client.calls.create({
+				url: `${process.env.TWILIO_XML_URL}/calls/voice.xml`,
+				from: process.env.TWILIO_FROM,
+				to: user.phone,
+				method: 'GET'
+			}, (err, call) => {
+				if (err) {
+					reject(err);
+				} else {
+					console.log('Call SID: ', call.sid);
+					resolve(call.sid);
+				}
+			});
+		})
 	},
 
 	sendVerification: function(phone, countryCode = 1) {

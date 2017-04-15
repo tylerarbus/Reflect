@@ -40,11 +40,11 @@ app.get('/testingverify', (req, res) => {
 app.use('/calls', express.static(path.join(__dirname, '/calling/files')))
 app.use('/api/calling', callingHandler);
 app.use('/api/sentiment', sentimentHandler);
+app.use('/api/auth', authHandler);
+
 app.get('*', (req, res) => {
   res.redirect('/');
 })
-
-app.use('/api/auth', authHandler);
 
 const port = process.env.PORT || 3000;
 
