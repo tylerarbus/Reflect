@@ -27,6 +27,12 @@
     },
     "AUTHY_KEY": {
       "required": true
+    },
+    "SPEECH_USERNAME": {
+      "required": true
+    },
+    "SPEECH_PASSWORD": {
+      "required": true
     }
   },
   "formation": {
