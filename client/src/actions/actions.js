@@ -158,9 +158,12 @@ export function verifyPhoneCode(code) {
     dispatch(verifyingCode());
     return fetch('/api/auth/verify', config)
       .then(response => {
-        console.log('response', response);
-        dispatch(codeVerified());
-        dispatch(phoneVerifySubmit());
+        if (response.ok) {
+          dispatch(codeVerified());
+          dispatch(phoneVerifySubmit());
+        } else {
+          dispatch(codeError('Invalid Code'));
+        }
       })
       .catch( error => { dispatch(codeError(error)) })
   }
