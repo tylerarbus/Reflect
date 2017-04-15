@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import CallMeNow from '../../client/src/components/CallMeNow.jsx';
+import { CallMeNow } from '../../client/src/components/CallMeNow.jsx';
 
-describe('Nav Component', () => {
+describe('CallMeNow Component', () => {
 
   let callNow;
 
