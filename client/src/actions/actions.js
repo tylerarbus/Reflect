@@ -262,7 +262,15 @@ export function makeCall() {
   return dispatch => {
     dispatch(callingNow());
     return fetch('api/calling/call', config)
-      .then()
-      .catch()
+      .then(response => {
+        if (response.ok) {
+          dispatch(callSent());
+        } else {
+          throw new Error('Calling Error');
+        }
+      })
+      .catch(error => {
+        dispatch(callError(error));
+      })
     }
 }

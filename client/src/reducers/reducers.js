@@ -134,6 +134,7 @@ function user(state = {
         email: action.email,
         isLoggingIn: false,
         error: null
+      }
     case CALLING_NOW:
       return {
         ...state,
