@@ -13,6 +13,7 @@ const Auth = require('./auth/utils.js');
 
 const speechConvertWorker = require('./processing/speechConvertWorker.js');
 const downloadWorker = require('./processing/downloadWorker.js');
+const sentimentWorker = require('./sentiment/sentimentWorker.js');
 
 const app = express();
 
@@ -47,5 +48,6 @@ if (process.env.NODE_ENV !== 'test') {
 speechConvertWorker.start();
 downloadWorker.getFileDetails.start();
 downloadWorker.downloadFiles.start();
+sentimentWorker.start();
 
 module.exports = { app };
