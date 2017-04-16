@@ -36,14 +36,14 @@ describe('Audio table', () => {
       })
   })
 
-  it('should add an audio file to the table', () => {
+  xit('should add an audio file to the table', () => {
     return Audio.new(audio)
       .then(audio => {
         expect(audio).toBeDefined();
       })
   })
 
-  it('should find files that have not been processed', () => {
+  xit('should find files that have not been processed', () => {
     return Audio.findNotProcessed()
       .then(results => {
         expect(results).toBeDefined();
@@ -51,7 +51,7 @@ describe('Audio table', () => {
       })
   })
 
-  it('should update is_processed property when requested', () => {
+  xit('should update is_processed property when requested', () => {
     return Audio.findNotProcessed()
       .then(results => {
         const audioId = results[0].call_id;
@@ -65,7 +65,7 @@ describe('Audio table', () => {
       })
   })
 
-  it('should find files that have not been downloaded', () => {
+  xit('should find files that have not been downloaded', () => {
     return Audio.findNotDownloaded()
       .then(results => {
         expect(results).toBeDefined();
@@ -73,14 +73,14 @@ describe('Audio table', () => {
       })
   })
 
-  it('should return true if an entry exists', () => {
+  xit('should return true if an entry exists', () => {
     return Audio.exists(audio.call_id)
       .then(results => {
         expect(results).toBe(true);
       })
   })
 
-  it('should return false if an entry does not exist', () => {
+  xit('should return false if an entry does not exist', () => {
     return Audio.exists('fdssfh23432jklfds')
       .then(results => {
         expect(results).toBe(false);
