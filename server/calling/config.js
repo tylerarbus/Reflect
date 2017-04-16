@@ -3,6 +3,7 @@ const fetch = require('isomorphic-fetch');
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = new twilio.RestClient(accountSid, authToken);
+const Entry = require('../models/entries.js');
 
 let downloaded = [];
 
@@ -20,6 +21,10 @@ module.exports = {
 					reject(err);
 				} else {
 					console.log('Call SID: ', call.sid);
+					Entry.new({
+						user_id: user.user_id,
+						call_id: call.sid
+					});
 					resolve(call.sid);
 				}
 			});

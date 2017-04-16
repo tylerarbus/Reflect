@@ -5,30 +5,30 @@ module.exports = (db) => {
     first_name VARCHAR(20) NOT NULL,\
     last_name VARCHAR(20) NOT NULL,\
     password VARCHAR(200) NOT NULL,\
-    phone VARCHAR(20),\
+    phone VARCHAR(20) NOT NULL,\
     phone_verified BOOLEAN DEFAULT false,\
     created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
     modified TIMESTAMPTZ\
     );")
   .then(() => {
-    return db.query("CREATE TABLE IF NOT EXISTS audio(\
-      audio_id SERIAL PRIMARY KEY,\
-      call_id VARCHAR(50),\
-      remote_path VARCHAR(150),\
-      local_path VARCHAR(150),\
-      is_processed BOOLEAN DEFAULT FALSE,\
-      is_downloaded BOOLEAN DEFAULT FALSE,\
-      recording_id VARCHAR(50) UNIQUE,\
-      date_file_created TIMESTAMPTZ,\
+    return db.query("CREATE TABLE IF NOT EXISTS entries(\
+      entry_id SERIAL PRIMARY KEY,\
+      user_id INT NOT NULL REFERENCES users ON DELETE CASCADE,\
+      call_id VARCHAR(50) NOT NULL UNIQUE,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );")
   })
   .then(() => {
-    return db.query("CREATE TABLE IF NOT EXISTS entries(\
-      entry_id SERIAL PRIMARY KEY,\
-      user_id INT NOT NULL REFERENCES users,\
-      call_id VARCHAR(50),\
+    return db.query("CREATE TABLE IF NOT EXISTS audio(\
+      audio_id SERIAL PRIMARY KEY,\
+      entry_id INT NOT NULL REFERENCES entries,\
+      remote_path VARCHAR(150) NOT NULL,\
+      local_path VARCHAR(150),\
+      is_processed BOOLEAN DEFAULT false,\
+      is_downloaded BOOLEAN DEFAULT false,\
+      recording_id VARCHAR(50) UNIQUE NOT NULL,\
+      date_file_created TIMESTAMPTZ NOT NULL,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );")

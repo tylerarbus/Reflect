@@ -25,11 +25,11 @@ module.exports.updateDownloaded = (recording_id) => {
   return db.query('UPDATE audio SET $1~ = $2 WHERE recording_id = $3 RETURNING *', ['is_downloaded', true, recording_id]);
 }
 
-module.exports.exists = (call_id) => {
-	return db.oneOrNone('SELECT * FROM audio WHERE call_id = $1', [call_id])
+module.exports.exists = (entry_id) => {
+	return db.oneOrNone('SELECT * FROM audio WHERE entry_id = $1', [entry_id])
 		.then(result => {
 			if (result) {
-				return true;
+				return result;
 			} else {
 				return false;
 			}
