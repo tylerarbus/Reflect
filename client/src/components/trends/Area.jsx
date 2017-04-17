@@ -8,7 +8,6 @@ export class Area extends Component {
   }
 
   componentDidMount() {
-
     const area = d3.area()  
         .x(d => { return this.props.trends.xScale(d.day); })  
         .y0(this.props.trends.height)          
@@ -36,7 +35,6 @@ export class Area extends Component {
         .attr("d", area)
         .attr("fill", "url(#area-gradient)")
         .attr("stroke-width", "0px");
-
     }
 
   shouldComponentUpdate() {
@@ -44,10 +42,9 @@ export class Area extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     const area = d3.area()  
         .x(d => { return nextProps.trends.xScale(d.day); })  
-        .y0(this.props.trends.height)          
+        .y0(nextProps.trends.height)          
         .y1(d => { return nextProps.trends.yScale(d.value); })
         .curve(d3.curveBasis);
 

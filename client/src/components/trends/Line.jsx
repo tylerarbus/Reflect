@@ -42,10 +42,6 @@ export class Line extends Component {
         .transition()
         .duration(750)
         .attr('d', line(nextProps.trends.transformedData))
-        // .attr('class', 'line')
-        // .attr('fill', 'none')
-        // .style('stroke', 'steelblue')
-        // .style('stroke-width', '2px') 
 
   }
 
