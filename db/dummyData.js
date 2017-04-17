@@ -54,19 +54,19 @@ const newUser = {
 const entries = [
   {
     entry_id: 1,
-    entry_text: 'Test entry 1',
+    entry_text: 'Test entry',
     user_id: 1,
     call_id: 1
   },
   {
     entry_id: 2,
-    entry_text: 'Test entry 2',
+    entry_text: 'Test entry',
     user_id: 1,
     call_id: 2
   },
   {
     entry_id: 3,
-    entry_text: 'Test entry 3',
+    entry_text: 'Test entry',
     user_id: 1,
     call_id: 3
   } 
