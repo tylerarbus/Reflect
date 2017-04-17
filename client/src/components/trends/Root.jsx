@@ -12,8 +12,6 @@ export class Trends extends Component {
     const { dispatch } = this.props;
     dispatch(fetchData());
 
-    console.log('********', this.refs.container.offsetWidth)
-
     const margin = {top: 20, right: 20, bottom: 30, left: 70},
     width = this.refs.container.offsetWidth - 70 - margin.top - margin.bottom,
     height = 500 - margin.top - margin.bottom;
