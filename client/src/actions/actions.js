@@ -36,16 +36,16 @@ export const CALL_SENT = 'CALL_SENT';
 import { push } from 'react-router-redux';
 
 export function fetchEntries() {
-  let config = {
+  const config = {
     method: 'GET',
     headers: {
-      authorization: 'Bearer ' + localStorage.getItem('id_token')
+      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
     }
   };
 
   return dispatch => {
     dispatch(requestEntries());
-    return fetch('/api/entries', config)
+    return fetch('/entries', config)
       .then(response => response.json())
       .then(responseJSON => {
         const monthData = getMonthData(responseJSON.entries)
@@ -149,7 +149,7 @@ export function createUser(user) {
         return response.json();
       })
       .then(responseJSON => {
-        localStorage.setItem('id_token', responseJSON.token);
+        localStorage.setItem('reflective_token', responseJSON.token);
         dispatch(receiveUserInfo(responseJSON.user));
         dispatch(userCreated());
         dispatch(accountPageSubmit());
@@ -182,7 +182,7 @@ export function verifyPhoneCode(code) {
     method: 'POST',
     headers: {
       'Content-Type':'application/json',
-      authorization: 'Bearer ' + localStorage.getItem('id_token')
+      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
     },
     body: JSON.stringify({verificationCode: code})
   };
@@ -246,7 +246,7 @@ export function checkCredentials(credentials) {
       }
     })
     .then(responseJSON => {
-      localStorage.setItem('id_token', responseJSON.token);
+      localStorage.setItem('reflective_token', responseJSON.token);
       dispatch(loginSuccess(responseJSON.user));
       dispatch(push('/entries'));
     })
@@ -279,7 +279,7 @@ export function makeCall() {
     method: 'POST',
     headers: {
       'Content-Type':'application/json',
-      authorization: 'Bearer ' + localStorage.getItem('id_token')
+      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
     }
   };
 

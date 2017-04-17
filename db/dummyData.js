@@ -47,7 +47,7 @@ const newUser = {
   first_name: 'John',
   last_name: 'Smith',
   password: 'password',
-  phone: '123-456-7890',
+  phone: '1234567890',
   phone_verified: false
 }
 

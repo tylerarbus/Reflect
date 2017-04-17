@@ -10,7 +10,6 @@ import { dummyEntryData, dummyTimelineData } from '../dummyData.js';
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
 
     this.onMonthClick = this.onMonthClick.bind(this);
   }

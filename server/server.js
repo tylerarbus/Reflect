@@ -42,7 +42,7 @@ app.use('/calls', express.static(path.join(__dirname, '/calling/files')))
 app.use('/api/calling', callingHandler);
 app.use('/api/sentiment', sentimentHandler);
 app.use('/api/auth', authHandler);
-app.use('/api', requestHandler);
+app.get('/entries', auth.authMiddleware, requestHandler.getEntries);
 
 app.get('*', (req, res) => {
   res.redirect('/');
