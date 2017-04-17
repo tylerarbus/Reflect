@@ -7,7 +7,7 @@ const fs = require('fs');
 
 let downloaded = [];
 
-module.exports.getFileDetails = cron.schedule('10 * * * * *', () => {
+module.exports.getFileDetails = cron.schedule('5 * * * * *', () => {
 	console.log('DownloadWorker: getFileDetails running...');
 	Call.getRecordings()
 		.then(results => {
@@ -54,7 +54,7 @@ module.exports.getFileDetails = cron.schedule('10 * * * * *', () => {
 		});
 }, false);
 
-module.exports.downloadFiles = cron.schedule('5 * * * * *', () => {
+module.exports.downloadFiles = cron.schedule('10 * * * * *', () => {
 	console.log('DownloadWorker: downloadFiles running...');
 
 // TODO: Major refactor when time permits.
