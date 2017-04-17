@@ -8,6 +8,7 @@ import Home from './Home.jsx';
 import Nav from './Nav.jsx';
 import SignUp from './SignUp.jsx';
 import Trends from './trends/Root.jsx';
+import Profile from './Profile.jsx';
 
 export default class Root extends React.Component {
   render() {
@@ -21,6 +22,7 @@ export default class Root extends React.Component {
               <Route path='/entries' component={App} />
               <Route path='/signup' component={SignUp} />
               <Route path='/trends' component={Trends} />
+              <Route path='/profile' component={Profile} />
             </div>
           </ConnectedRouter>
         </div>

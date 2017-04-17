@@ -30,6 +30,8 @@ export const CALLING_NOW = 'CALLING_NOW';
 export const CALL_ERROR = 'CALL_ERROR';
 export const CALL_SENT = 'CALL_SENT';
 
+import { push } from 'react-router-redux';
+
 export function fetchEntries() {
   return dispatch => {
     dispatch(requestEntries());
@@ -224,10 +226,10 @@ export function checkCredentials(credentials) {
     })
     .then(responseJSON => {
       dispatch(loginSuccess(responseJSON.user));
+      dispatch(push('/entries'));
     })
     .catch(error => {
-      console.log(error);
-      dispatch(loginError(error)); })
+      dispatch(loginError(error.message)); })
   }
 }
 
