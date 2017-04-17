@@ -53,6 +53,6 @@ describe('Entries', () => {
       .then(result => {
         expect(result).toBeDefined();
         expect(result.user_id).toEqual(newEntry.user_id);
-      }
+      })
   })
 })
