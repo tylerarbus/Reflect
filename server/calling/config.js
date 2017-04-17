@@ -10,9 +10,21 @@ let downloaded = [];
 module.exports = {
 	call: (user) => {
 		// TODO: Extra security: Verify user phone with user id from DB
+		let twilioUrl;
+		switch (process.env.IS_ON) {
+			case 'production':
+				twilioUrl = `${process.env.TWILIO_XML_URL}/calls/voice.xml`
+				break;
+			case 'staging':
+				twilioUrl = `${process.env.TWILIO_XML_URL}/calls/staging-voice.xml`
+				break;
+			default:
+				twilioUrl = `${process.env.TWILIO_XML_URL}/calls/dev-voice.xml`
+		}
+		console.log(twilioUrl);
 		return new Promise((resolve, reject) => {
 			client.calls.create({
-				url: `${process.env.TWILIO_XML_URL}/calls/voice.xml`,
+				url: twilioUrl,
 				from: process.env.TWILIO_FROM,
 				to: user.phone,
 				method: 'GET'
