@@ -6,6 +6,7 @@ import { setXScale, setYScale } from '../../actions/trends.js';
 import XAxis from './xAxis.jsx';
 import YAxis from './yAxis.jsx';
 import Line from './Line.jsx';
+import Area from './Area.jsx';
 
 export class Chart extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ export class Chart extends Component {
               <XAxis />
               <YAxis />
               <Line />
+              <Area />
             </g>
           }
         </g>

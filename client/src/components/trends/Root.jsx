@@ -12,8 +12,8 @@ export class Trends extends Component {
     const { dispatch } = this.props;
     dispatch(fetchData());
 
-    const margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 700 - margin.top - margin.bottom,
+    const margin = {top: 20, right: 20, bottom: 30, left: 70},
+    width = this.refs.container.offsetWidth - 70 - margin.top - margin.bottom,
     height = 500 - margin.top - margin.bottom;
 
     dispatch(setContainerSize(margin, width, height));
@@ -55,12 +55,42 @@ export class Trends extends Component {
     return transformedData;
   }
 
+  filterChart(value) {
+    const numDaysBetween = (d1, d2) => {
+      const diff = Math.abs(d1.getTime() - d2.getTime());
+      return diff / (1000 * 60 * 60 * 24);
+    };
+    const today = new Date();
+    let filteredData = this.props.trends.rawData.filter(entry => {
+      const entryDate = new Date(entry.created);
+      if (value === '0') {
+        return true;
+      } else if (value === '1') {
+        return numDaysBetween(today, entryDate) <= 7;
+      } else if (value === '2') {
+        return numDaysBetween(today, entryDate) <= 30;
+      }
+    })
+    const { dispatch } = this.props;
+    dispatch(setTransformedData(this.transformData(filteredData)));
+  }
+
   render() {
     return (
       <div>
-        {this.props.trends.transformedData && this.props.trends.width &&
-          <Chart />
-        }
+        <div className="ui container segment" ref="container">
+          {this.props.trends.transformedData && this.props.trends.width &&
+            <div>
+              <select className="ui fluid search dropdown" style={{width: "200px"}}
+                onChange={(e) => {this.filterChart(e.target.value)}}>
+                <option className="item" value="0">All History</option>
+                <option className="item" value="1">Last Week</option>
+                <option className="item" value="2">Last Month</option>
+              </select>
+              <Chart />
+            </div>
+          }
+        </div>
       </div>
     )
   }

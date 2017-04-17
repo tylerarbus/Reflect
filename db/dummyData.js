@@ -26,7 +26,7 @@ function getDates(startDate, stopDate) {
     return dateArray;
 }
 
-const dateRange = getDates(new Date('2017-01-01'), new Date('2017-03-01'));
+const dateRange = getDates(new Date('2017-01-01'), new Date('2017-04-16'));
 
 dateRange.forEach(date => {
   newDummySentiment(date)

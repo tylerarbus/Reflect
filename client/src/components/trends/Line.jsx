@@ -22,20 +22,27 @@ export class Line extends Component {
         .attr('fill', 'none')
         .style('stroke', 'steelblue')
         .style('stroke-width', '2px')    
-        
-    const totalLength = path.node().getTotalLength();
-    
-    path
-        .attr("stroke-dasharray", totalLength + " " + totalLength)
-        .attr("stroke-dashoffset", totalLength)
-        .transition()
-        .duration(750)
-        .ease(d3.easeLinear)
-        .attr("stroke-dashoffset", 0);
+
   }
 
   shouldComponentUpdate() {
     return false;
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    const line = d3.line()
+        .x(d => {
+          return nextProps.trends.xScale(d.day);
+        })
+        .y(d => { return nextProps.trends.yScale(d.value); })
+        .curve(d3.curveBasis);
+
+    const path = d3.select(".line")
+        .transition()
+        .duration(750)
+        .attr('d', line(nextProps.trends.transformedData))
+
   }
 
   render() {

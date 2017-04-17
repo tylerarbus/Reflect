@@ -10,6 +10,13 @@ export class YAxis extends Component {
   componentDidMount() {
 
     const yAxis = d3.axisLeft(this.props.trends.yScale)
+        .ticks(3)
+        .tickFormat(d => {
+          let label = 'Neutral';
+          if (d === 0.5) { return label; }
+          d > 0.5 ? label = 'More Happy' : label = 'Less Happy';
+          return label;
+        })
 
     d3.select(".yAxis")
         .call(yAxis);
