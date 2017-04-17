@@ -79,18 +79,20 @@ export class Trends extends Component {
 
   render() {
     return (
-      <div className="ui container segment" ref="container">
-        {this.props.trends.transformedData && this.props.trends.width &&
-          <div>
-            <select className="ui fluid search dropdown" style={{width: "200px"}}
-              onChange={(e) => {this.filterChart(e.target.value)}}>
-              <option className="item" value="0">All History</option>
-              <option className="item" value="1">Last Week</option>
-              <option className="item" value="2">Last Month</option>
-            </select>
-            <Chart />
-          </div>
-        }
+      <div>
+        <div className="ui container segment" ref="container">
+          {this.props.trends.transformedData && this.props.trends.width &&
+            <div>
+              <select className="ui fluid search dropdown" style={{width: "200px"}}
+                onChange={(e) => {this.filterChart(e.target.value)}}>
+                <option className="item" value="0">All History</option>
+                <option className="item" value="1">Last Week</option>
+                <option className="item" value="2">Last Month</option>
+              </select>
+              <Chart />
+            </div>
+          }
+        </div>
       </div>
     )
   }
