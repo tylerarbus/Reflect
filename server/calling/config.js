@@ -8,7 +8,7 @@ const Entry = require('../models/entries.js');
 let downloaded = [];
 
 module.exports = {
-	call: function(user) {
+	call: (user) => {
 		// TODO: Extra security: Verify user phone with user id from DB
 		return new Promise((resolve, reject) => {
 			client.calls.create({
@@ -33,13 +33,13 @@ module.exports = {
 
 	sendVerification: (phone, countryCode = 1) => {
 
-		let config = {
+		const config = {
 			method: 'POST'
 		};
 
 		// TODO: Save user phone number without country code
 		// TODO: Get user's phone details from user_id
-		let params = _buildParams({
+		const params = _buildParams({
 			api_key: process.env.AUTHY_KEY,
 			via: 'sms',
 			phone_number: phone,
@@ -57,11 +57,11 @@ module.exports = {
 
 	verify: (phoneNumber, countryCode, verificationCode) => {
 
-		let config = {
+		const config = {
 			method: 'GET'
 		};
 
-		let params = _buildParams({
+		const params = _buildParams({
 			api_key: process.env.AUTHY_KEY,
 			phone_number: phoneNumber,
 			country_code: countryCode,
@@ -82,11 +82,11 @@ module.exports = {
 		// TODO: Update date created when ready
 		// TODO: Download checking by call_sid even though 1 call_sid might have many audios
 		const fromDate = new Date();
-		const dateCreated = `${fromDate.getFullYear().toString()}-${_leftPadTwoDigits(fromDate.getMonth() + 1)}-${_leftPadTwoDigits(fromDate.getDate() - 1)}`;
+		const dateCreated = `${fromDate.getFullYear().toString()}-${_leftPadTwoDigits(fromDate.getMonth() + 1)}-${_leftPadTwoDigits(fromDate.getDate()+1)}`;
 		
 		return new Promise((resolve, reject) => {
 			client.recordings.list({
-				'dateCreated>': '2017-04-01',
+				'dateCreated>': '2017-04-14',
 				'dateCreated<': dateCreated
 			}, function(err, data) {
 					if (err) {
