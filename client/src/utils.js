@@ -25,3 +25,9 @@ export const monthToEnglish = {
   '11': 'November',
   '12': 'December'
 }
+
+export function toDateString(sqlDate) {
+  const date = new Date(sqlDate.replace(' ', 'T'));
+  return date.toDateString();
+}
+

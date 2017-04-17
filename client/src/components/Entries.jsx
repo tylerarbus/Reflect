@@ -19,7 +19,7 @@ export default class Entries extends Component {
           <Entry 
             date={entry.created} 
             text={entry.text} 
-            key={entry.created}
+            key={Math.random()}
           />
         )}
       </div>
