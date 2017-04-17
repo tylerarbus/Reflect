@@ -48,8 +48,6 @@ app.get('*', (req, res) => {
   res.redirect('/');
 })
 
-
-
 const port = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV !== 'test') {
