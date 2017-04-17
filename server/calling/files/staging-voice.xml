@@ -2,6 +2,6 @@
 <Response>
     <Say voice="woman">How is your day going?</Say>
     <Record 
-    	action="http://reflectiveapp-staging.herokuapp.com//api/calling/called"
+    	action="http://reflectiveapp-staging.herokuapp.com/api/calling/called"
     	maxLength="60" />
 </Response>
