@@ -22,12 +22,12 @@ export class Area extends Component {
       .attr("x2", 0).attr("y2", "100%")
     .selectAll("stop")            
       .data([
-        {offset: "0%", color: "#ffff1c"},
+        {offset: "25%", color: "#ffff1c"},
         {offset: "100%", color: "#00c3ff"}  
       ])   
     .enter().append("stop")      
-      .attr("offset", function(d) { return d.offset; })  
-      .attr("stop-color", function(d) { return d.color; })
+      .attr("offset", d => { return d.offset; })  
+      .attr("stop-color", d => { return d.color; })
       .attr("stop-opacity", "0.4");
 
     d3.select(".area")
@@ -41,6 +41,22 @@ export class Area extends Component {
 
   shouldComponentUpdate() {
     return false;
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    const area = d3.area()  
+        .x(d => { return nextProps.trends.xScale(d.day); })  
+        .y0(this.props.trends.height)          
+        .y1(d => { return nextProps.trends.yScale(d.value); })
+        .curve(d3.curveBasis);
+
+    d3.select(".area")
+        .data([nextProps.trends.transformedData])
+        .transition()
+        .duration(750)
+        .attr("class", "area")
+        .attr("d", area)
   }
 
   render() {

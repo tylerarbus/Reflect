@@ -55,11 +55,39 @@ export class Trends extends Component {
     return transformedData;
   }
 
+  filterChart(value) {
+    const numDaysBetween = (d1, d2) => {
+      const diff = Math.abs(d1.getTime() - d2.getTime());
+      return diff / (1000 * 60 * 60 * 24);
+    };
+    const today = new Date();
+    let filteredData = this.props.trends.rawData.filter(entry => {
+      const entryDate = new Date(entry.created);
+      if (value === '0') {
+        return true;
+      } else if (value === '1') {
+        return numDaysBetween(today, entryDate) <= 7;
+      } else if (value === '2') {
+        return numDaysBetween(today, entryDate) <= 30;
+      }
+    })
+    const { dispatch } = this.props;
+    dispatch(setTransformedData(this.transformData(filteredData)));
+  }
+
   render() {
     return (
       <div>
         {this.props.trends.transformedData && this.props.trends.width &&
-          <Chart />
+          <div>
+            <select className="ui fluid search dropdown" style={{width: "200px"}}
+              onChange={(e) => {this.filterChart(e.target.value)}}>
+              <option className="item" value="0">All History</option>
+              <option className="item" value="1">Last Week</option>
+              <option className="item" value="2">Last Month</option>
+            </select>
+            <Chart />
+          </div>
         }
       </div>
     )
