@@ -47,4 +47,12 @@ describe('Entries', () => {
 				expect(result.call_id).toEqual(newEntry.call_id)
 			})
 	})
+
+  it('should get entries by user_id', () => {
+    Entry.findByUserId(newEntry.user_id)
+      .then(result => {
+        expect(result).toBeDefined();
+        expect(result.user_id).toEqual(newEntry.user_id);
+      })
+  })
 })

@@ -2,10 +2,13 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import trends from './trends.js';
 
-import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL, CALLING_NOW, CALL_ERROR, CALL_SENT } from '../actions/actions.js';
+import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL, CALLING_NOW, CALL_ERROR, CALL_SENT, SET_DISPLAY_MONTH } from '../actions/actions.js';
 
 function entries(state = {
   entries: [],
+  displayedMonth: null,
+  displayedEntries: [],
+  months: [],
   receivedAt: '',
   isFetching: false
 }, action) {
@@ -14,6 +17,8 @@ function entries(state = {
       return {
         ...state,
         entries: action.entries,
+        months: action.months,
+        displayedEntries: action.entries,
         receivedAt: action.receivedAt,
         isFetching: action.isFetching
       }
@@ -21,6 +26,12 @@ function entries(state = {
       return {
         ...state,
         isFetching: action.isFetching
+      }
+    case SET_DISPLAY_MONTH:
+      return {
+        ...state,
+        displayedMonth: action.month,
+        displayedEntries: state.entries.filter(entry => entry.created.split('-')[1] === action.month)
       }
   default:
     return state;

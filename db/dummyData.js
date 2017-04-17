@@ -2,6 +2,10 @@ process.env.IS_ON = 'development';
 process.env.DATABASE_URL = 'postgres://@localhost:5432/reflective';
 
 const { db } = require('./config.js');
+const Users = require('../server/models/users.js');
+const Audio = require('../server/models/audio.js');
+const Entries = require('../server/models/entries.js');
+const EntryText = require('../server/models/entry-text.js');
 
 const newDummySentiment = timestamp => {
   return db.query("INSERT INTO sentiment\
@@ -37,3 +41,54 @@ dateRange.forEach(date => {
       console.error('sentiment failed to add', error);
     })
 })
+
+const newUser = {
+  email: 'test@example.com',
+  first_name: 'John',
+  last_name: 'Smith',
+  password: 'password',
+  phone: '1234567890',
+  phone_verified: false
+}
+
+const entries = [
+  {
+    entry_id: 1,
+    entry_text: 'Test entry',
+    user_id: 1,
+    call_id: 1
+  },
+  {
+    entry_id: 2,
+    entry_text: 'Test entry',
+    user_id: 1,
+    call_id: 2
+  },
+  {
+    entry_id: 3,
+    entry_text: 'Test entry',
+    user_id: 1,
+    call_id: 3
+  } 
+]
+
+Users.new(newUser)
+  .then(result => {
+    entries.forEach(entry => {
+      Entries.new(entry)
+        .then(result => {
+          return EntryText.new(result.entry_id, entry.entry_text)
+        })
+        .then(() => {
+          console.log('entry added!');
+        })
+        .catch(error => {
+          console.error('error adding mock entries', error);
+        })
+    })
+  })
+  .catch(error => {
+    console.error('failed to add user', error);
+  })
+
+
