@@ -31,10 +31,10 @@ module.exports = (audioId, filePath, entryId) => {
     if (err) {
       console.log(err);
     } else {
-      const entry = createEntryFromText(res);
+      const entryText = createEntryFromText(res);
 
     //TODO: figure out with Terence how we will access entryId from DB
-      return EntryText.new(entryId, filePath)
+      return EntryText.new(entryId, entryText)
         .then(() => {
           Audio.update(audioId, 'is_processed', true)
         })

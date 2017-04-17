@@ -53,32 +53,29 @@ const newUser = {
 
 const entries = [
   {
-    audio_id: 1,
-    audio_path: 'test-1',
     entry_id: 1,
-    entry_text: 'Test entry 1'
+    entry_text: 'Test entry 1',
+    user_id: 1,
+    call_id: 1
   },
   {
-    audio_id: 2,
-    audio_path: 'test-2',
     entry_id: 2,
-    entry_text: 'Test entry 2'
+    entry_text: 'Test entry 2',
+    user_id: 1,
+    call_id: 2
   },
   {
-    audio_id: 3,
-    audio_path: 'test-3',
     entry_id: 3,
-    entry_text: 'Test entry 3'
+    entry_text: 'Test entry 3',
+    user_id: 1,
+    call_id: 3
   } 
 ]
 
 Users.new(newUser)
   .then(result => {
     entries.forEach(entry => {
-      Audio.new(entry.audio_path)
-        .then(file => {
-          return Entries.new(1)
-        })
+      Entries.new(entry)
         .then(result => {
           return EntryText.new(result.entry_id, entry.entry_text)
         })
