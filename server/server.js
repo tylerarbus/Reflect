@@ -56,7 +56,7 @@ if (process.env.NODE_ENV !== 'test') {
 	});
 }
 
-speechConvertWorker.start();
+// speechConvertWorker.start();
 downloadWorker.getFileDetails.start();
 downloadWorker.downloadFiles.start();
 

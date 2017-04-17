@@ -13,6 +13,9 @@ module.exports.getByCallId = (call_id) => {
 	return db.oneOrNone('SELECT * FROM entries WHERE call_id = $1', [call_id]);
 }
 
+module.exports.getCallIdByEntryId = (entry_id) => {
+	return db.oneOrNone('SELECT * FROM entries WHERE entry_id = $1', [entry_id]);
+}
 module.exports.findByUserId = (userId) => {
   return db.manyOrNone('SELECT text, entries.entry_id, entries.created FROM entry_text INNER JOIN entries\
   ON entry_text.entry_id = entries.entry_id\

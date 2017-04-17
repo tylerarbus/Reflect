@@ -65,7 +65,7 @@ router.post('/login', (req, res) => {
 			});
 		})
 		.catch(err => {
-			// console.error('Error: ', err)
+			console.error('Error: ', err)
 			res.status(401).json({
 				error: err
 			});
