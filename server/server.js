@@ -13,6 +13,7 @@ const auth = require('./auth/utils.js');
 const Call = require('./calling/config.js');
 
 const speechConvertWorker = require('./processing/speechConvertWorker.js');
+const downloadWorker = require('./processing/downloadWorker.js');
 
 const app = express();
 
@@ -55,6 +56,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 speechConvertWorker.start();
+downloadWorker.getFileDetails.start();
+downloadWorker.downloadFiles.start();
 
 module.exports = { app };
-
