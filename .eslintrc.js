@@ -19,6 +19,7 @@ module.exports = {
     "comma-dangle": ["error", "never"],
     "no-underscore-dangle": "off",
     "import/no-named-as-default": "off",
-    "import/extentions": "off"
+    "import/extentions": "off",
+    "jsx-a11y/no-static-element-interactions": "off"
   }
 };
