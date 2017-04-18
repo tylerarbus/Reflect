@@ -11,6 +11,9 @@ describe('EntryText table', () => {
     db.any('SELECT * FROM entry_text')
       .then(() => {
         done();
+      })
+      .catch((error) => {
+        throw error;
       });
   });
 });
