@@ -2,7 +2,7 @@ process.env.IS_ON = 'development';
 process.env.DATABASE_URL = 'postgres://@localhost:5432/reflective';
 
 const { db } = require('./config.js');
-const Users = require('../server/models/users.js');
+const User = require('../server/models/users.js');
 const Audio = require('../server/models/audio.js');
 const Entries = require('../server/models/entries.js');
 const EntryText = require('../server/models/entry-text.js');
@@ -90,7 +90,7 @@ const entries = [
   }
 ];
 
-Users.new(newUser)
+User.new(newUser)
   .then((user) => {
     entries.forEach((entry) => {
       const newEntry = entry;
