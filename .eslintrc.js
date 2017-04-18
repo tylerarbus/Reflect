@@ -17,6 +17,8 @@ module.exports = {
   // http://eslint.org/docs/rules/
   "rules": {
     "comma-dangle": ["error", "never"],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "import/no-named-as-default": "off",
+    "import/extentions": "off"
   }
 };

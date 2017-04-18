@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { fetchData, setContainerSize, setTransformedData } from '../../actions/trends.js';
 import Chart from './Chart.jsx';
+import transformData from './trends-utils';
 
 export class Trends extends Component {
 
@@ -19,35 +20,9 @@ export class Trends extends Component {
 
   componentDidUpdate() {
     if (this.props.rawData && !this.props.transformedData) {
-      const transformedData = this.transformData(this.props.rawData);
+      const transformedData = transformData(this.props.rawData);
       this.props.dispatchTransformedData(transformedData);
     }
-  }
-
-  transformData(rawData) {
-    const transformedData = [];
-    for (let i = 0; i < 7; i += 1) {
-      transformedData.push({
-        value: 0,
-        day: i,
-        counter: 0
-      });
-    }
-
-    rawData.forEach((entry) => {
-      const entryDay = new Date(entry.created).getDay();
-      transformedData[entryDay].value += entry.value;
-      transformedData[entryDay].counter += 1;
-    });
-
-    transformedData.forEach(entry => {
-      if (entry.counter === 0) {
-        entry.value = 0.5;
-      } else {
-        entry.value = entry.value / entry.counter;
-      }
-    });
-    return transformedData;
   }
 
   filterChart(value) {
@@ -66,7 +41,7 @@ export class Trends extends Component {
       return true;
     });
 
-    this.props.dispatchTransformedData(this.transformData(filteredData));
+    this.props.dispatchTransformedData(transformData(filteredData));
   }
 
   render() {
