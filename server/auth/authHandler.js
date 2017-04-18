@@ -14,6 +14,8 @@ router.post('/signup', (req, res) => {
   const { email, firstName, lastName, password, phone } = req.body;
   let user;
 
+  // TODO: Move Auth.hash into User model otherwise User.new produces
+  // invalid password
   Auth.hash(password)
     .then(hashedPassword => (
       User.new({
@@ -53,6 +55,7 @@ router.post('/login', (req, res) => {
       return Auth.compare(password, user.password);
     })
     .then((verified) => {
+      console.log(verified);
       if (verified) {
         return Auth.sign(user);
       }

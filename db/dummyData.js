@@ -12,83 +12,101 @@ const newDummySentiment = timestamp => {
     (value, created)\
     VALUES ($1, $2)",
     [Math.random(), timestamp]);
-}
+};
 
-Date.prototype.addDays = function(days) {
-    var dat = new Date(this.valueOf())
-    dat.setDate(dat.getDate() + days);
-    return dat;
-}
+Date.prototype.addDays = days => {
+  const dat = new Date(this.valueOf());
+  dat.setDate(dat.getDate() + days);
+  return dat;
+};
 
 function getDates(startDate, stopDate) {
-    var dateArray = new Array();
-    var currentDate = startDate;
-    while (currentDate <= stopDate) {
-        dateArray.push( new Date (currentDate) )
-        currentDate = currentDate.addDays(1);
-    }
-    return dateArray;
+  const dateArray = [];
+  let currentDate = startDate;
+  while (currentDate <= stopDate) {
+    dateArray.push(new Date(currentDate));
+    currentDate = currentDate.addDays(1);
+  }
+  return dateArray;
 }
 
 const dateRange = getDates(new Date('2017-01-01'), new Date('2017-04-16'));
 
-dateRange.forEach(date => {
+dateRange.forEach((date) => {
   newDummySentiment(date)
-    .then(result => {
+    .then((result) => {
       console.log('sentiment added');
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('sentiment failed to add', error);
-    })
-})
+    });
+});
 
 const newUser = {
-  email: 'test@example.com',
-  first_name: 'John',
-  last_name: 'Smith',
+  email: 'adrianmole@email.com',
+  first_name: 'Adrian',
+  last_name: 'Mole',
   password: 'password',
-  phone: '1234567890',
+  phone: '6505421376',
   phone_verified: false
-}
+};
 
 const entries = [
   {
     entry_id: 1,
-    entry_text: 'Test entry',
-    user_id: 1,
-    call_id: 1
+    entry_text: 'I felt rotten today. It’s my mother’s fault for singing ‘My Way’ at two o’clock in the morning at the top of the stairs. Just my luck to have a mother like her. There is a chance my parents could be alcoholics. Next year I could be in a children’s home. The dog got its own back on my father. It jumped up and knocked down his model ship, then ran into the garden with the rigging tangled in its feet. My father kept saying, ‘Three months’ work down the drain’, over and over again. The spot on my chin is getting bigger. It’s my mother’s fault for not knowing about vitamins.',
+    call_id: 1,
+    created: '2017-04-01 22:38:38.130256-07'
   },
   {
     entry_id: 2,
-    entry_text: 'Test entry',
-    user_id: 1,
-    call_id: 2
+    entry_text: 'I shall go mad through lack of sleep! My father has banned the dog from the house so it barked outside my window all night. Just my luck! My father shouted a swear-word at it. If he’s not careful he will get done by the police for obscene language. I think the spot is a boil. Just my luck to have it where everybody can see it. I pointed out to my mother that I hadn’t had any vitamin C today. She said, ‘Go and buy an orange, then’. This is typical. She still hasn’t worn the lurex apron. I will be glad to get back to school.',
+    call_id: 2,
+    created: '2017-04-02 22:38:38.130256-07'
   },
   {
     entry_id: 3,
-    entry_text: 'Test entry',
-    user_id: 1,
-    call_id: 3
-  } 
-]
+    entry_text: 'My father has got the flu. I’m not surprised with the diet we get. My mother went out in the rain to get him a vitamin C drink, but as I told her, ‘It’s too late now’. It’s a miracle we don’t get scurvy. My mother says she can’t see anything on my chin, but this is guilt because of the diet. The dog has run off because my mother didn’t close the gate. I have broken the arm on the stereo. Nobody knows yet, and with a bit of luck my father will be ill for a long time. He is the only one who uses it apart from me. No sign of the apron.',
+    call_id: 3,
+    created: '2017-04-03 22:38:38.130256-07'
+  },
+  {
+    entry_id: 4,
+    entry_text: 'Now my mother has got the flu. This means that I have to look after them both. Just my luck! I have been up and down the stairs all day. I cooked a big dinner for them tonight: two poached eggs with beans, and tinned semolina pudding. (It’s a good job I wore the green lurex apron because the poached eggs escaped out of the pan and got all over me.) I nearly said something when I saw they hadn’t eaten any of it. They can’t be that ill. I gave it to the dog in the coal shed. My grandmother is coming tomorrow morning, so I had to clean the burnt saucepans, then take the dog for a walk. It was half-past eleven before I got to bed. No wonder I am short for my age. I have decided against medicine for a career.',
+    call_id: 4,
+    created: '2017-04-04 22:38:38.130256-07'
+  },
+  {
+    entry_id: 5,
+    entry_text: 'The dog is back. It keeps licking its stitches, so when I am eating I sit with my back to it. My mother got up this morning to make the dog a bed to sleep in until it’s better. It is made out of a cardboard box that used to contain packets of soap powder. My father said this would make the dog sneeze and burst its stitches, and the vet would charge even more to stitch it back up again. They had a row aboutthe box, then my father went on about Mr Lucas. Though what Mr Lucas has to do with the dog’s bed is a mystery to me.',
+    call_id: 5,
+    created: '2017-04-05 22:38:38.130256-07'
+  },
+  {
+    entry_id: 6,
+    entry_text: 'My father came into my bedroom this morning, he said he wanted a chat. He looked at my Kevin Keegan scrapbook, screwed the knob of my wardrobe door back on with his Swiss army knife, and asked me about school. Then he said he was sorry about yesterday and the shouting, he said my mother and him are ‘going through a bad patch’. He asked me if I had anything to say. I said he owed me thirty-two pence for the Chinese chips and soy sauce. He gave me a pound. So I made a profit of sixty-eight pence.',
+    call_id: 6,
+    created: '2017-04-06 22:38:38.130256-07'
+  }
+];
 
 Users.new(newUser)
-  .then(result => {
-    entries.forEach(entry => {
-      Entries.new(entry)
-        .then(result => {
-          return EntryText.new(result.entry_id, entry.entry_text)
-        })
+  .then((user) => {
+    entries.forEach((entry) => {
+      const newEntry = entry;
+      newEntry.user_id = user.user_id;
+      Entries.new(newEntry)
+        .then(result => (
+          EntryText.new(result.entry_id, entry.entry_text)
+        ))
         .then(() => {
           console.log('entry added!');
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('error adding mock entries', error);
-        })
-    })
+        });
+    });
   })
-  .catch(error => {
+  .catch((error) => {
     console.error('failed to add user', error);
-  })
-
-
+  });
