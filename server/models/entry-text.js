@@ -1,10 +1,10 @@
 const { db } = require('../../db/config.js');
 
-module.exports.new = (entry_id, text) => {
-  return db.one(
+module.exports.new = (entryId, text) => (
+  db.one(
     'INSERT INTO entry_text\
     (entry_id, text)\
     VALUES ($1, $2)\
     RETURNING entry_text_id',
-    [entry_id, text])
-};
+    [entryId, text])
+);

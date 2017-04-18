@@ -1,12 +1,13 @@
 require('dotenv').config();
+
 let db = null;
 let Entry = null;
 let User = null;
 
-let newEntry = {
-	user_id: null,
-	call_id: '5dsFD351234FDS'
-}
+const newEntry = {
+  user_id: null,
+  call_id: '5dsFD351234FDS'
+};
 
 beforeAll(() => {
   if (process.env.IS_ON === 'development') {
@@ -17,42 +18,42 @@ beforeAll(() => {
   const dbConfig = require('../../db/config.js');
   db = dbConfig.db;
   return User.new({
-  	email: 'terencetmac2@gmail.com',
-  	first_name: 'Terence',
-  	last_name: 'Tham',
-  	password: 'Password',
-  	phone: '6505421376'
+    email: 'terencetmac2@gmail.com',
+    first_name: 'Terence',
+    last_name: 'Tham',
+    password: 'Password',
+    phone: '6505421376'
   })
-  	.then(user => {
-  		newEntry.user_id = user.user_id;
-  	});
-})
+    .then((user) => {
+      newEntry.user_id = user.user_id;
+    });
+});
 
 afterAll(() => {
-	User.delete(newEntry.user_id);
-})
+  User.delete(newEntry.user_id);
+});
 
 describe('Entries', () => {
-	it('should add an entry', () => {
-		Entry.new(newEntry)
-			.then(result => {
-				expect(result).toBeDefined();
-			})
-	});
+  it('should add an entry', () => {
+    Entry.new(newEntry)
+      .then((result) => {
+        expect(result).toBeDefined();
+      });
+  });
 
-	it('should get an entry by call_id', () => {
-		Entry.getByCallId(newEntry.call_id)
-			.then(result => {
-				expect(result).toBeDefined();
-				expect(result.call_id).toEqual(newEntry.call_id)
-			})
-	})
+  it('should get an entry by call_id', () => {
+    Entry.getByCallId(newEntry.call_id)
+      .then((result) => {
+        expect(result).toBeDefined();
+        expect(result.call_id).toEqual(newEntry.call_id);
+      });
+  });
 
   it('should get entries by user_id', () => {
     Entry.findByUserId(newEntry.user_id)
-      .then(result => {
+      .then((result) => {
         expect(result).toBeDefined();
         expect(result.user_id).toEqual(newEntry.user_id);
-      })
-  })
-})
+      });
+  });
+});

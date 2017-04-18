@@ -16,6 +16,7 @@ module.exports = {
   // Add custom rules here
   // http://eslint.org/docs/rules/
   "rules": {
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "no-underscore-dangle": "off"
   }
 };

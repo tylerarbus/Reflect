@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 let db = null;
 let Audio = null;
 
@@ -10,7 +11,7 @@ const audio = {
   is_downloaded: false,
   recording_id: 'RE0448c78482ac9f0805736389cdbea64c',
   date_file_created: 'Tue, 11 Apr 2017 16:48:38 +0000'
-}
+};
 
 beforeAll(() => {
   if (process.env.IS_ON === 'development') {
@@ -19,72 +20,70 @@ beforeAll(() => {
   Audio = require('../../server/models/audio.js');
   const dbConfig = require('../../db/config.js');
   db = dbConfig.db;
-})
+});
 
 afterAll(() => {
   return db.one("DELETE FROM audio WHERE call_id = 'CAee9eb020ed511d453aee0f8aac8c0f8b'");
-})
+});
 
 describe('Audio table', () => {
-
   let audioId = null;
 
   it('should have an audio table', () => {
     db.any('SELECT * FROM audio')
-      .then(result => {
+      .then((result) => {
         expect(result).toBeDefined();
-      })
-  })
+      });
+  });
 
   xit('should add an audio file to the table', () => {
     return Audio.new(audio)
-      .then(audio => {
-        expect(audio).toBeDefined();
-      })
-  })
+      .then((audioDB) => {
+        expect(audioDB).toBeDefined();
+      });
+  });
 
   xit('should find files that have not been processed', () => {
     return Audio.findNotProcessed()
-      .then(results => {
+      .then((results) => {
         expect(results).toBeDefined();
         expect(results[0].remote_path).toEqual(audio.remote_path);
-      })
-  })
+      });
+  });
 
   xit('should update is_processed property when requested', () => {
     return Audio.findNotProcessed()
-      .then(results => {
-        const audioId = results[0].call_id;
-        return Audio.update(audioId, 'is_processed', true)
-          .then(results => {
-            const file = results[0];
-            expect(file.call_id).toEqual(audioId);
-            expect(file.remote_path).toEqual(audio.remote_path);
-            expect(file.is_processed).toEqual(true);
-          })
+      .then((results) => {
+        audioId = results[0].call_id;
+        return Audio.update(audioId, 'is_processed', true);
       })
-  })
+      .then((results) => {
+        const file = results[0];
+        expect(file.call_id).toEqual(audioId);
+        expect(file.remote_path).toEqual(audio.remote_path);
+        expect(file.is_processed).toEqual(true);
+      });
+  });
 
   xit('should find files that have not been downloaded', () => {
     return Audio.findNotDownloaded()
-      .then(results => {
+      .then((results) => {
         expect(results).toBeDefined();
         expect(results[0].is_downloaded).toEqual(false);
-      })
-  })
+      });
+  });
 
   xit('should return true if an entry exists', () => {
     return Audio.exists(audio.call_id)
-      .then(results => {
+      .then((results) => {
         expect(results).toBe(true);
-      })
-  })
+      });
+  });
 
   xit('should return false if an entry does not exist', () => {
     return Audio.exists('fdssfh23432jklfds')
-      .then(results => {
+      .then((results) => {
         expect(results).toBe(false);
       });
-  })
-
-})
+  });
+});
