@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { checkCredentials } from '../actions/actions.js';
+import PropTypes from 'prop-types';
 
 export class Nav extends Component {
   constructor(props) {
@@ -53,56 +54,81 @@ export class Nav extends Component {
   }
 
   render() {
-    return(
+    return (
       <div id="navbar" className="ui inverted menu">
-        <a className="item"
-           onClick={this.onClickHome}>
+        <a
+          className="item"
+          onClick={this.onClickHome}
+        >
           Reflective
         </a>
         {this.props.user.id &&
-          <a className="item"
-             onClick={this.onClickEntries}>
+          <a
+            className="item"
+            onClick={this.onClickEntries}
+          >
             Entries
           </a>
         }
         {this.props.user.id &&
-          <a className="item"
-             onClick={this.onClickTrends}>
+          <a
+            className="item"
+            onClick={this.onClickTrends}
+          >
             Trends
           </a>
         }
         { !this.props.user.id &&
           <div className="right item">
-            <div className={this.props.user.error === 'Invalid User/Password' ? "ui input error" : "ui input"}>
-              <input type="text" placeholder="E-mail"
-                onChange={this.onChangeEmail}/>
+            <div className={this.props.user.error === 'Invalid User/Password' ? 'ui input error' : 'ui input'}>
+              <input
+                type="text"
+                placeholder="E-mail"
+                onChange={this.onChangeEmail}
+              />
             </div>
-            <div className={this.props.user.error === 'Invalid User/Password' ? "ui input error" : "ui input"}>
-              <input type="password" placeholder="Password"
-                onChange={this.onChangePassword}/>
+            <div className={this.props.user.error === 'Invalid User/Password' ? 'ui input error' : 'ui input'}>
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={this.onChangePassword}
+              />
             </div>
-            <div className={ this.props.user.isLoggingIn ? "ui loading primary button" : "ui primary button" }
-              onClick={this.onClickLogin}>Login</div>
+            <div
+              className={this.props.user.isLoggingIn ? 'ui loading primary button' : 'ui primary button'}
+              onClick={this.onClickLogin}
+            >Login</div>
           </div>
         }
         { this.props.user.id &&
           <div className="right menu">
-            <a className="item"
-               onClick={this.onClickProfile}>
+            <a
+              className="item"
+              onClick={this.onClickProfile}
+            >
               Profile
             </a>
           </div>
         }
       </div>
-    )
+    );
   }
 
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     user: state.user
   }
-}
+);
+
+Nav.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.oneOfType([PropTypes.any])
+};
+
+Nav.defaultProps = {
+  user: {}
+};
 
 export default connect(mapStateToProps)(Nav);
