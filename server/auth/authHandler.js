@@ -93,4 +93,19 @@ router.post('/verify', Auth.authMiddleware, (req, res) => {
     });
 });
 
+router.post('/me', Auth.authMiddleware, (req, res) => {
+  let user;
+  return User.findByEmail(req.user.email)
+    .then((userDB) => {
+      user = userDB;
+      return Auth.sign(userDB);
+    })
+    .then((token) => {
+      res.status(200).json({
+        user,
+        token
+      });
+    });
+});
+
 module.exports = router;
