@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
+import PropTypes from 'prop-types';
 
 export class YAxis extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
-
-    const yAxis = d3.axisLeft(this.props.trends.yScale)
+    const yAxis = d3.axisLeft(this.props.yScale)
         .ticks(3)
-        .tickFormat(d => {
+        .tickFormat((d) => {
           let label = 'Neutral';
           if (d === 0.5) { return label; }
-          d > 0.5 ? label = 'More Happy' : label = 'Less Happy';
+          label = d > 0.5 ? 'More Happy' : 'Less Happy';
           return label;
-        })
+        });
 
-    d3.select(".yAxis")
+    d3.select('.yAxis')
         .call(yAxis);
-
   }
 
   shouldComponentUpdate() {
@@ -30,15 +26,19 @@ export class YAxis extends Component {
   render() {
     return (
       <g className="yAxis" />
-    )
+    );
   }
 
 }
 
-const mapStateToProps = state => {
-  return {
-    ...state
+const mapStateToProps = state => (
+  {
+    yScale: state.trends.yScale
   }
-}
+);
+
+YAxis.propTypes = {
+  yScale: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps)(YAxis);
