@@ -19,8 +19,8 @@
     "lint": "eslint client server",
     "jest": "jest",
     "test:server": "jest --forceExit --config test/jest.node.json test/server",
-    "test:client": "jest --config test/jest.json test/client",
-    "test:db": "jest --config test/jest.node.json test/db"
+    "test:client": "jest --forceExit --config test/jest.json test/client",
+    "test:db": "jest --forceExit --config test/jest.node.json test/db"
   },
   "dependencies": {
     "babel-core": "^6.24.0",

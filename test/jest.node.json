@@ -1,3 +1,4 @@
 {
-  "testEnvironment": "node"
+  "testEnvironment": "node",
+  "setupFiles": ["./test/setup.test.js"]
 }
