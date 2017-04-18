@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -9,8 +9,7 @@ const requestHandler = require('./requestHandler.js');
 const callingHandler = require('./calling/callingHandler.js');
 const authHandler = require('./auth/authHandler.js');
 const sentimentHandler = require('./sentiment/sentimentHandler.js');
-const auth = require('./auth/utils.js');
-const Call = require('./calling/config.js');
+const Auth = require('./auth/utils.js');
 
 const speechConvertWorker = require('./processing/speechConvertWorker.js');
 const downloadWorker = require('./processing/downloadWorker.js');
@@ -22,41 +21,30 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
 }
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, '../client/public')));
+app.use('/calls', express.static(path.join(__dirname, '/calling/files')));
 
-// TEMP: Protected route for Testing
-app.get('/protected', auth.authMiddleware, (req, res) => {
-	res.status(200).send();
-});
-
-app.get('/testing', (req, res) => {
-	// Call.sendVerification();
-})
-app.get('/testingverify', (req, res) => {
-	// Call.verify();
-})
-
-app.use('/calls', express.static(path.join(__dirname, '/calling/files')))
 app.use('/api/calling', callingHandler);
 app.use('/api/sentiment', sentimentHandler);
 app.use('/api/auth', authHandler);
-app.get('/entries', auth.authMiddleware, requestHandler.getEntries);
+
+app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
 
 app.get('*', (req, res) => {
   res.redirect('/');
-})
+});
 
 const port = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV !== 'test') {
-	const server = app.listen(port, () => {
-	  console.log(`listening on port ${port}...`);
-	});
+  app.listen(port, () => {
+    console.log(`listening on port ${port}...`);
+  });
 }
 
-// speechConvertWorker.start();
+speechConvertWorker.start();
 downloadWorker.getFileDetails.start();
 downloadWorker.downloadFiles.start();
 
