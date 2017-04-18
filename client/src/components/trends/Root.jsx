@@ -1,58 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { fetchData, setContainerSize, setTransformedData } from '../../actions/trends.js';
 import Chart from './Chart.jsx';
+import transformData from './trends-utils';
 
 export class Trends extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchData());
+    this.props.dispatchFetchData();
 
-    const margin = {top: 20, right: 20, bottom: 30, left: 70},
-    width = this.refs.container.offsetWidth - 70 - margin.top - margin.bottom,
-    height = 500 - margin.top - margin.bottom;
+    const margin = { top: 20, right: 20, bottom: 30, left: 70 };
+    const width = this.refs.container.offsetWidth - 70 - margin.top - margin.bottom;
+    const height = 500 - margin.top - margin.bottom;
 
-    dispatch(setContainerSize(margin, width, height));
+    this.props.dispatchContainerSize(margin, width, height);
   }
 
   componentDidUpdate() {
-    const { dispatch } = this.props;
-
-    if (this.props.trends.rawData && !this.props.trends.transformedData) {
-      const transformedData = this.transformData(this.props.trends.rawData);
-      dispatch(setTransformedData(transformedData));
+    if (this.props.rawData && !this.props.transformedData) {
+      const transformedData = transformData(this.props.rawData);
+      this.props.dispatchTransformedData(transformedData);
     }
-  }
-
-  transformData(rawData) {
-    const transformedData = [];
-    for (let i = 0; i < 7; i++) {
-      transformedData.push({
-        value: 0,
-        day: i,
-        counter: 0
-      })
-    }
-
-    rawData.forEach(entry => {
-      const entryDay = new Date(entry.created).getDay();
-      transformedData[entryDay].value += entry.value;
-      transformedData[entryDay].counter++;
-    })
-
-    transformedData.forEach(entry => {
-      if (entry.counter === 0) {
-        entry.value = 0.5;
-      } else {
-        entry.value = entry.value / entry.counter;
-      }
-    })
-    
-    return transformedData;
   }
 
   filterChart(value) {
@@ -61,28 +31,29 @@ export class Trends extends Component {
       return diff / (1000 * 60 * 60 * 24);
     };
     const today = new Date();
-    let filteredData = this.props.trends.rawData.filter(entry => {
+    const filteredData = this.props.rawData.filter((entry) => {
       const entryDate = new Date(entry.created);
-      if (value === '0') {
-        return true;
-      } else if (value === '1') {
+      if (value === '1') {
         return numDaysBetween(today, entryDate) <= 7;
       } else if (value === '2') {
         return numDaysBetween(today, entryDate) <= 30;
       }
-    })
-    const { dispatch } = this.props;
-    dispatch(setTransformedData(this.transformData(filteredData)));
+      return true;
+    });
+
+    this.props.dispatchTransformedData(transformData(filteredData));
   }
 
   render() {
     return (
       <div>
         <div className="ui container segment" ref="container">
-          {this.props.trends.transformedData && this.props.trends.width &&
+          {this.props.transformedData && this.props.width &&
             <div>
-              <select className="ui fluid search dropdown" style={{width: "200px"}}
-                onChange={(e) => {this.filterChart(e.target.value)}}>
+              <select
+                className="ui fluid search dropdown" style={{ width: '200px' }}
+                onChange={(e) => { this.filterChart(e.target.value); }}
+              >
                 <option className="item" value="0">All History</option>
                 <option className="item" value="1">Last Week</option>
                 <option className="item" value="2">Last Month</option>
@@ -92,14 +63,43 @@ export class Trends extends Component {
           }
         </div>
       </div>
-    )
+    );
   }
 }
 
-  const mapStateToProps = state => {
-    return {
-      ...state
-    }
+const mapStateToProps = state => (
+  {
+    rawData: state.trends.rawData,
+    transformedData: state.trends.transformedData,
+    margin: state.trends.margin,
+    width: state.trends.width,
+    height: state.trends.height
   }
+);
 
-export default connect(mapStateToProps)(Trends);
+const mapDispatchToProps = dispatch => (
+  {
+    dispatchFetchData: () => dispatch(fetchData()),
+    dispatchContainerSize: (margin, width, height) => {
+      dispatch(setContainerSize(margin, width, height));
+    },
+    dispatchTransformedData: transformedData => dispatch(setTransformedData(transformedData))
+  }
+);
+
+Trends.propTypes = {
+  dispatchFetchData: PropTypes.func.isRequired,
+  dispatchContainerSize: PropTypes.func.isRequired,
+  dispatchTransformedData: PropTypes.func.isRequired,
+  rawData: PropTypes.arrayOf(PropTypes.object),
+  transformedData: PropTypes.arrayOf(PropTypes.object),
+  width: PropTypes.number
+};
+
+Trends.defaultProps = {
+  rawData: null,
+  transformedData: null,
+  width: null
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Trends);
