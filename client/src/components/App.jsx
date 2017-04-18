@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchEntries, setDisplayMonth } from '../actions/actions.js';
+import { fetchEntries, setDisplayMonth } from '../actions/entries.js';
 import { connect } from 'react-redux';
 import Nav from './Nav.jsx';
 import Entries from './Entries.jsx';

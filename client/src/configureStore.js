@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import rootReducer from './reducers/reducers.js';
+import rootReducer from './reducers/rootReducer.js';
 
 import createHistory from 'history/createHashHistory';
 import { routerMiddleware } from 'react-router-redux';
@@ -18,8 +18,8 @@ const configureStore = preloadedState => {
   );
 
   if (module.hot) {
-    module.hot.accept('./reducers/reducers.js', () => {
-      const nextRootReducer = require('./reducers/reducers.js').default
+    module.hot.accept('./reducers/rootReducer.js', () => {
+      const nextRootReducer = require('./reducers/rootReducer.js').default
       store.replaceReducer(nextRootReducer);
     })
   }
