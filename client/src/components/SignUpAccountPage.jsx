@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { accountPageSubmit, createUser } from '../actions/actions.js';
+import PropTypes from 'prop-types';
+import { createUser } from '../actions/actions.js';
 
 export class SignUpAccountPage extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export class SignUpAccountPage extends Component {
   }
 
   onClickSubmit() {
-    const {firstName, lastName, phone, password, passwordVerify} = this.state;
+    const { firstName, lastName, phone, password, passwordVerify } = this.state;
     // this.props.dispatch(accountPageSubmit());
     // console.log(this.state);
 
@@ -34,48 +35,46 @@ export class SignUpAccountPage extends Component {
       password !== passwordVerify) {
       this.setState({
         fieldErrors: true
-      })
+      });
     } else {
-      console.log('fields ok')
-      var user = {
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
+      const user = {
+        firstName,
+        lastName,
+        phone,
         email: this.props.user.email,
-        password: password
-      }
+        password
+      };
       this.props.dispatch(createUser(user));
     }
-
   }
 
-  onChangeFirstName(firstName) {
+  onChangeFirstName(e) {
     this.setState({
-      firstName: firstName
+      firstName: e.target.value
     });
   }
 
-  onChangeLastName(lastName) {
+  onChangeLastName(e) {
     this.setState({
-      lastName: lastName
+      lastName: e.target.value
     });
   }
 
-  onChangePhone(phone) {
+  onChangePhone(e) {
     this.setState({
-      phone: phone
+      phone: e.target.value
     });
   }
 
-  onChangePassword(password) {
+  onChangePassword(e) {
     this.setState({
-      password: password
+      password: e.target.value
     });
   }
 
-  onChangePasswordVerify(password) {
+  onChangePasswordVerify(e) {
     this.setState({
-      passwordVerify: password
+      passwordVerify: e.target.value
     });
   }
 
@@ -88,12 +87,18 @@ export class SignUpAccountPage extends Component {
             <label>Name</label>
             <div className="two fields">
               <div className="field">
-                <input type="text" placeholder="First Name"
-                  onChange={(e) => {this.onChangeFirstName(e.target.value)}}/>
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  onChange={this.onChangeFirstName}
+                />
               </div>
               <div className="field">
-                <input type="text" placeholder="Last Name"
-                  onChange={(e) => {this.onChangeLastName(e.target.value)}}/>
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  onChange={this.onChangeLastName}
+                />
               </div>
             </div>
           </div>
@@ -101,8 +106,11 @@ export class SignUpAccountPage extends Component {
             <label>Phone</label>
             <div className="fields">
               <div className="sixteen wide field">
-                <input type="text" placeholder="Phone Number"
-                  onChange={(e) => {this.onChangePhone(e.target.value)}}/>
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  onChange={this.onChangePhone}
+                />
               </div>
             </div>
           </div>
@@ -110,16 +118,22 @@ export class SignUpAccountPage extends Component {
             <label>Password</label>
             <div className="fields">
               <div className="sixteen wide field">
-                <input type="password" placeholder="Enter a password"
-                  onChange={(e) => {this.onChangePassword(e.target.value)}}/>
+                <input
+                  type="password"
+                  placeholder="Enter a password"
+                  onChange={this.onChangePassword}
+                />
               </div>
             </div>
           </div>
           <div className="field">
             <div className="fields">
               <div className="sixteen wide field">
-                <input type="password" placeholder="Verify password"
-                  onChange={(e) => {this.onChangePasswordVerify(e.target.value)}}/>
+                <input
+                  type="password"
+                  placeholder="Verify password"
+                  onChange={this.onChangePasswordVerify}
+                />
               </div>
             </div>
           </div>
@@ -131,25 +145,38 @@ export class SignUpAccountPage extends Component {
             </div>
             <ul className="list">
               <li>First Name and Last Name are required.</li>
-              <li>Phone number is required (e.g. '4151234567').</li>
+              <li>Phone number is required (e.g. 4151234567).</li>
               <li>Passwords must match.</li>
             </ul>
           </div>}
-        <div className={this.props.signUp.isCreatingUser ? "ui loading right floated submit button" : "ui right floated submit button"}
-          onClick={this.onClickSubmit}>
+        <div
+          className={this.props.signUp.isCreatingUser ? 'ui loading right floated submit button' : 'ui right floated submit button'}
+          onClick={this.onClickSubmit}
+        >
           Submit
         </div>
       </div>
-    )
+    );
   }
 
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     user: state.user,
     signUp: state.signUp
   }
-}
+);
+
+SignUpAccountPage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  signUp: PropTypes.oneOf([PropTypes.bool, PropTypes.string]),
+  user: PropTypes.oneOf([PropTypes.bool, PropTypes.string, PropTypes.number])
+};
+
+SignUpAccountPage.defaultProps = {
+  signUp: {},
+  user: {}
+};
 
 export default connect(mapStateToProps)(SignUpAccountPage);

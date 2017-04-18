@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import PropTypes from 'prop-types';
 
 export class SignUpPhonePreferences extends Component {
   constructor(props) {
@@ -18,21 +19,21 @@ export class SignUpPhonePreferences extends Component {
     this.onAmPmChange = this.onAmPmChange.bind(this);
   }
 
-  onHourChange(hour) {
+  onHourChange(e) {
     this.setState({
-      hour: hour
+      hour: e.target.value
     });
   }
 
-  onMinuteChange(minute) {
+  onMinuteChange(e) {
     this.setState({
-      minute: minute
+      minute: e.target.value
     });
   }
 
-  onAmPmChange(ampm) {
+  onAmPmChange(e) {
     this.setState({
-      ampm: ampm
+      ampm: e.target.value
     });
   }
 
@@ -58,8 +59,10 @@ export class SignUpPhonePreferences extends Component {
             <label>Scheduled Call Time</label>
             <div className=" three fields">
               <div className="two wide field">
-                <select className="ui fluid search dropdown"
-                  onChange={(e) => {this.onHourChange(e.target.value)}}>
+                <select
+                  className="ui fluid search dropdown"
+                  onChange={this.onHourChange}
+                >
                   <option value="">Hour</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -77,8 +80,10 @@ export class SignUpPhonePreferences extends Component {
               </div>
               :
               <div className="two wide field">
-                <select className="ui fluid search dropdown"
-                  onChange={(e) => {this.onMinuteChange(e.target.value)}}>
+                <select
+                  className="ui fluid search dropdown"
+                  onChange={this.onMinuteChange}
+                >
                   <option value="">Minute</option>
                   <option value="00">00</option>
                   <option value="05">05</option>
@@ -95,8 +100,10 @@ export class SignUpPhonePreferences extends Component {
                 </select>
               </div>
               <div className="two wide field">
-                <select className="ui fluid search dropdown"
-                  onChange={(e) => {this.onAmPmChange(e.target.value)}}>
+                <select
+                  className="ui fluid search dropdown"
+                  onChange={this.onAmPmChange}
+                >
                   <option value="">Select</option>
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
@@ -114,20 +121,26 @@ export class SignUpPhonePreferences extends Component {
               <li>This field is required for us to schedule your daily call.</li>
             </ul>
           </div>}
-        <div className="ui right floated submit button"
-          onClick={this.onClickSubmit}>
+        <div
+          className="ui right floated submit button"
+          onClick={this.onClickSubmit}
+        >
           Submit
         </div>
       </div>
-    )
+    );
   }
 
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     ...state
   }
-}
+);
+
+SignUpPhonePreferences.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps)(SignUpPhonePreferences);
