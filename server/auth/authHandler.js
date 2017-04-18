@@ -43,9 +43,12 @@ router.post('/login', (req, res) => {
   const { email, password } = req.body;
   let user;
   User.findByEmail(email)
-    .then((userFromDb) => {
-      user = userFromDb;
-      return Auth.compare(password, user.password);
+    .then((userDB) => {
+      if (userDB) {
+        user = userDB;
+        return Auth.compare(password, user.password);
+      }
+      throw new Error('Invalid user');
     })
     .then((verified) => {
       if (verified) {
