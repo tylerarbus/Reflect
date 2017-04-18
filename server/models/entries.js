@@ -18,7 +18,7 @@ module.exports.getCallIdByEntryId = entryId => (
 );
 
 module.exports.findByUserId = userId => (
-  db.manyOrNone('SELECT text, entries.entry_id, entries.created FROM entry_text INNER JOIN entries\
+  db.manyOrNone('SELECT entry_text.text, entries.entry_id, entries.created, entries.user_id FROM entry_text INNER JOIN entries\
     ON entry_text.entry_id = entries.entry_id\
     WHERE entries.user_id = $1', [userId])
 );

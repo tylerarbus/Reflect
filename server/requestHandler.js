@@ -1,7 +1,7 @@
 const Entries = require('./models/entries.js');
 
 const getEntries = (req, res) => {
-  Entries.findByUserId(1)
+  Entries.findByUserId(req.user.user_id)
   .then((results) => {
     res.status(200).send({
       entries: results
