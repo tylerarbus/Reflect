@@ -1,4 +1,4 @@
-module.exports.webpack = app => {
+module.exports.webpack = (app) => {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -9,10 +9,9 @@ module.exports.webpack = app => {
   app.use(webpackDevMiddleware(compiler, {
     publicPath: '/',
     stats: {
-      colors: true,
+      colors: true
     },
     hot: true,
-    noInfo: true,
+    noInfo: true
   }));
-
-}
+};
