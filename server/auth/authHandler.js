@@ -10,22 +10,15 @@ router.post('/signup', (req, res) => {
   // #3 verifications sent are not recorded anywhere
   // #4 what if user has been created and unvalidated,
   // then user tries to signup again with the same credentials?
-
-  const { email, firstName, lastName, password, phone } = req.body;
   let user;
 
-  // TODO: Move Auth.hash into User model otherwise User.new produces
-  // invalid password
-  Auth.hash(password)
-    .then(hashedPassword => (
-      User.new({
-        email,
-        first_name: firstName,
-        last_name: lastName,
-        password: hashedPassword,
-        phone
-      })
-    ))
+  User.new({
+    email: req.body.email,
+    first_name: req.body.firstName,
+    last_name: req.body.lastName,
+    password: req.body.password,
+    phone: req.body.phone
+  })
     .then((userFromDb) => {
       // TODO: Verify user's number
       Call.sendVerification(userFromDb.phone);
@@ -55,7 +48,6 @@ router.post('/login', (req, res) => {
       return Auth.compare(password, user.password);
     })
     .then((verified) => {
-      console.log(verified);
       if (verified) {
         return Auth.sign(user);
       }

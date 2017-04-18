@@ -1,13 +1,25 @@
 const { db } = require('../../db/config.js');
+const Auth = require('../auth/utils.js');
 
-module.exports.new = user => (
-  db.one(
-    'INSERT INTO users\
-    (email, first_name, last_name, password, phone)\
-    VALUES (${email}, ${first_name}, ${last_name}, ${password}, ${phone})\
-    RETURNING user_id, email, first_name, last_name, phone, phone_verified',
-    user)
-);
+module.exports.new = (user) => {
+  const newUser = {
+    email: user.email,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    password: user.password,
+    phone: user.phone
+  };
+  return Auth.hash(newUser.password)
+    .then((hashedPassword) => {
+      newUser.password = hashedPassword;
+      return db.one(
+        'INSERT INTO users\
+        (email, first_name, last_name, password, phone)\
+        VALUES (${email}, ${first_name}, ${last_name}, ${password}, ${phone})\
+        RETURNING user_id, email, first_name, last_name, phone, phone_verified',
+        newUser);
+    });
+};
 
 module.exports.verifyPhone = userId => (
   module.exports.update(userId, 'phone_verified', true)
