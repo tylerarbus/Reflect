@@ -1,4 +1,4 @@
-import { USER_SUBMIT_EMAIL, RECEIVE_USER_INFO } from '../actions/user_signup';
+import { USER_SUBMIT_EMAIL, RECEIVE_USER_INFO, REQUEST_USER_INFO } from '../actions/user_signup';
 import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from '../actions/login';
 import { CALLING_NOW, CALL_ERROR, CALL_SENT } from '../actions/call.js';
 
@@ -10,6 +10,7 @@ const initialState = {
   email: '',
   isLoggingIn: false,
   isCalling: false,
+  fetchingUserInfo: false,
   error: null
 };
 
@@ -20,6 +21,11 @@ export default function user(state=initialState, action) {
         ...state,
         email: action.email
       }
+    case REQUEST_USER_INFO:
+      return {
+        ...state,
+        fetchingUserInfo: action.isFetching
+      }
     case RECEIVE_USER_INFO:
       return {
         ...state,
@@ -27,6 +33,7 @@ export default function user(state=initialState, action) {
         firstName: action.firstName,
         lastName: action.lastName,
         phone: action.phone,
+        fetchingUserInfo: action.isFetching
       }
     case LOGIN_SUBMIT:
       return {

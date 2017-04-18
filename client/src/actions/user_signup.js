@@ -1,6 +1,7 @@
 // User Actions
 export const USER_SUBMIT_EMAIL = 'USER_SUBMIT_EMAIL';
 export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
+export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
 
 // SignUp Actions
 export const CREATING_USER = 'CREATING_USER';
@@ -11,6 +12,33 @@ export const PHONE_VERIFY_SUBMIT = 'PHONE_VERIFY_SUBMIT';
 export const VERIFYING_CODE = 'VERIFYING_CODE';
 export const CODE_VERIFIED = 'CODE_VERIFIED';
 export const CODE_ERROR = 'CODE_ERROR';
+
+export function fetchUserInfo(token) {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json',
+      authorization: 'Bearer ' + token
+    }
+  }
+
+  return dispatch => {
+    dispatch(requestUserInfo());
+    return fetch('/api/auth/me', config)
+      .then(response => response.json())
+      .then(responseJSON => {
+        dispatch(receiveUserInfo(responseJSON.user));
+      })
+      .catch(error => console.error(error))
+  }
+}
+
+function requestUserInfo() {
+  return {
+    type: REQUEST_USER_INFO,
+    isFetching: true
+  }
+}
 
 export function userSubmitEmail(email) {
   return {
@@ -26,6 +54,7 @@ function receiveUserInfo(userInfo) {
     firstName: userInfo.first_name,
     lastName: userInfo.last_name,
     phone: userInfo.phone,
+    isFetching: false
   }
 }
 
