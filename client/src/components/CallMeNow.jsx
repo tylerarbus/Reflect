@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { makeCall } from '../actions/actions.js';
 
 export class CallMeNow extends Component {
@@ -14,23 +15,30 @@ export class CallMeNow extends Component {
     this.props.dispatch(makeCall());
   }
 
-  render () {
+  render() {
     return (
       <div className="right floated right aligned four wide column">
-        <button id="call-now" className="huge ui button green"
-          onClick={this.onClickCall}>
+        <button
+          id="call-now"
+          className="huge ui button green"
+          onClick={this.onClickCall}
+        >
           Call Me Now
         </button>
       </div>
-    )
+    );
   }
 
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     user: state.user
   }
-}
+);
+
+CallMeNow.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps)(CallMeNow);

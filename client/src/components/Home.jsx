@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import PropTypes from 'prop-types';
 import { userSubmitEmail } from '../actions/actions.js';
 
 const bgStyle = {
@@ -28,23 +29,31 @@ export class Home extends Component {
     this.props.dispatch(push('/signup'));
   }
 
-  onEmailFieldChange(email) {
-    this.props.dispatch(userSubmitEmail(email));
+  onEmailFieldChange(e) {
+    this.props.dispatch(userSubmitEmail(e.target.value));
   }
 
   render() {
     return (
-      <div className="ui vertical mastheadcenter aligned segment"
-        style={bgStyle}>
-        <div className="ui text container"
-          style={containerStyle}>
+      <div
+        className="ui vertical mastheadcenter aligned segment"
+        style={bgStyle}
+      >
+        <div
+          className="ui text container"
+          style={containerStyle}
+        >
           <h1 className="ui inverted header">Reflective</h1>
           <h3>Get a 60 second phone call every day to record your how your day went.</h3>
-          <form className="ui form"
-            onSubmit={this.onSubmitEmail}>
+          <form
+            className="ui form"
+            onSubmit={this.onSubmitEmail}
+          >
             <div className="field">
-              <input type="email" placeholder="E-mail address" required
-                     onChange={(e) => {this.onEmailFieldChange(e.target.value)}}></input>
+              <input
+                type="email" placeholder="E-mail address" required
+                onChange={this.onEmailFieldChange}
+              />
             </div>
             <button className="ui fluid large teal submit button" type="Submit">
               Get Started
@@ -52,16 +61,19 @@ export class Home extends Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     ...state
   }
-}
+);
+
+Home.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps)(Home);
-

@@ -16,21 +16,21 @@ export class Profile extends Component {
     this.onAmPmChange = this.onAmPmChange.bind(this);
   }
 
-  onHourChange(hour) {
+  onHourChange(e) {
     this.setState({
-      hour: hour
+      hour: e.target.value
     });
   }
 
-  onMinuteChange(minute) {
+  onMinuteChange(e) {
     this.setState({
-      minute: minute
+      minute: e.target.value
     });
   }
 
-  onAmPmChange(ampm) {
+  onAmPmChange(e) {
     this.setState({
-      ampm: ampm
+      ampm: e.target.value
     });
   }
 
@@ -48,8 +48,10 @@ export class Profile extends Component {
               <label>Scheduled Call Time</label>
               <div className=" three fields">
                 <div className="two wide field">
-                  <select className="ui fluid search dropdown"
-                    onChange={(e) => {this.onHourChange(e.target.value)}}>
+                  <select
+                    className="ui fluid search dropdown"
+                    onChange={this.onHourChange}
+                  >
                     <option value="">Hour</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -67,8 +69,10 @@ export class Profile extends Component {
                 </div>
                 :
                 <div className="two wide field">
-                  <select className="ui fluid search dropdown"
-                    onChange={(e) => {this.onMinuteChange(e.target.value)}}>
+                  <select
+                    className="ui fluid search dropdown"
+                    onChange={this.onMinuteChange}
+                  >
                     <option value="">Minute</option>
                     <option value="00">00</option>
                     <option value="05">05</option>
@@ -85,8 +89,10 @@ export class Profile extends Component {
                   </select>
                 </div>
                 <div className="two wide field">
-                  <select className="ui fluid search dropdown"
-                    onChange={(e) => {this.onAmPmChange(e.target.value)}}>
+                  <select
+                    className="ui fluid search dropdown"
+                    onChange={this.onAmPmChange}
+                  >
                     <option value="">Select</option>
                     <option value="AM">AM</option>
                     <option value="PM">PM</option>
@@ -95,31 +101,35 @@ export class Profile extends Component {
               </div>
             </div>
           </form>
-          <div className="ui right floated submit button"
-            onClick={this.onClickSubmit}>
+          <div
+            className="ui right floated submit button"
+            onClick={this.onClickSubmit}
+          >
             Submit
           </div>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <h4 className="ui dividing header">Logout</h4>
           <div className="field">
             <label>Logout</label>
           </div>
-          <div className="ui right floated submit button"
-            onClick={this.onClickSubmit}>
+          <div
+            className="ui right floated submit button"
+            onClick={this.onClickSubmit}
+          >
             Logout
           </div>
         </div>
       </div>
-    )
+    );
   }
 
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = state => (
+  {
     ...state
   }
-}
+);
 
 export default connect(mapStateToProps)(Profile);
