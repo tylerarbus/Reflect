@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 let db = null;
 let EntryText = null;
 let Users = null;
@@ -12,20 +13,17 @@ beforeAll(() => {
   EntryText = require('../../server/models/entry-text.js');
   const dbConfig = require('../../db/config.js');
   db = dbConfig.db;
-})
+});
 
 afterAll(() => {
- //TODO: delete anything added during tests
-})
+  // TODO: delete anything added during tests
+});
 
 describe('EntryText table', () => {
-
   it('should have an entry_text table', (done) => {
     db.any('SELECT * FROM entry_text')
-      .then(result => {
+      .then(() => {
         done();
-      })
-  })
-
-//TODO: write more tests when DB schemas are set
-})
+      });
+  });
+});

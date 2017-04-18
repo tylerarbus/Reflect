@@ -4,7 +4,7 @@ const path = require('path');
 const EntryText = require('../models/entry-text.js');
 const Audio = require('../models/audio.js');
 
-const speechToText = new SpeechToTextV1 ({
+const speechToText = new SpeechToTextV1({
   username: process.env.SPEECH_USERNAME,
   password: process.env.SPEECH_PASSWORD
 });
@@ -12,12 +12,11 @@ const speechToText = new SpeechToTextV1 ({
 const createEntryFromText = (watsonResponse) => {
   let entry = '';
 
-  watsonResponse.results.forEach(result => {
-    entry += result.alternatives[0].transcript + '. ';
+  watsonResponse.results.forEach((result) => {
+    entry += `${result.alternatives[0].transcript}. `;
   });
-
   return entry;
-}
+};
 
 module.exports = (audioId, filePath, entryId) => {
   const params = {
@@ -29,19 +28,13 @@ module.exports = (audioId, filePath, entryId) => {
 
   speechToText.recognize(params, (err, res) => {
     if (err) {
-      console.log(err);
-    } else {
-      const entryText = createEntryFromText(res);
-
-    //TODO: figure out with Terence how we will access entryId from DB
-      return EntryText.new(entryId, entryText)
-        .then(() => {
-          Audio.update(audioId, 'is_processed', true)
-        })
+      return console.log(err);
     }
+    const entryText = createEntryFromText(res);
+    // TODO: figure out with Terence how we will access entryId from DB
+    return EntryText.new(entryId, entryText)
+      .then(() => {
+        Audio.update(audioId, 'is_processed', true);
+      });
   });
-}
-
-
-
-
+};
