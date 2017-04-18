@@ -8,6 +8,7 @@ export const SET_DISPLAY_MONTH = 'SET_DISPLAY_MONTH';
 
 // User Actions
 export const USER_SUBMIT_EMAIL = 'USER_SUBMIT_EMAIL';
+export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
 export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
 
 // SignUp Actions
@@ -52,6 +53,33 @@ export function fetchEntries() {
         dispatch(receiveEntries(responseJSON.entries, monthData))
       })
       .catch(error => console.error(error))
+  }
+}
+
+export function fetchUserInfo(token) {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json',
+      authorization: 'Bearer ' + token
+    }
+  }
+
+  return dispatch => {
+    dispatch(requestUserInfo());
+    return fetch('/api/auth/me', config)
+      .then(response => response.json())
+      .then(responseJSON => {
+        dispatch(receiveUserInfo(responseJSON.user));
+      })
+      .catch(error => console.error(error))
+  }
+}
+
+function requestUserInfo() {
+  return {
+    type: REQUEST_USER_INFO,
+    isFetching: true
   }
 }
 
@@ -111,6 +139,7 @@ function receiveUserInfo(userInfo) {
     firstName: userInfo.first_name,
     lastName: userInfo.last_name,
     phone: userInfo.phone,
+    isFetching: false
   }
 }
 

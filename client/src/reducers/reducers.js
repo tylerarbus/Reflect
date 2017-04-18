@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import trends from './trends.js';
 
-import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL, CALLING_NOW, CALL_ERROR, CALL_SENT, SET_DISPLAY_MONTH } from '../actions/actions.js';
+import { RECEIVE_ENTRIES, REQUEST_ENTRIES, USER_SUBMIT_EMAIL, CREATING_USER, SIGN_UP_ERROR, REQUEST_USER_INFO, RECEIVE_USER_INFO, USER_CREATED, ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL, CALLING_NOW, CALL_ERROR, CALL_SENT, SET_DISPLAY_MONTH } from '../actions/actions.js';
 
 function entries(state = {
   entries: [],
@@ -108,6 +108,7 @@ function user(state = {
   email: '',
   isLoggingIn: false,
   isCalling: false,
+  fetchingUserInfo: false,
   error: null
 }, action) {
   switch (action.type) {
@@ -116,6 +117,11 @@ function user(state = {
         ...state,
         email: action.email
       }
+    case REQUEST_USER_INFO:
+      return {
+        ...state,
+        fetchingUserInfo: action.isFetching
+      }
     case RECEIVE_USER_INFO:
       return {
         ...state,
@@ -123,6 +129,7 @@ function user(state = {
         firstName: action.firstName,
         lastName: action.lastName,
         phone: action.phone,
+        fetchingUserInfo: action.isFetching
       }
     case LOGIN_SUBMIT:
       return {
