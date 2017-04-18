@@ -3,6 +3,7 @@ require('dotenv').config();
 let db = null;
 let Entry = null;
 let User = null;
+let EntryText = null;
 
 const newEntry = {
   user_id: null,
@@ -14,6 +15,7 @@ beforeAll(() => {
     process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
   }
   Entry = require('../../server/models/entries.js');
+  EntryText = require('../../server/models/entry-text.js');
   User = require('../../server/models/users.js');
   const dbConfig = require('../../db/config.js');
   db = dbConfig.db;
@@ -29,20 +31,21 @@ beforeAll(() => {
     });
 });
 
-afterAll(() => {
-  User.delete(newEntry.user_id);
-});
+afterAll(() => (
+  User.delete(newEntry.user_id)
+));
 
 describe('Entries', () => {
   it('should add an entry', () => {
-    Entry.new(newEntry)
+    return Entry.new(newEntry)
       .then((result) => {
         expect(result).toBeDefined();
+        return EntryText.new(result.entry_id, 'sample text');
       });
   });
 
   it('should get an entry by call_id', () => {
-    Entry.getByCallId(newEntry.call_id)
+    return Entry.getByCallId(newEntry.call_id)
       .then((result) => {
         expect(result).toBeDefined();
         expect(result.call_id).toEqual(newEntry.call_id);
@@ -50,10 +53,10 @@ describe('Entries', () => {
   });
 
   it('should get entries by user_id', () => {
-    Entry.findByUserId(newEntry.user_id)
+    return Entry.findByUserId(newEntry.user_id)
       .then((result) => {
         expect(result).toBeDefined();
-        expect(result.user_id).toEqual(newEntry.user_id);
+        expect(result[0].user_id).toEqual(newEntry.user_id);
       });
   });
 });

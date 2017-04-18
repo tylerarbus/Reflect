@@ -1,20 +1,29 @@
 require('dotenv').config();
 
 let db = null;
-let Users = null;
+let User = null;
+
+const testUser = {
+  email: 'test@example.com',
+  first_name: 'John',
+  last_name: 'Smith',
+  password: 'password',
+  phone: '1234567890',
+  phone_verified: false
+};
 
 beforeAll(() => {
   if (process.env.IS_ON === 'development') {
     process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
   }
-  Users = require('../../server/models/users.js');
+  User = require('../../server/models/users.js');
   const dbConfig = require('../../db/config.js');
   db = dbConfig.db;
   return dbConfig.loadDb(db);
 });
 
 afterAll(() => (
-  db.one("DELETE FROM users WHERE first_name = 'John'")
+  db.one('DELETE FROM users WHERE first_name = $1', [testUser.first_name])
 ));
 
 describe('Database exists', () => {
@@ -37,36 +46,27 @@ describe('Users table', () => {
   });
 
   it('should add a new user into the table', () => {
-    const newUser = {
-      email: 'test@example.com',
-      first_name: 'John',
-      last_name: 'Smith',
-      password: 'password',
-      phone: '123-456-7890',
-      phone_verified: false
-    };
-    return Users.new(newUser)
+    return User.new(testUser)
       .then((user) => {
         expect(user.user_id).toBeDefined();
-        expect(user.email).toEqual(newUser.email);
-        expect(user.first_name).toEqual(newUser.first_name);
-        expect(user.last_name).toEqual(newUser.last_name);
-        expect(user.phone).toEqual(newUser.phone);
-        expect(user.phone_verified).toEqual(newUser.phone_verified);
+        expect(user.email).toEqual(testUser.email);
+        expect(user.first_name).toEqual(testUser.first_name);
+        expect(user.last_name).toEqual(testUser.last_name);
+        expect(user.phone).toEqual(testUser.phone);
+        expect(user.phone_verified).toEqual(testUser.phone_verified);
       });
   });
 
   it('should find newly added users', () => {
-    const email = 'test@example.com';
-    return Users.findByEmail(email)
+    return User.findByEmail(testUser.email)
       .then((user) => {
-        expect(user.first_name).toEqual('John');
-        expect(user.last_name).toEqual('Smith');
+        expect(user.first_name).toEqual(testUser.first_name);
+        expect(user.last_name).toEqual(testUser.last_name);
       });
   });
 
   it('should have a created timestamp that is defined and a modified timestamp that is undefined', () => {
-    return Users.findByPhone('123-456-7890')
+    return User.findByPhone(testUser.phone)
       .then((user) => {
         expect(user.created).toBeDefined();
         expect(user.modified).toBe(null);
@@ -75,7 +75,7 @@ describe('Users table', () => {
   });
 
   it('should change email when requested and update the modified timestamp', () => {
-    return Users.update(userId, 'email', 'test2@example.com')
+    return User.update(userId, 'email', 'test2@example.com')
       .then((user) => {
         expect(user[0].email).toBe('test2@example.com');
         expect(user[0].modified).toBeDefined();
@@ -83,9 +83,9 @@ describe('Users table', () => {
   });
 
   it('should delete a user', () => {
-    return Users.delete(userId)
+    return User.delete(userId)
       .then(() => (
-        Users.findByPhone('123-456-7890')
+        User.findByPhone(testUser.phone)
       ))
       .then((user) => {
         expect(user).toBe(null);

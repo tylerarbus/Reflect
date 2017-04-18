@@ -1,8 +1,7 @@
 const request = require('supertest');
 const app = require('../../../server/server.js').app;
-const Call = require('../../../server/calling/config.js');
 
-const recordingSample = { 
+const recordingSample = {
   sid: 'RE0448c78482ac9f0805736389cdbea64c',
   account_sid: 'AC1ef0d59f0d5d4611c7953f8bc6f660ec',
   call_sid: 'CAee9eb020ed511d453aee0f8aac8c0f8b',
@@ -21,8 +20,20 @@ const recordingSample = {
   dateCreated: '2017-04-11T16:48:38.000Z',
   apiVersion: '2010-04-01',
   dateUpdated: '2017-04-11T16:48:42.000Z',
-  priceUnit: 'USD' 
+  priceUnit: 'USD'
 };
+
+jest.mock('../../../server/calling/config.js');
+jest.mock('../../../server/auth/utils.js');
+const Call = require('../../../server/calling/config.js');
+const Auth = require('../../../server/auth/utils.js');
+
+Call.call.mockImplementation(() => (
+  Promise.resolve('callSidMock12345')
+));
+Auth.authMiddleware.mockImplementation((req, res, next) => (
+  next()
+));
 
 describe('Calling API tests', () => {
   it('/api/calling/call should respond to a POST request.', (done) => {
@@ -33,12 +44,11 @@ describe('Calling API tests', () => {
       });
   });
 
-  it('/api/calling/called should respond to a POST request for Twilio', (done) => {
+  it('/api/calling/called should respond to a POST request for Twilio', () => {
     return request(app).post('/api/calling/called')
       .expect(200)
       .then((res) => {
         expect(res.header['content-type']).toEqual('text/xml; charset=utf-8');
-        done();
       });
   });
 
