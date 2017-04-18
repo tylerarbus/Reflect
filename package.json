@@ -10,7 +10,7 @@
   "scripts": {
     "test": "npm run test:db && npm run test:client",
     "test:dev": "npm run test:db && npm run test:client && npm run test:server && npm run lint",
-    "dev": "nodemon server/server.js --ignore /client",
+    "dev": "nodemon --inspect server/server.js --ignore /client",
     "start": "node server/server.js",
     "resetdb": "psql -c 'DROP DATABASE IF EXISTS reflective;' && psql -c 'CREATE DATABASE reflective;'",
     "resetdb:test": "psql -c 'DROP DATABASE IF EXISTS reflectivetest;' && psql -c 'CREATE DATABASE reflectivetest;'",

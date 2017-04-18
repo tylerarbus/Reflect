@@ -21,7 +21,7 @@ export function receivedData(results) {
 export function fetchData(user) {
   return dispatch => {
     dispatch(fetchingData())
-    return fetch('/api/sentiment/data')
+    return fetch('/api/nlp/data')
       .then(results => {
         return results.json();
       })
