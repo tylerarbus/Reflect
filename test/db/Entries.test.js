@@ -1,9 +1,12 @@
 require('dotenv').config();
 
-let db = null;
-let Entry = null;
-let User = null;
-let EntryText = null;
+if (process.env.IS_ON === 'development') {
+  process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
+}
+const Entry = require('../../server/models/entries.js');
+const EntryText = require('../../server/models/entry-text.js');
+const User = require('../../server/models/users.js');
+const db = require('../../db/config.js').db;
 
 const newEntry = {
   user_id: null,
@@ -11,14 +14,6 @@ const newEntry = {
 };
 
 beforeAll(() => {
-  if (process.env.IS_ON === 'development') {
-    process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
-  }
-  Entry = require('../../server/models/entries.js');
-  EntryText = require('../../server/models/entry-text.js');
-  User = require('../../server/models/users.js');
-  const dbConfig = require('../../db/config.js');
-  db = dbConfig.db;
   return User.new({
     email: 'terencetmac2@gmail.com',
     first_name: 'Terence',

@@ -1,9 +1,13 @@
 require('dotenv').config();
 
-let db = null;
-let Audio = null;
+if (process.env.IS_ON === 'development') {
+  process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
+}
 
-const audio = {
+const Audio = require('../../server/models/audio.js');
+const db = require('../../db/config.js').db;
+
+const newAudio = {
   call_id: 'CAee9eb020ed511d453aee0f8aac8c0f8b',
   remote_path: '/2010-04-01/Accounts/AC1ef0d59f0d5d4611c7953f8bc6f660ec/Recordings/RE0448c78482ac9f0805736389cdbea64c.json',
   local_path: '',
@@ -13,18 +17,9 @@ const audio = {
   date_file_created: 'Tue, 11 Apr 2017 16:48:38 +0000'
 };
 
-beforeAll(() => {
-  if (process.env.IS_ON === 'development') {
-    process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
-  }
-  Audio = require('../../server/models/audio.js');
-  const dbConfig = require('../../db/config.js');
-  db = dbConfig.db;
-});
-
-afterAll(() => {
-  return db.one("DELETE FROM audio WHERE call_id = 'CAee9eb020ed511d453aee0f8aac8c0f8b'");
-});
+afterAll(() => (
+  db.one("DELETE FROM audio WHERE call_id = 'CAee9eb020ed511d453aee0f8aac8c0f8b'")
+));
 
 describe('Audio table', () => {
   let audioId = null;
@@ -37,7 +32,7 @@ describe('Audio table', () => {
   });
 
   xit('should add an audio file to the table', () => {
-    return Audio.new(audio)
+    return Audio.new(newAudio)
       .then((audioDB) => {
         expect(audioDB).toBeDefined();
       });
@@ -47,7 +42,7 @@ describe('Audio table', () => {
     return Audio.findNotProcessed()
       .then((results) => {
         expect(results).toBeDefined();
-        expect(results[0].remote_path).toEqual(audio.remote_path);
+        expect(results[0].remote_path).toEqual(newAudio.remote_path);
       });
   });
 
@@ -60,7 +55,7 @@ describe('Audio table', () => {
       .then((results) => {
         const file = results[0];
         expect(file.call_id).toEqual(audioId);
-        expect(file.remote_path).toEqual(audio.remote_path);
+        expect(file.remote_path).toEqual(newAudio.remote_path);
         expect(file.is_processed).toEqual(true);
       });
   });
@@ -74,7 +69,7 @@ describe('Audio table', () => {
   });
 
   xit('should return true if an entry exists', () => {
-    return Audio.exists(audio.call_id)
+    return Audio.exists(newAudio.call_id)
       .then((results) => {
         expect(results).toBe(true);
       });

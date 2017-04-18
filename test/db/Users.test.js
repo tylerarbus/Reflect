@@ -1,7 +1,10 @@
 require('dotenv').config();
 
-let db = null;
-let User = null;
+if (process.env.IS_ON === 'development') {
+  process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
+}
+const User = require('../../server/models/users.js');
+const db = require('../../db/config.js').db;
 
 const testUser = {
   email: 'test@example.com',
@@ -11,16 +14,6 @@ const testUser = {
   phone: '1234567890',
   phone_verified: false
 };
-
-beforeAll(() => {
-  if (process.env.IS_ON === 'development') {
-    process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
-  }
-  User = require('../../server/models/users.js');
-  const dbConfig = require('../../db/config.js');
-  db = dbConfig.db;
-  return dbConfig.loadDb(db);
-});
 
 afterAll(() => (
   db.one('DELETE FROM users WHERE first_name = $1', [testUser.first_name])
@@ -37,7 +30,7 @@ describe('Users table', () => {
 
   it('should have a users table', (done) => {
     db.any('SELECT * FROM users')
-      .then((result) => {
+      .then(() => {
         done();
       })
       .catch((error) => {
