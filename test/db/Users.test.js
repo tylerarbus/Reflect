@@ -21,20 +21,11 @@ const resetDb = () => (
 
 beforeAll(() => (
   loadDb(db)
-    .then(() => (
-      resetDb()
-    ))
 ));
 
 afterAll(() => (
   resetDb()
 ));
-
-describe('Database exists', () => {
-  it('should connect to the database', () => {
-    expect(db).toBeDefined();
-  });
-});
 
 describe('Users table', () => {
   let userId = null;

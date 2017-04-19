@@ -40,9 +40,6 @@ const testEntryNLP = {
 beforeAll((done) => (
   loadDb(db)
     .then(() => (
-      resetDb()
-    ))
-    .then(() => (
       User.new(testUser)
     ))
     .then((newUser) => (
