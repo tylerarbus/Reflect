@@ -29,12 +29,12 @@ export class Root extends React.Component {
         <div style={{ height: '100%' }}>
           <Nav />
           <ConnectedRouter history={this.props.history}>
-            <div style={{ height: 'calc(100% - 48px)' }}>
-              <Route exact path="/" component={Home} />
-              <Route path="/entries" component={App} />
-              <Route path="/signup" component={SignUp} />
-              <Route path="/trends" component={Trends} />
-              <Route path="/profile" component={Profile} />
+            <div style={{height: 'calc(100% - 52px)'}}>
+              <Route exact path='/' component={Home} />
+              <Route path='/entries' component={App} />
+              <Route path='/signup' component={SignUp} />
+              <Route path='/trends' component={Trends} />
+              <Route path='/profile' component={Profile} />
             </div>
           </ConnectedRouter>
         </div>

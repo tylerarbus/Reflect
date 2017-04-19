@@ -5,6 +5,10 @@ import SignUpAccountPage from './SignUpAccountPage.jsx';
 import SignUpPhoneVerification from './SignUpPhoneVerification.jsx';
 import SignUpPhonePreferences from './SignUpPhonePreferences.jsx';
 
+const gridStyle = {
+  marginTop: '14px'
+};
+
 export class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +17,10 @@ export class SignUp extends Component {
 
   render() {
     return (
-      <div className="ui grid">
+      <div
+        className="ui grid"
+        style={gridStyle}
+      >
         <div className="twelve wide column centered">
           <div className="ui three top attached steps">
             <div className={this.props.signUp.accountPage ? 'active step' : 'step'}>
