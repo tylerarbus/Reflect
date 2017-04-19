@@ -106,7 +106,7 @@ export class Nav extends Component {
               className="item"
               onClick={this.onClickProfile}
             >
-              Profile
+              {`${this.props.user.firstName} ${this.props.user.lastName}`}
             </a>
           </div>
         }
