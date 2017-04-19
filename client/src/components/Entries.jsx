@@ -6,6 +6,21 @@ export default class Entries extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.handleScroll = this.handleScroll.bind(this); 
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(e) {
+    //var domElement = this.refs.domElement.getDOMNode();
+    console.log('scrolling!', e.target.lastChild);
   }
 
   render() {
@@ -31,3 +46,4 @@ Entries.propTypes = {
 Entries.defaultProps = {
   entries: []
 };
+

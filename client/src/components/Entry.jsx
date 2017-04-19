@@ -4,7 +4,7 @@ import { toDateString } from '../utils.js';
 
 const Entry = ({ date, text }) => (
   <div className="ui piled container segment">
-    <h4 className="ui header">{toDateString(date)}</h4>
+    <h4 className="ui header" id="test">{toDateString(date)}</h4>
     <p>{text}</p>
   </div>
 );
