@@ -17,7 +17,7 @@ const resetDb = () => (
   db.none('TRUNCATE users RESTART IDENTITY CASCADE')
 );
 
-beforeAll(() => {
+beforeAll((done) => {
   return resetDb()
     .then(() => {
       return User.new({
@@ -30,6 +30,7 @@ beforeAll(() => {
     })
     .then((user) => {
       newEntry.user_id = user.user_id;
+      done();
     });
 });
 
