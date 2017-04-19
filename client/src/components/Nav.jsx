@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
 import { checkCredentials } from '../actions/login.js';
+import NavDropdown from './NavDropdown.jsx';
 
 const navStyle = {
   marginBottom: '0',
@@ -16,17 +17,22 @@ const logoStyle = {
   color: '#89EEB2'
 };
 
+const menuStyle = {
+  position: 'relative'
+};
+
 export class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: null,
-      password: null
+      password: null,
+      menuOpen: false
     };
 
     this.onClickHome = this.onClickHome.bind(this);
     this.onClickEntries = this.onClickEntries.bind(this);
-    this.onClickProfile = this.onClickProfile.bind(this);
+    this.onClickMenu = this.onClickMenu.bind(this);
     this.onClickLogin = this.onClickLogin.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -41,12 +47,18 @@ export class Nav extends Component {
     this.props.dispatch(push('/entries'));
   }
 
-  onClickProfile() {
-    this.props.dispatch(push('/profile'));
+  onClickMenu() {
+    this.setState({
+      menuOpen: !this.state.menuOpen
+    });
   }
 
   onClickLogin() {
-    this.props.dispatch(checkCredentials(this.state));
+    const creds = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.props.dispatch(checkCredentials(creds));
   }
 
   onChangeEmail(e) {
@@ -64,6 +76,8 @@ export class Nav extends Component {
   onClickTrends() {
     this.props.dispatch(push('/trends'));
   }
+
+
 
   render() {
     return (
@@ -113,13 +127,19 @@ export class Nav extends Component {
           </div>
         }
         { this.props.user.id &&
-          <div className="right menu">
+          <div
+            className="right menu"
+            style={menuStyle}
+          >
             <a
               className="item"
-              onClick={this.onClickProfile}
+              onClick={this.onClickMenu}
             >
               {`${this.props.user.firstName} ${this.props.user.lastName}`}
             </a>
+            { this.state.menuOpen &&
+              <NavDropdown onClickMenu={this.onClickMenu}/>
+            }
           </div>
         }
       </div>
