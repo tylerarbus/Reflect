@@ -19,7 +19,7 @@ module.exports.getEntries = (req, res) => {
 module.exports.getNLP = (req, res) => {
   EntryNLP.findByUserId(req.user.user_id)
     .then((results) => {
-      res.status(200).json(results).end();
+      res.status(200).json(results);
     })
     .catch((error) => {
       console.error(error);

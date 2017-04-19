@@ -6,7 +6,8 @@ if (process.env.IS_ON === 'development') {
 const EntryNLP = require('../../server/models/entryNLP.js');
 const Entry = require('../../server/models/entries.js');
 const User = require('../../server/models/users.js');
-const db = require('../../db/config.js').db;
+
+const { db, loadDb } = require('../../db/config.js');
 
 const resetDb = () => (
   db.none('TRUNCATE users RESTART IDENTITY CASCADE')
@@ -37,16 +38,19 @@ const testEntryNLP = {
 };
 
 beforeAll((done) => (
-  resetDb()
+  loadDb(db)
+    .then(() => (
+      resetDb()
+    ))
     .then(() => (
       User.new(testUser)
     ))
-    .then((newUser) => {
-      return Entry.new({
+    .then((newUser) => (
+      Entry.new({
         call_id: '5dsFD351234FDS',
         user_id: newUser.user_id
-      });
-    })
+      })
+    ))
     .then((newEntry) => {
       testEntryNLP.entry_id = newEntry.entry_id;
       done();
@@ -65,6 +69,7 @@ describe('Entry NLP table', () => {
       })
       .catch((error) => {
         expect(error).toBeUndefined();
+        done();
       })
   ));
 

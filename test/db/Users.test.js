@@ -4,7 +4,7 @@ if (process.env.IS_ON === 'development') {
   process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
 }
 const User = require('../../server/models/users.js');
-const db = require('../../db/config.js').db;
+const { db, loadDb } = require('../../db/config.js');
 
 const testUser = {
   email: 'test@example.com',
@@ -20,7 +20,10 @@ const resetDb = () => (
 );
 
 beforeAll(() => (
-  resetDb()
+  loadDb(db)
+    .then(() => (
+      resetDb()
+    ))
 ));
 
 afterAll(() => (
@@ -42,7 +45,7 @@ describe('Users table', () => {
         done();
       })
       .catch((error) => {
-        throw error;
+        expect(error).toBeUndefined();
       });
   });
 
