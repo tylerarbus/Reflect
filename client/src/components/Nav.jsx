@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
-import { checkCredentials } from '../actions/actions.js';
+import { checkCredentials } from '../actions/login.js';
 
 export class Nav extends Component {
   constructor(props) {

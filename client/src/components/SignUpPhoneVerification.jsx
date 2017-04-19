@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { verifyPhoneCode } from '../actions/actions.js';
+import { verifyPhoneCode } from '../actions/user_signup.js';
 
 export class SignUpPhoneVerification extends Component {
   constructor(props) {

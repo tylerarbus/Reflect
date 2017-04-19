@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createUser } from '../actions/actions.js';
+import { createUser } from '../actions/user_signup.js';
 
 export class SignUpAccountPage extends Component {
   constructor(props) {
@@ -25,8 +25,6 @@ export class SignUpAccountPage extends Component {
 
   onClickSubmit() {
     const { firstName, lastName, phone, password, passwordVerify } = this.state;
-    // this.props.dispatch(accountPageSubmit());
-    // console.log(this.state);
 
     if (firstName === null ||
       lastName === null ||

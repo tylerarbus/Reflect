@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { makeCall } from '../actions/actions.js';
+import { makeCall } from '../actions/call.js';
 
 export class CallMeNow extends Component {
   constructor(props) {

@@ -3,7 +3,7 @@ import { Provider, connect } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 
-import { fetchUserInfo } from '../actions/actions.js';
+import { fetchUserInfo } from '../actions/user_signup.js';
 import App from './App.jsx';
 import Home from './Home.jsx';
 import Nav from './Nav.jsx';
