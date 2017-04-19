@@ -37,6 +37,7 @@ describe('Users table', () => {
       })
       .catch((error) => {
         expect(error).toBeUndefined();
+        done();
       });
   });
 

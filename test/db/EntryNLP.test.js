@@ -37,7 +37,7 @@ const testEntryNLP = {
   }
 };
 
-beforeAll((done) => (
+beforeAll(() => (
   loadDb(db)
     .then(() => (
       User.new(testUser)
@@ -50,7 +50,7 @@ beforeAll((done) => (
     ))
     .then((newEntry) => {
       testEntryNLP.entry_id = newEntry.entry_id;
-      done();
+      return true;
     })
 ));
 
