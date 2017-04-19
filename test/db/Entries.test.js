@@ -13,21 +13,28 @@ const newEntry = {
   call_id: '5dsFD351234FDS'
 };
 
+const resetDb = () => (
+  db.none('TRUNCATE users RESTART IDENTITY CASCADE')
+);
+
 beforeAll(() => {
-  return User.new({
-    email: 'terencetmac2@gmail.com',
-    first_name: 'Terence',
-    last_name: 'Tham',
-    password: 'Password',
-    phone: '6505421376'
-  })
+  return resetDb()
+    .then(() => {
+      return User.new({
+        email: 'terencetmac2@gmail.com',
+        first_name: 'Terence',
+        last_name: 'Tham',
+        password: 'Password',
+        phone: '6505421376'
+      });
+    })
     .then((user) => {
       newEntry.user_id = user.user_id;
     });
 });
 
 afterAll(() => (
-  User.delete(newEntry.user_id)
+  resetDb()
 ));
 
 describe('Entries', () => {

@@ -15,8 +15,16 @@ const testUser = {
   phone_verified: false
 };
 
+const resetDb = () => (
+  db.none('TRUNCATE users RESTART IDENTITY CASCADE')
+);
+
+beforeAll(() => (
+  resetDb()
+));
+
 afterAll(() => (
-  db.one('DELETE FROM users WHERE first_name = $1', [testUser.first_name])
+  resetDb()
 ));
 
 describe('Database exists', () => {

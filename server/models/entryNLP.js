@@ -1,9 +1,5 @@
 const { db } = require('../../db/config.js');
 
-module.exports.getAll = () => (
-  db.any('SELECT * FROM entry_nlp')
-);
-
 module.exports.new = (entryId, entry) => {
   const newEntry = {
     entryId,
@@ -12,10 +8,11 @@ module.exports.new = (entryId, entry) => {
     sentiment: entry.sentiment.document.score,
     emotions: JSON.stringify(entry.emotion.document.emotion)
   };
-  return db.query(
+  return db.one(
     'INSERT INTO entry_nlp\
     (entry_id, keywords, entities, sentiment, emotions)\
-    VALUES (${entryId}, ${keywords}, ${entities}, ${sentiment}, ${emotions})',
+    VALUES (${entryId}, ${keywords}, ${entities}, ${sentiment}, ${emotions})\
+    RETURNING entry_nlp_id',
     newEntry);
 };
 
