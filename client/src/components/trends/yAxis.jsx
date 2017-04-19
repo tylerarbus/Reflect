@@ -10,8 +10,8 @@ export class YAxis extends Component {
         .ticks(3)
         .tickFormat((d) => {
           let label = 'Neutral';
-          if (d === 0.5) { return label; }
-          label = d > 0.5 ? 'More Happy' : 'Less Happy';
+          if (d === 0) { return label; }
+          label = d > 0 ? 'More Happy' : 'Less Happy';
           return label;
         });
 

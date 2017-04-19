@@ -3,8 +3,8 @@ const { db } = require('../../db/config.js');
 module.exports.new = entry => (
   db.one(
     'INSERT INTO entries\
-    (user_id, call_id)\
-    VALUES (${user_id}, ${call_id})\
+    (user_id, call_id, created)\
+    VALUES (${user_id}, ${call_id}, ${created})\
     RETURNING entry_id, user_id, call_id, created',
   entry)
 );

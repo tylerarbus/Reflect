@@ -19,9 +19,15 @@ export function receivedData(results) {
 }
 
 export function fetchData(user) {
+  const config = {
+    method: 'GET',
+    headers: {
+      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
+    }
+  };
   return dispatch => {
     dispatch(fetchingData())
-    return fetch('/api/nlp/data')
+    return fetch('/nlp', config)
       .then(results => {
         return results.json();
       })

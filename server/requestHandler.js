@@ -1,18 +1,28 @@
 const Entries = require('./models/entries.js');
+const EntryNLP = require('./models/entryNLP.js');
 
-const getEntries = (req, res) => {
+module.exports.getEntries = (req, res) => {
   Entries.findByUserId(req.user.user_id)
   .then((results) => {
-    res.status(200).send({
+    res.status(200).json({
       entries: results
-    });
+    }).end();
   })
-  .catch((err) => {
-    console.err(err);
+  .catch((error) => {
+    console.error(error);
     res.status(400).send({
       error: err
     });
   });
 };
 
-module.exports.getEntries = getEntries;
+module.exports.getNLP = (req, res) => {
+  EntryNLP.findByUserId(req.user.user_id)
+    .then((results) => {
+      res.status(200).json(results).end();
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).end();
+    })
+}

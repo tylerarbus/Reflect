@@ -8,12 +8,11 @@ const dev = require('./dev.js');
 const requestHandler = require('./requestHandler.js');
 const callingHandler = require('./calling/callingHandler.js');
 const authHandler = require('./auth/authHandler.js');
-const nlpHandler = require('./nlp/nlpHandler.js');
 const Auth = require('./auth/utils.js');
 
 const speechConvertWorker = require('./processing/speechConvertWorker.js');
 const downloadWorker = require('./processing/downloadWorker.js');
-const nlpWorker = require('./nlp/nlpWorker.js');
+const nlpWorker = require('./processing/nlpWorker.js');
 
 const app = express();
 
@@ -28,10 +27,10 @@ app.use(express.static(path.resolve(__dirname, '../client/public')));
 app.use('/calls', express.static(path.join(__dirname, '/calling/files')));
 
 app.use('/api/calling', callingHandler);
-app.use('/api/nlp', nlpHandler);
 app.use('/api/auth', authHandler);
 
 app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
+app.get('/nlp', Auth.authMiddleware, requestHandler.getNLP);
 
 app.get('*', (req, res) => {
   res.redirect('/');

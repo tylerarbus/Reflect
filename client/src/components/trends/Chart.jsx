@@ -24,7 +24,7 @@ export class Chart extends Component {
         .range([0, this.props.width]);
 
     const yScale = d3.scaleLinear()
-        .domain([0, 1])
+        .domain([-1, 1])
         .range([this.props.height, 0]);
 
     this.props.dispatchXScale(xScale);
