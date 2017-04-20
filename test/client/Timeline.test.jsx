@@ -25,21 +25,21 @@ describe('Timeline Component', () => {
     expect(timeline.exists()).toBe(true);
   });
 
-  it('should render a sidebar', () => {
+  it('should render a menu', () => {
     const { timeline } = setup();
-    expect(timeline.find('.sidebar').length).toEqual(1);
+    expect(timeline.find('.menu').length).toEqual(1);
   });
 
   it('should render each month from given props', () => {
     const { timeline } = setup();
-    const months = timeline.find('.month');
+    const months = timeline.find('.timelineMonth');
 
     expect(months.first().text()).toContain('2');
   });
 
   it('should render the number of entries in each given month', () => {
     const { timeline } = setup();
-    const months = timeline.find('.month');
+    const months = timeline.find('.timelineMonth');
 
     expect(months.first().text()).toContain('2');
   });

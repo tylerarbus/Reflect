@@ -24,6 +24,7 @@ export default class Entries extends Component {
   }
 }
 
+
 Entries.propTypes = {
   entries: PropTypes.arrayOf(PropTypes.object)
 };
@@ -31,3 +32,4 @@ Entries.propTypes = {
 Entries.defaultProps = {
   entries: []
 };
+
