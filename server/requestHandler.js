@@ -6,12 +6,12 @@ module.exports.getEntries = (req, res) => {
   .then((results) => {
     res.status(200).json({
       entries: results
-    }).end();
+    });
   })
   .catch((error) => {
     console.error(error);
     res.status(400).send({
-      error: err
+      error
     });
   });
 };
@@ -24,5 +24,5 @@ module.exports.getNLP = (req, res) => {
     .catch((error) => {
       console.error(error);
       res.status(500).end();
-    })
-}
+    });
+};
