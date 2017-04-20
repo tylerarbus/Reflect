@@ -5,7 +5,7 @@ module.exports.new = entry => (
     'INSERT INTO entries\
     (user_id, call_id)\
     VALUES (${user_id}, ${call_id})\
-    RETURNING entry_id, user_id, call_id',
+    RETURNING entry_id, user_id, call_id, created',
   entry)
 );
 
