@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux';
+
 // User Actions
 export const USER_SUBMIT_EMAIL = 'USER_SUBMIT_EMAIL';
 export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
@@ -12,6 +14,9 @@ export const PHONE_VERIFY_SUBMIT = 'PHONE_VERIFY_SUBMIT';
 export const VERIFYING_CODE = 'VERIFYING_CODE';
 export const CODE_VERIFIED = 'CODE_VERIFIED';
 export const CODE_ERROR = 'CODE_ERROR';
+export const PHONE_PREFS_SUBMIT = 'PHONE_PREFS_SUBMIT';
+export const PHONE_PREFS_SUBMITTED = 'PHONE_PREFS_SUBMITTED';
+export const PHONE_PREFS_ERROR = 'PHONE_PREFS_ERROR';
 
 export function fetchUserInfo(token) {
   const config = {
@@ -163,3 +168,54 @@ export function verifyPhoneCode(code) {
       .catch( error => { dispatch(codeError(error)) })
   }
 }
+
+function submittingPhonePrefs() {
+  return {
+    type: PHONE_PREFS_SUBMIT
+  }
+}
+
+function submittedPhonePrefs() {
+  return {
+    type: PHONE_PREFS_SUBMITTED
+  }
+}
+
+function phonePrefsError(err) {
+  return {
+    type: PHONE_PREFS_ERROR,
+    error: error
+  }
+}
+
+export function phonePrefsSubmit(prefs) {
+  let config = {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json',
+      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
+    },
+    body: JSON.stringify({
+      userId: prefs.userId,
+      timeOfDay: prefs.timeOfDay
+    })
+  };
+
+  return dispatch => {
+    dispatch(submittingPhonePrefs());
+    return fetch('/api/profile/callpreferences', config)
+      .then( response => {
+        if (response.ok) {
+          dispatch(submittedPhonePrefs());
+          dispatch(push('/entries'));
+        } else {
+          throw new Error('Error saving phone preferences.');
+        }
+      })
+      .catch( error => { dispatch(phonePrefsError(error)) });
+  }
+}
+
+
+
+
