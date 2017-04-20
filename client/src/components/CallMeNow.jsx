@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeCall } from '../actions/call.js';
 
+const buttonStyle = {
+  marginTop: '14px'
+};
+
 export class CallMeNow extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +21,10 @@ export class CallMeNow extends Component {
 
   render() {
     return (
-      <div className="right floated right aligned four wide column">
+      <div
+        className="right floated right aligned four wide column"
+        style={buttonStyle}
+      >
         <button
           id="call-now"
           className="huge ui button green"

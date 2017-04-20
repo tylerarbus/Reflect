@@ -6,6 +6,10 @@ import { fetchData, setContainerSize, setTransformedData } from '../../actions/t
 import Chart from './Chart.jsx';
 import transformData from './trends-utils';
 
+const gridStyle = {
+  marginTop: '14px'
+};
+
 export class Trends extends Component {
 
   componentDidMount() {
@@ -46,7 +50,7 @@ export class Trends extends Component {
 
   render() {
     return (
-      <div>
+      <div style={gridStyle}>
         <div className="ui container segment" ref="container">
           {this.props.transformedData && this.props.width &&
             <div>
