@@ -28,7 +28,6 @@ export class App extends Component {
   onMonthClick(month) {
     const { dispatchSetDisplayMonth } = this.props;
     dispatchSetDisplayMonth(month);
-    window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll() {
