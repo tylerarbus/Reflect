@@ -35,9 +35,9 @@ export class App extends Component {
     const { dispatchSetActiveMonth } = this.props;
     const months = document.getElementsByClassName('month');
     const monthKeys = Object.keys(months).filter(index => isInViewport(months[index]));
-    const date = new Date(months[monthKeys[0]].textContent);
-    const month = getMonth[date.getMonth()];
-    dispatchSetActiveMonth(month);
+    const topVisibleDate = new Date(months[monthKeys[0]].textContent);
+    const topVisibleMonth = getMonth[topVisibleDate.getMonth()];
+    dispatchSetActiveMonth(topVisibleMonth);
   }
 
   render() {
