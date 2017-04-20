@@ -12,7 +12,7 @@ const Timeline = ({ months, onMonthClick, active }) => {
         <div className="item header">2017</div>
         {Object.keys(months).map(month =>
           <a
-            className="item"
+            className="item timelineMonth"
             style={monthToEnglish[month] === active ? activeStyle : {}}
             key={month}
             onClick={() => onMonthClick(month)}
