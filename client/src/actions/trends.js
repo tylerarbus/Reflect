@@ -4,6 +4,7 @@ export const SET_CONTAINER_SIZE = 'SET_CONTAINER_SIZE';
 export const SET_X_SCALE = 'SET_X_SCALE';
 export const SET_Y_SCALE = 'SET_Y_SCALE';
 export const TRANSFORMED_DATA = 'TRANSFORMED_DATA';
+export const SET_CHART_VIEW = 'SET_CHART_VIEW';
 
 export function fetchingData() {
   return {
@@ -33,7 +34,7 @@ export function fetchData(user) {
       })
       .then(sentimentData => dispatch(receivedData(sentimentData)))
       .catch(error => console.log('error handling TBD', error));
-  }
+  };
 }
 
 export function setContainerSize(margin, width, height) {
@@ -42,26 +43,33 @@ export function setContainerSize(margin, width, height) {
     margin,
     width,
     height
-  }
+  };
 }
 
 export function setXScale(xScale) {
   return {
     type: 'SET_X_SCALE',
     xScale
-  }
+  };
 }
 
 export function setYScale(yScale) {
   return {
     type: 'SET_Y_SCALE',
     yScale
-  }
+  };
 }
 
 export function setTransformedData(transformedData) {
   return {
     type: 'TRANSFORMED_DATA',
     transformedData
-  }
+  };
+}
+
+export function setChartView(chartView) {
+  return {
+    type: 'SET_CHART_VIEW',
+    chartView
+  };
 }
