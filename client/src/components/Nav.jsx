@@ -78,7 +78,6 @@ export class Nav extends Component {
   }
 
 
-
   render() {
     return (
       <div id="navbar" className="ui inverted menu" style={navStyle}>
@@ -138,7 +137,7 @@ export class Nav extends Component {
               {`${this.props.user.firstName} ${this.props.user.lastName}`}
             </a>
             { this.state.menuOpen &&
-              <NavDropdown onClickMenu={this.onClickMenu}/>
+              <NavDropdown onClickMenu={this.onClickMenu} />
             }
           </div>
         }

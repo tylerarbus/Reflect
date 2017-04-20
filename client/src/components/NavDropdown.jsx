@@ -58,4 +58,9 @@ const mapStateToProps = state => (
   }
 );
 
+NavDropdown.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  onClickMenu: PropTypes.func.isRequired
+};
+
 export default connect(mapStateToProps)(NavDropdown);
