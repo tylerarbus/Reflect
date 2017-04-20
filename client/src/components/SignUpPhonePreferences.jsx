@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
+import { phonePrefsSubmit } from '../actions/user_signup.js';
 
 export class SignUpPhonePreferences extends Component {
   constructor(props) {
@@ -39,14 +40,19 @@ export class SignUpPhonePreferences extends Component {
 
   onClickSubmit() {
     console.log(this.state);
-    if (this.state.hour === null ||
-      this.state.minute === null ||
-      this.state.ampm === null) {
+    const { hour, minute, ampm } = this.state;
+    if (hour === null ||
+      minute === null ||
+      ampm === null) {
       this.setState({
         showError: true
       });
     } else {
-      this.props.dispatch(push('/entries'));
+      let prefs = {
+        userId: this.state.userId,
+        timeOfDay: `${hour}:${minute}${ampm}`
+      };
+      this.props.dispatch(phonePrefsSubmit(prefs));
     }
   }
 
