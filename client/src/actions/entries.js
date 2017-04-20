@@ -3,6 +3,7 @@ import { getMonthData } from '../utils.js';
 export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES';
 export const REQUEST_ENTRIES = 'REQUEST_ENTRIES';
 export const SET_DISPLAY_MONTH = 'SET_DISPLAY_MONTH';
+export const SET_ACTIVE_MONTH = 'SET_ACTIVE_MONTH';
 
 export function fetchEntries() {
   const config = {
@@ -46,4 +47,11 @@ export function setDisplayMonth(month) {
     type: SET_DISPLAY_MONTH,
     month: month
   }
+}
+
+export function setActiveMonth(mon) {
+  return {
+    type: SET_ACTIVE_MONTH,
+    month: mon
+  };
 }
