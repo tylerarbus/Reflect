@@ -49,7 +49,7 @@ export class SignUpPhonePreferences extends Component {
       });
     } else {
       let prefs = {
-        userId: this.state.userId,
+        userId: this.props.user.id,
         timeOfDay: `${hour}:${minute}${ampm}`
       };
       this.props.dispatch(phonePrefsSubmit(prefs));

@@ -8,7 +8,6 @@ const dev = require('./dev.js');
 const requestHandler = require('./requestHandler.js');
 const callingHandler = require('./calling/callingHandler.js');
 const authHandler = require('./auth/authHandler.js');
-const sentimentHandler = require('./sentiment/sentimentHandler.js');
 const profileHandler = require('./profile/profileHandler.js');
 
 const Auth = require('./auth/utils.js');

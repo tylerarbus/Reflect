@@ -195,10 +195,7 @@ export function phonePrefsSubmit(prefs) {
       'Content-Type':'application/json',
       authorization: 'Bearer ' + localStorage.getItem('reflective_token')
     },
-    body: JSON.stringify({
-      userId: prefs.userId,
-      timeOfDay: prefs.timeOfDay
-    })
+    body: JSON.stringify(prefs)
   };
 
   return dispatch => {
