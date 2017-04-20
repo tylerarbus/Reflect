@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Entry from './Entry.jsx';
-import { setActiveMonth } from '../actions/entries.js';
-import { isInViewport, toFullMonth, getMonth } from '../utils.js';
 
 export default class Entries extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-
   }
 
   render() {

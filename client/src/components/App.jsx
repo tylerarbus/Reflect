@@ -75,15 +75,18 @@ const mapDispatchToProps = dispatch => (
 App.propTypes = {
   dispatchGetEntries: PropTypes.func.isRequired,
   dispatchSetDisplayMonth: PropTypes.func.isRequired,
+  dispatchSetActiveMonth: PropTypes.func.isRequired,
   userId: PropTypes.number,
   entries: PropTypes.arrayOf(PropTypes.object),
-  months: PropTypes.objectOf(PropTypes.array)
+  months: PropTypes.objectOf(PropTypes.array),
+  activeMonth: PropTypes.string
 };
 
 App.defaultProps = {
   userId: null,
   entries: [],
-  months: {}
+  months: {},
+  activeMonth: ''
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
