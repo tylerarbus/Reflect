@@ -48,7 +48,6 @@ router.post('/called', (req, res) => {
 
 router.post('/callstatus', (req, res) => {
   const { CallSid, CallStatus, CallDuration } = req.body;
-  console.log(req.body);
   CallLog.update(CallSid, CallStatus, CallDuration)
     .then(() => {
       res.status(200).send('<Response />');
