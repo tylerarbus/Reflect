@@ -5,7 +5,7 @@ import { fetchEntries, setDisplayMonth, setActiveMonth } from '../actions/entrie
 import Entries from './Entries.jsx';
 import Timeline from './Timeline.jsx';
 import CallMeNow from './CallMeNow.jsx';
-import { isInViewport, getMonth } from '../utils.js';
+import { isInViewport, toMonthName } from '../utils.js';
 
 export class App extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ export class App extends Component {
     const months = document.getElementsByClassName('month');
     const monthKeys = Object.keys(months).filter(index => isInViewport(months[index]));
     const topVisibleDate = new Date(months[monthKeys[0]].textContent);
-    const topVisibleMonth = getMonth[topVisibleDate.getMonth()];
+    const topVisibleMonth = toMonthName[topVisibleDate.getMonth()];
     dispatchSetActiveMonth(topVisibleMonth);
   }
 
