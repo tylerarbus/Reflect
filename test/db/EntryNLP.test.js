@@ -3,6 +3,7 @@ require('dotenv').config();
 if (process.env.IS_ON === 'development') {
   process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
 }
+
 const EntryNLP = require('../../server/models/entryNLP.js');
 const Entry = require('../../server/models/entries.js');
 const User = require('../../server/models/users.js');
@@ -37,36 +38,35 @@ const testEntryNLP = {
   }
 };
 
-beforeAll(() => (
-  loadDb(db)
-    .then(() => (
-      User.new(testUser)
-    ))
-    .then((newUser) => (
-      Entry.new({
+beforeAll((done) => {
+  return loadDb(db)
+    .then(() => {
+      return User.new(testUser);
+    })
+    .then((newUser) => {
+      return Entry.new({
         call_id: '5dsFD351234FDS',
         user_id: newUser.user_id
-      })
-    ))
+      });
+    })
     .then((newEntry) => {
       testEntryNLP.entry_id = newEntry.entry_id;
-      return true;
-    })
-));
+      done();
+    });
+});
 
 afterAll(() => (
   resetDb()
 ));
 
 describe('Entry NLP table', () => {
-  it('should have an Entry NLP table', done => (
+  it('should have an Entry NLP table', () => (
     db.any('SELECT * FROM entry_nlp')
-      .then(() => {
-        done();
+      .then((result) => {
+        expect(result).toBeDefined();
       })
       .catch((error) => {
         expect(error).toBeUndefined();
-        done();
       })
   ));
 
