@@ -11,3 +11,4 @@ module.exports.new = (userId, timeOfDay) => (
 module.exports.getAllByHour = (hour, min) => (
   db.manyOrNone('SELECT * FROM call_preferences WHERE (left(time_of_day, 2) = $1 and right(time_of_day, 2) = $2)', [hour, min])
 );
+
