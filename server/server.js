@@ -8,6 +8,9 @@ const dev = require('./dev.js');
 const requestHandler = require('./requestHandler.js');
 const callingHandler = require('./calling/callingHandler.js');
 const authHandler = require('./auth/authHandler.js');
+const sentimentHandler = require('./sentiment/sentimentHandler.js');
+const profileHandler = require('./profile/profileHandler.js');
+
 const Auth = require('./auth/utils.js');
 
 const Queue = require('./queue.js');
@@ -34,6 +37,9 @@ app.get('/queue', (req, res) => {
 
 app.use('/api/calling', callingHandler);
 app.use('/api/auth', authHandler);
+app.use('/api/profile', profileHandler);
+
+app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
 app.get('/nlp', Auth.authMiddleware, requestHandler.getNLP);
 app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
 
