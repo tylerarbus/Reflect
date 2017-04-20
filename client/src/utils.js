@@ -1,6 +1,4 @@
 export function getMonthData(entries) {
-  //input: array of entries
-  //output: [{January: [id, id]}]
   const months = {};
 
   entries.forEach(entry => {

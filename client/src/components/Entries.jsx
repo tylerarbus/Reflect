@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Entry from './Entry.jsx';
+import { setActiveMonth } from '../actions/entries.js';
+import { isInViewport, toFullMonth, getMonth } from '../utils.js';
 
 export default class Entries extends Component {
   constructor(props) {
     super(props);
     this.state = {};
 
-    this.handleScroll = this.handleScroll.bind(this); 
-  }
-
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll(e) {
-    //var domElement = this.refs.domElement.getDOMNode();
-    console.log('scrolling!', e.target.lastChild);
   }
 
   render() {
@@ -38,6 +27,7 @@ export default class Entries extends Component {
     );
   }
 }
+
 
 Entries.propTypes = {
   entries: PropTypes.arrayOf(PropTypes.object)
