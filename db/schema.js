@@ -22,7 +22,7 @@ module.exports = (db) => (
   .then(() => (
     db.query('CREATE TABLE IF NOT EXISTS audio(\
       audio_id SERIAL PRIMARY KEY,\
-      entry_id INT NOT NULL REFERENCES entries,\
+      entry_id INT NOT NULL REFERENCES entries ON DELETE CASCADE,\
       remote_path VARCHAR(150) NOT NULL,\
       local_path VARCHAR(150),\
       is_processed BOOLEAN DEFAULT false,\
@@ -38,15 +38,19 @@ module.exports = (db) => (
       entry_text_id SERIAL PRIMARY KEY,\
       entry_id INT NOT NULL REFERENCES entries ON DELETE CASCADE,\
       text TEXT,\
+      is_analyzed BOOLEAN DEFAULT false,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );')
   ))
   .then(() => (
-    // entry_id INT NOT NULL REFERENCES entries,\
-    db.query('CREATE TABLE IF NOT EXISTS sentiment(\
-      sentiment_id SERIAL PRIMARY KEY,\
-      value REAL,\
+    db.query('CREATE TABLE IF NOT EXISTS entry_nlp(\
+      entry_nlp_id SERIAL PRIMARY KEY,\
+      entry_id INT NOT NULL REFERENCES entries ON DELETE CASCADE,\
+      keywords JSONB,\
+      entities JSONB,\
+      sentiment REAL,\
+      emotions JSONB,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );')
@@ -73,7 +77,7 @@ module.exports = (db) => (
     db.query('DROP TRIGGER IF EXISTS update_entry_text_changetimestamp ON entry_text')
   ))
   .then(() => (
-    db.query('DROP TRIGGER IF EXISTS update_sentiment_changetimestamp ON sentiment')
+    db.query('DROP TRIGGER IF EXISTS update_entry_nlp_changetimestamp ON entry_nlp')
   ))
   .then(() => (
     db.query('CREATE TRIGGER update_users_changetimestamp BEFORE UPDATE\
@@ -96,8 +100,8 @@ module.exports = (db) => (
       update_modified_column();')
   ))
   .then(() => (
-    db.query('CREATE TRIGGER update_sentiment_changetimestamp BEFORE UPDATE\
-      ON sentiment FOR EACH ROW EXECUTE PROCEDURE \
+    db.query('CREATE TRIGGER update_entry_nlp_changetimestamp BEFORE UPDATE\
+      ON entry_nlp FOR EACH ROW EXECUTE PROCEDURE \
       update_modified_column();')
   ))
 );

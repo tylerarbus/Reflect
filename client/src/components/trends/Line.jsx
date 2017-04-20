@@ -13,7 +13,7 @@ export class Line extends Component {
         .x(d => {
           return this.props.trends.xScale(d.day);
         })
-        .y(d => { return this.props.trends.yScale(d.value); })
+        .y(d => { return this.props.trends.yScale(d.sentiment); })
         .curve(d3.curveBasis);
 
     const path = d3.select(".line")
@@ -35,7 +35,7 @@ export class Line extends Component {
         .x(d => {
           return nextProps.trends.xScale(d.day);
         })
-        .y(d => { return nextProps.trends.yScale(d.value); })
+        .y(d => { return nextProps.trends.yScale(d.sentiment); })
         .curve(d3.curveBasis);
 
     const path = d3.select(".line")

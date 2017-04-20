@@ -10,17 +10,17 @@
   "scripts": {
     "test": "npm run test:db && npm run test:client",
     "test:dev": "npm run test:db && npm run test:client && npm run test:server && npm run lint",
-    "dev": "nodemon server/server.js --ignore /client",
+    "dev": "nodemon --inspect server/server.js --ignore /client",
     "start": "node server/server.js",
     "resetdb": "psql -c 'DROP DATABASE IF EXISTS reflective;' && psql -c 'CREATE DATABASE reflective;'",
     "resetdb:test": "psql -c 'DROP DATABASE IF EXISTS reflectivetest;' && psql -c 'CREATE DATABASE reflectivetest;'",
-    "loadDummyData": "node db/dummyData.js",
+    "loaddummydata": "node db/dummyData.js",
     "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "lint": "eslint client server",
     "jest": "jest",
     "test:server": "jest --forceExit --config test/jest.node.json test/server",
     "test:client": "jest --forceExit --config test/jest.json test/client",
-    "test:db": "jest --forceExit --config test/jest.node.json test/db"
+    "test:db": "jest --runInBand --forceExit --config test/jest.node.json test/db"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
@@ -51,6 +51,7 @@
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
     "request": "^2.81.0",
+    "request-promise-native": "^1.0.3",
     "twilio": "^2.11.1",
     "watson-developer-cloud": "^2.28.1",
     "webpack": "^2.3.3",

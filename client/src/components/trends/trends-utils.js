@@ -2,7 +2,7 @@ export default function transformData(rawData) {
   let transformedData = [];
   for (let i = 0; i < 7; i += 1) {
     transformedData.push({
-      value: 0,
+      sentiment: 0,
       day: i,
       counter: 0
     });
@@ -10,16 +10,16 @@ export default function transformData(rawData) {
 
   rawData.forEach((entry) => {
     const entryDay = new Date(entry.created).getDay();
-    transformedData[entryDay].value += entry.value;
+    transformedData[entryDay].sentiment += entry.sentiment;
     transformedData[entryDay].counter += 1;
   });
 
   transformedData = transformedData.map((entry) => {
     const newEntry = entry;
     if (entry.counter === 0) {
-      newEntry.value = 0.5;
+      newEntry.sentiment = 0;
     } else {
-      newEntry.value /= entry.counter;
+      newEntry.sentiment /= entry.counter;
     }
     return newEntry;
   });

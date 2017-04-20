@@ -4,8 +4,17 @@ if (process.env.IS_ON === 'development') {
   process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
 }
 
+const { db, loadDb } = require('../../db/config.js');
+
 const Audio = require('../../server/models/audio.js');
-const db = require('../../db/config.js').db;
+
+beforeAll(() => (
+  loadDb(db)
+))
+
+afterAll(() => (
+  db.one("DELETE FROM audio WHERE call_id = 'CAee9eb020ed511d453aee0f8aac8c0f8b'")
+));
 
 const newAudio = {
   call_id: 'CAee9eb020ed511d453aee0f8aac8c0f8b',
@@ -16,10 +25,6 @@ const newAudio = {
   recording_id: 'RE0448c78482ac9f0805736389cdbea64c',
   date_file_created: 'Tue, 11 Apr 2017 16:48:38 +0000'
 };
-
-afterAll(() => (
-  db.one("DELETE FROM audio WHERE call_id = 'CAee9eb020ed511d453aee0f8aac8c0f8b'")
-));
 
 describe('Audio table', () => {
   let audioId = null;

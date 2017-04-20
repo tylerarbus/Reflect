@@ -3,31 +3,43 @@ require('dotenv').config();
 if (process.env.IS_ON === 'development') {
   process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
 }
+const { db, loadDb } = require('../../db/config.js');
+
 const Entry = require('../../server/models/entries.js');
 const EntryText = require('../../server/models/entry-text.js');
 const User = require('../../server/models/users.js');
-const db = require('../../db/config.js').db;
 
 const newEntry = {
   user_id: null,
   call_id: '5dsFD351234FDS'
 };
 
-beforeAll(() => {
-  return User.new({
-    email: 'terencetmac2@gmail.com',
-    first_name: 'Terence',
-    last_name: 'Tham',
-    password: 'Password',
-    phone: '6505421376'
-  })
+const resetDb = () => (
+  db.none('TRUNCATE users RESTART IDENTITY CASCADE')
+);
+
+beforeAll((done) => {
+  return loadDb(db)
+    .then(() => {
+      return resetDb();
+    })
+    .then(() => {
+      return User.new({
+        email: 'terencetmac2@gmail.com',
+        first_name: 'Terence',
+        last_name: 'Tham',
+        password: 'Password',
+        phone: '6505421376'
+      });
+    })
     .then((user) => {
       newEntry.user_id = user.user_id;
+      done();
     });
 });
 
 afterAll(() => (
-  User.delete(newEntry.user_id)
+  resetDb()
 ));
 
 describe('Entries', () => {

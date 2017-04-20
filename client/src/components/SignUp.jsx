@@ -27,7 +27,7 @@ export class SignUp extends Component {
               <i className="checkmark icon" />
               <div className="content">
                 <div className="title">Phone Verification</div>
-                <div className="description">Verifiy Phone Number</div>
+                <div className="description">Verify Phone Number</div>
               </div>
             </div>
             <div className={this.props.signUp.phonePreferencesPage ? 'active step' : 'step'}>

@@ -9,7 +9,7 @@ export class Area extends Component {
     const area = d3.area()
         .x(d => (this.props.xScale(d.day)))
         .y0(this.props.height)
-        .y1(d => (this.props.yScale(d.value)))
+        .y1(d => (this.props.yScale(d.sentiment)))
         .curve(d3.curveBasis);
 
     d3.select('linearGradient')
@@ -42,7 +42,7 @@ export class Area extends Component {
     const area = d3.area()
         .x(d => (nextProps.xScale(d.day)))
         .y0(nextProps.height)
-        .y1(d => (nextProps.yScale(d.value)))
+        .y1(d => (nextProps.yScale(d.sentiment)))
         .curve(d3.curveBasis);
 
     d3.select('.area')
