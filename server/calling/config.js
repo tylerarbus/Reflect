@@ -1,6 +1,7 @@
 const twilio = require('twilio');
 const fetch = require('isomorphic-fetch');
 const Entry = require('../models/entries.js');
+const CallLog = require('../models/call-logs.js');
 
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -47,7 +48,10 @@ module.exports = {
         url: twilioUrl,
         from: process.env.TWILIO_FROM,
         to: user.phone,
-        method: 'GET'
+        method: 'GET',
+        statusCallback: `${process.env.TWILIO_XML_URL}/api/calling/callstatus`,
+        statusCallbackMethod: 'POST',
+        statusCallbackEvent: ['initiated', 'ringing', 'answered', 'completed']
       }, (err, call) => {
         if (err) {
           reject(err);
@@ -56,8 +60,22 @@ module.exports = {
           Entry.new({
             user_id: user.user_id,
             call_id: call.sid
-          });
-          resolve(call.sid);
+          })
+            .then(() => (
+              CallLog.new({
+                user_id: user.user_id,
+                call_sid: call.sid,
+                phone: call.to.substr(2),
+                type: user.type ? user.type : 'initiated_call',
+                status: call.status
+              })
+            ))
+            .then(() => (
+              resolve(call.sid)
+            ))
+            .catch((error) => {
+              console.error(error);
+            });
         }
       });
     });

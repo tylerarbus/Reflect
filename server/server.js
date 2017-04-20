@@ -10,9 +10,14 @@ const callingHandler = require('./calling/callingHandler.js');
 const authHandler = require('./auth/authHandler.js');
 const Auth = require('./auth/utils.js');
 
+const Queue = require('./queue.js');
 const speechConvertWorker = require('./processing/speechConvertWorker.js');
 const downloadWorker = require('./processing/downloadWorker.js');
+<<<<<<< HEAD
 const nlpWorker = require('./processing/nlpWorker.js');
+=======
+const scheduledCallsWorker = require('./processing/scheduledCallsWorker.js');
+>>>>>>> Add Scheduled Calls feature.
 
 const app = express();
 
@@ -25,6 +30,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, '../client/public')));
 app.use('/calls', express.static(path.join(__dirname, '/calling/files')));
+
+app.get('/queue', (req, res) => {
+  Queue.clearQueue();
+});
 
 app.use('/api/calling', callingHandler);
 app.use('/api/auth', authHandler);
@@ -44,9 +53,16 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
+<<<<<<< HEAD
 speechConvertWorker.start();
 downloadWorker.getFileDetails.start();
 downloadWorker.downloadFiles.start();
 nlpWorker.start();
+=======
+// speechConvertWorker.start();
+// downloadWorker.getFileDetails.start();
+// downloadWorker.downloadFiles.start();
+scheduledCallsWorker.start();
+>>>>>>> Add Scheduled Calls feature.
 
 module.exports = { app };
