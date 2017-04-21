@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchData, setContainerSize } from '../../actions/trends.js';
-import ChartContainer from './ChartContainer.jsx';
+import ChartContainer from './chart/ChartContainer.jsx';
 
 const gridStyle = {
   marginTop: '14px'
