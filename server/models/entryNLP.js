@@ -17,7 +17,7 @@ module.exports.new = (entryId, entry) => {
 };
 
 module.exports.findByUserId = userId => (
-  db.manyOrNone('SELECT * FROM entry_nlp INNER JOIN entries\
+  db.manyOrNone('SELECT entry_nlp.*, entries.created FROM entry_nlp INNER JOIN entries\
     ON entries.user_id = $1 AND entries.entry_id = entry_nlp.entry_id',
     [userId])
 );

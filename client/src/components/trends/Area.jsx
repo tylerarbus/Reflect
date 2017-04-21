@@ -39,18 +39,19 @@ export class Area extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const area = d3.area()
-        .x(d => (nextProps.xScale(d.day)))
-        .y0(nextProps.height)
-        .y1(d => (nextProps.yScale(d.sentiment)))
-        .curve(d3.curveBasis);
+    if (this.props.transformedData !== nextProps.transformedData) {
+      const area = d3.area()
+          .x(d => (nextProps.xScale(d.day)))
+          .y0(nextProps.height)
+          .y1(d => (nextProps.yScale(d.sentiment)))
+          .curve(d3.curveBasis);
 
-    d3.select('.area')
-        .data([nextProps.transformedData])
-        .transition()
-        .duration(750)
-        .attr('class', 'area')
-        .attr('d', area);
+      d3.select('.area')
+          .data([nextProps.transformedData])
+          .transition()
+          .duration(750)
+          .attr('d', area);
+    }
   }
 
   shouldComponentUpdate() {

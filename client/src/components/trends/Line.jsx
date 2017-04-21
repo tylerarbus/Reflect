@@ -24,20 +24,23 @@ export class Line extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const line = d3.line()
-        .x(d => (
-          nextProps.xScale(d.day)
-        ))
-        .y(d => (
-          nextProps.yScale(d.sentiment)
-        ))
-        .curve(d3.curveBasis);
+    if (this.props.transformedData !== nextProps.transformedData) {
+      const line = d3.line()
+          .x(d => (
+            nextProps.xScale(d.day)
+          ))
+          .y(d => (
+            nextProps.yScale(d.sentiment)
+          ))
+          .curve(d3.curveBasis);
 
-    d3.select('.line')
-        .transition()
-        .duration(750)
-        .attr('d', line(nextProps.transformedData));
+      d3.select('.line')
+          .transition()
+          .duration(750)
+          .attr('d', line(nextProps.transformedData));
+    }
   }
+
 
   shouldComponentUpdate() {
     return false;

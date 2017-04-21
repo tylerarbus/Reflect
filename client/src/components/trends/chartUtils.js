@@ -1,6 +1,11 @@
 import * as d3 from 'd3';
 
-export function transformData(rawData) {
+const numDaysBetween = (d1, d2) => {
+  const diff = Math.abs(d1.getTime() - d2.getTime());
+  return diff / (1000 * 60 * 60 * 24);
+};
+
+export function transformWeekView(rawData) {
   let transformedData = [];
   for (let i = 0; i < 7; i += 1) {
     transformedData.push({
@@ -28,11 +33,7 @@ export function transformData(rawData) {
   return transformedData;
 }
 
-export function filterData(filter, rawData) {
-  const numDaysBetween = (d1, d2) => {
-    const diff = Math.abs(d1.getTime() - d2.getTime());
-    return diff / (1000 * 60 * 60 * 24);
-  };
+export function filterWeekView(filter, rawData) {
   const today = new Date();
   const filteredData = rawData.filter((entry) => {
     const entryDate = new Date(entry.created);
@@ -44,6 +45,33 @@ export function filterData(filter, rawData) {
     return true;
   });
   return filteredData;
+}
+
+export function transformMonthView(rawData, filter) {
+  const month = parseInt(filter.split(',')[0], 10);
+  const year = parseInt(filter.split(',')[1], 10);
+  const daysInMonth = Math.floor(numDaysBetween(new Date(year, month), new Date(year, month + 1)));
+  const arrayOfDays = [];
+  for (let i = 1; i <= daysInMonth; i += 1) {
+    arrayOfDays.push({
+      day: i,
+      sentiment: 0
+    });
+  }
+  rawData.forEach((entry) => {
+    const entryDay = new Date(entry.created).getDate();
+    arrayOfDays[entryDay - 1].sentiment = entry.sentiment;
+  });
+  return arrayOfDays;
+}
+
+export function filterMonthView(filter, rawData) {
+  const filterSplit = filter.split(',');
+  return rawData.filter((entry) => {
+    const entryDate = new Date(entry.created);
+    return entryDate.getMonth().toString() === filterSplit[0] &&
+      entryDate.getFullYear().toString() === filterSplit[1];
+  });
 }
 
 export function generateArrayOfMonths(rawData) {
@@ -60,7 +88,7 @@ export function generateArrayOfMonths(rawData) {
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear().toString();
 
-  Object.keys(months).sort().reverse().forEach((year) => {
+  Object.keys(months).sort().forEach((year) => {
     months[year].forEach((val, month) => {
       let formatted;
       if (year === currentYear && month === currentMonth) {
@@ -68,7 +96,7 @@ export function generateArrayOfMonths(rawData) {
       } else {
         formatted = parseTime(new Date(year, month));
       }
-      formattedMonths.push([formatted, [month, year]]);
+      formattedMonths.unshift([formatted, [month, year]]);
     });
   });
   return formattedMonths;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchData, setContainerSize } from '../../actions/trends.js';
-import Chart from './Chart.jsx';
+import ChartContainer from './ChartContainer.jsx';
 
 const gridStyle = {
   marginTop: '14px'
@@ -26,7 +26,7 @@ export class Trends extends Component {
       <div style={gridStyle}>
         <div className="ui container segment" ref="container">
           {this.props.rawData && this.props.width &&
-            <Chart />
+            <ChartContainer />
           }
         </div>
       </div>
