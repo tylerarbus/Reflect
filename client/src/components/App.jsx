@@ -32,20 +32,20 @@ export class App extends Component {
 
   handleScroll() {
     const { dispatchSetActiveMonth } = this.props;
-    const months = document.getElementsByClassName('month');
-    const monthKeys = Object.keys(months).filter(index => isInViewport(months[index]));
-    const topVisibleDate = new Date(months[monthKeys[0]].textContent);
-    const topVisibleMonth = toMonthName[topVisibleDate.getMonth()];
+    const dates = document.getElementsByClassName('date');
+    const dateKeys = Object.keys(dates).filter(index => isInViewport(dates[index]));
+    const topVisibleDate = new Date(dates[dateKeys[0]].textContent);
+    const topVisibleMonth = `${topVisibleDate.getFullYear()}${toMonthName[topVisibleDate.getMonth()]}`
     dispatchSetActiveMonth(topVisibleMonth);
   }
 
   render() {
-    const { entries, months, activeMonth } = this.props;
+    const { entries, byDate, activeMonth } = this.props;
 
     return (
       <div>
         <div className="ui three column grid container">
-          <Timeline months={months} onMonthClick={this.onMonthClick} active={activeMonth} />
+          <Timeline byDate={byDate} onMonthClick={this.onMonthClick} active={activeMonth} />
           <Entries entries={entries} />
           <CallMeNow />
         </div>
@@ -58,7 +58,7 @@ const mapStateToProps = state => (
   {
     userId: state.user.id,
     entries: state.entries.displayedEntries,
-    months: state.entries.months,
+    byDate: state.entries.byDate,
     activeMonth: state.entries.activeMonth
   }
 );
