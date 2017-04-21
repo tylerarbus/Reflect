@@ -1,6 +1,8 @@
 const kue = require('kue');
 
-const q = kue.createQueue();
+const q = kue.createQueue({
+  redis: process.env.REDIS_URL
+});
 
 q.on('job enqueue', (id, type) => {
   console.log('Job enqueued: ', id, type);
