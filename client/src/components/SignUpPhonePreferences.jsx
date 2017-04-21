@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
+import { phonePrefsSubmit } from '../actions/user_signup.js';
 
 export class SignUpPhonePreferences extends Component {
   constructor(props) {
@@ -39,14 +40,19 @@ export class SignUpPhonePreferences extends Component {
 
   onClickSubmit() {
     console.log(this.state);
-    if (this.state.hour === null ||
-      this.state.minute === null ||
-      this.state.ampm === null) {
+    const { hour, minute, ampm } = this.state;
+    if (hour === null ||
+      minute === null ||
+      ampm === null) {
       this.setState({
         showError: true
       });
     } else {
-      this.props.dispatch(push('/entries'));
+      let prefs = {
+        userId: this.props.user.id,
+        timeOfDay: `${hour}:${minute}${ampm}`
+      };
+      this.props.dispatch(phonePrefsSubmit(prefs));
     }
   }
 
@@ -86,17 +92,9 @@ export class SignUpPhonePreferences extends Component {
                 >
                   <option value="">Minute</option>
                   <option value="00">00</option>
-                  <option value="05">05</option>
-                  <option value="10">10</option>
                   <option value="15">15</option>
-                  <option value="20">20</option>
-                  <option value="25">25</option>
                   <option value="30">30</option>
-                  <option value="35">35</option>
-                  <option value="40">40</option>
                   <option value="45">45</option>
-                  <option value="50">50</option>
-                  <option value="55">55</option>
                 </select>
               </div>
               <div className="two wide field">

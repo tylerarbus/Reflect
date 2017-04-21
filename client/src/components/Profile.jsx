@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { phonePrefsUpdate } from '../actions/user_signup.js';
 
 const gridStyle = {
   marginTop: '14px'
@@ -11,10 +12,12 @@ export class Profile extends Component {
     this.state = {
       hour: null,
       minute: null,
-      ampm: null
+      ampm: null,
+      showError: false
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.onClickLogout = this.onClickLogout.bind(this);
     this.onHourChange = this.onHourChange.bind(this);
     this.onMinuteChange = this.onMinuteChange.bind(this);
     this.onAmPmChange = this.onAmPmChange.bind(this);
@@ -39,8 +42,26 @@ export class Profile extends Component {
   }
 
   onClickSubmit() {
-    console.log(this.state);
+    const { hour, minute, ampm } = this.state;
+    if (hour === null ||
+      minute === null ||
+      ampm === null) {
+      this.setState({
+        showError: true
+      });
+    } else {
+      const prefs = {
+        userId: this.props.user.id,
+        timeOfDay: `${hour}:${minute}${ampm}`
+      };
+      this.props.dispatch(phonePrefsUpdate(prefs));
+      this.setState({
+        showError: false
+      });
+    }
   }
+
+  onClickLogout() {}
 
   render() {
     return (
@@ -82,17 +103,9 @@ export class Profile extends Component {
                   >
                     <option value="">Minute</option>
                     <option value="00">00</option>
-                    <option value="05">05</option>
-                    <option value="10">10</option>
                     <option value="15">15</option>
-                    <option value="20">20</option>
-                    <option value="25">25</option>
                     <option value="30">30</option>
-                    <option value="35">35</option>
-                    <option value="40">40</option>
                     <option value="45">45</option>
-                    <option value="50">50</option>
-                    <option value="55">55</option>
                   </select>
                 </div>
                 <div className="two wide field">
@@ -108,6 +121,15 @@ export class Profile extends Component {
               </div>
             </div>
           </form>
+          {this.state.showError &&
+          <div className="ui error message">
+            <div className="header">
+              There were some errors with your submission
+            </div>
+            <ul className="list">
+              <li>All fields must be completed to update call time.</li>
+            </ul>
+          </div>}
           <div
             className="ui right floated submit button"
             onClick={this.onClickSubmit}
@@ -122,7 +144,7 @@ export class Profile extends Component {
           </div>
           <div
             className="ui right floated submit button"
-            onClick={this.onClickSubmit}
+            onClick={this.onClickLogout}
           >
             Logout
           </div>
