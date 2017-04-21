@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchData, setContainerSize, setTransformedData } from '../../actions/trends.js';
-import Chart from './Chart.jsx';
-import transformData from './trends-utils';
+import { fetchData, setContainerSize } from '../../actions/trends.js';
+import ChartContainer from './chart/ChartContainer.jsx';
 
 const gridStyle = {
   marginTop: '14px'
@@ -22,48 +21,12 @@ export class Trends extends Component {
     this.props.dispatchContainerSize(margin, width, height);
   }
 
-  componentDidUpdate() {
-    if (this.props.rawData && !this.props.transformedData) {
-      const transformedData = transformData(this.props.rawData);
-      this.props.dispatchTransformedData(transformedData);
-    }
-  }
-
-  filterChart(value) {
-    const numDaysBetween = (d1, d2) => {
-      const diff = Math.abs(d1.getTime() - d2.getTime());
-      return diff / (1000 * 60 * 60 * 24);
-    };
-    const today = new Date();
-    const filteredData = this.props.rawData.filter((entry) => {
-      const entryDate = new Date(entry.created);
-      if (value === '1') {
-        return numDaysBetween(today, entryDate) <= 7;
-      } else if (value === '2') {
-        return numDaysBetween(today, entryDate) <= 30;
-      }
-      return true;
-    });
-
-    this.props.dispatchTransformedData(transformData(filteredData));
-  }
-
   render() {
     return (
       <div style={gridStyle}>
         <div className="ui container segment" ref="container">
-          {this.props.transformedData && this.props.width &&
-            <div>
-              <select
-                className="ui fluid search dropdown" style={{ width: '200px' }}
-                onChange={(e) => { this.filterChart(e.target.value); }}
-              >
-                <option className="item" value="0">All History</option>
-                <option className="item" value="1">Last Week</option>
-                <option className="item" value="2">Last Month</option>
-              </select>
-              <Chart />
-            </div>
+          {this.props.rawData && this.props.width &&
+            <ChartContainer />
           }
         </div>
       </div>
@@ -74,7 +37,6 @@ export class Trends extends Component {
 const mapStateToProps = state => (
   {
     rawData: state.trends.rawData,
-    transformedData: state.trends.transformedData,
     margin: state.trends.margin,
     width: state.trends.width,
     height: state.trends.height
@@ -86,23 +48,19 @@ const mapDispatchToProps = dispatch => (
     dispatchFetchData: () => dispatch(fetchData()),
     dispatchContainerSize: (margin, width, height) => {
       dispatch(setContainerSize(margin, width, height));
-    },
-    dispatchTransformedData: transformedData => dispatch(setTransformedData(transformedData))
+    }
   }
 );
 
 Trends.propTypes = {
   dispatchFetchData: PropTypes.func.isRequired,
   dispatchContainerSize: PropTypes.func.isRequired,
-  dispatchTransformedData: PropTypes.func.isRequired,
   rawData: PropTypes.arrayOf(PropTypes.object),
-  transformedData: PropTypes.arrayOf(PropTypes.object),
   width: PropTypes.number
 };
 
 Trends.defaultProps = {
   rawData: null,
-  transformedData: null,
   width: null
 };
 

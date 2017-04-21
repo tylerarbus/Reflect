@@ -2,6 +2,7 @@ client/public/bundle.js
 .env
 server/processing/files
 .DS_Store
+server/calling/files/dev-voice.xml
 
 ### node etc ###
 

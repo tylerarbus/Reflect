@@ -7,7 +7,7 @@ export class YAxis extends Component {
 
   componentDidMount() {
     const yAxis = d3.axisLeft(this.props.yScale)
-        .ticks(3)
+        .ticks(2)
         .tickFormat((d) => {
           let label = 'Neutral';
           if (d === 0) { return label; }
