@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { phonePrefsUpdate } from '../actions/user_signup.js';
 
 const gridStyle = {
@@ -61,7 +62,11 @@ export class Profile extends Component {
     }
   }
 
-  onClickLogout() {}
+  onClickLogout() {
+    localStorage.removeItem('reflective_token');
+    this.props.dispatch(push('/'));
+    location.reload(true);
+  }
 
   render() {
     return (

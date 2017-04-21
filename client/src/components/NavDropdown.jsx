@@ -28,6 +28,9 @@ export class NavDropdown extends Component {
 
   onClickLogout() {
     this.props.onClickMenu();
+    localStorage.removeItem('reflective_token');
+    this.props.dispatch(push('/'));
+    location.reload(true);
   }
 
   render() {
