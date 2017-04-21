@@ -1,4 +1,4 @@
-import { getMonthData } from '../utils.js';
+import { entriesByDate } from '../utils.js';
 
 export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES';
 export const REQUEST_ENTRIES = 'REQUEST_ENTRIES';
@@ -18,18 +18,18 @@ export function fetchEntries() {
     return fetch('/entries', config)
       .then(response => response.json())
       .then(responseJSON => {
-        const monthData = getMonthData(responseJSON.entries)
-        dispatch(receiveEntries(responseJSON.entries, monthData))
+        const byDate = entriesByDate(responseJSON.entries);
+        dispatch(receiveEntries(responseJSON.entries, byDate));
       })
       .catch(error => console.error(error))
   }
 }
 
-function receiveEntries(entries, months) {
+function receiveEntries(entries, byDate) {
   return {
     type: RECEIVE_ENTRIES,
     entries: entries,
-    months: months,
+    byDate: byDate,
     receivedAt: Date.now(),
     isFetching: false
   }

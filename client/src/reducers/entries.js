@@ -4,7 +4,7 @@ const initialState = {
   entries: [],
   displayedMonth: null,
   displayedEntries: [],
-  months: [],
+  byDate: {},
   activeMonth: null,
   receivedAt: '',
   isFetching: false
@@ -16,7 +16,7 @@ export default function entries(state=initialState, action) {
       return {
         ...state,
         entries: action.entries,
-        months: action.months,
+        byDate: action.byDate,
         displayedEntries: action.entries,
         receivedAt: action.receivedAt,
         isFetching: action.isFetching
