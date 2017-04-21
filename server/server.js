@@ -59,5 +59,6 @@ if (process.env.NODE_ENV !== 'test') {
 // downloadWorker.downloadFiles.start();
 // nlpWorker.start();
 // scheduledCallsWorker.start();
+nlpWorker.start();
 
 module.exports = { app };
