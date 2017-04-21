@@ -3,11 +3,11 @@ import { mount } from 'enzyme';
 
 import Timeline from '../../client/src/components/Timeline.jsx';
 
-const exampleMonthData = { '02': ['entryID', 'entryID'], '03': ['entryID'] };
+const exampleMonthData = { 2016: { '02': ['entryID', 'entryID'], '03': ['entryID'] } };
 
 const setup = () => {
   const props = {
-    months: exampleMonthData,
+    byDate: exampleMonthData,
     onMonthClick: jest.fn()
   };
 
@@ -34,14 +34,14 @@ describe('Timeline Component', () => {
     const { timeline } = setup();
     const months = timeline.find('.timelineMonth');
 
-    expect(months.first().text()).toContain('2');
+    expect(months.first().text()).toContain('1');
   });
 
   it('should render the number of entries in each given month', () => {
     const { timeline } = setup();
     const months = timeline.find('.timelineMonth');
 
-    expect(months.first().text()).toContain('2');
+    expect(months.first().text()).toContain('1');
   });
 });
 
