@@ -1,32 +1,24 @@
-export function getMonthData(entries) {
-  const months = {};
+export function entriesByDate(entries) {
+  const byDate = {};
 
   entries.forEach((entry) => {
-    const month = entry.created.split('-')[1];
-    if (months[month]) {
-      months[month].push(entry.entry_id);
+    const date = new Date(entry.created);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    if (byDate[year]) {
+      if (byDate[year][month]) {
+        byDate[year][month].push(entry.entry_id);
+      } else {
+        byDate[year][month] = [entry.entry_id];
+      }
     } else {
-      months[month] = [entry.entry_id];
+      byDate[year] = {};
+      byDate[year][month] = [entry.entry_id];
     }
   });
-
-  return months;
+  return byDate;
 }
-
-export const monthToEnglish = {
-  '01': 'January',
-  '02': 'February',
-  '03': 'March',
-  '04': 'April',
-  '05': 'May',
-  '06': 'June',
-  '07': 'July',
-  '08': 'August',
-  '09': 'September',
-  10: 'October',
-  11: 'November',
-  12: 'December'
-};
 
 export const toMonthName = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
