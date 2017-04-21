@@ -1,25 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { monthToEnglish } from '../utils.js';
+import { toMonthName } from '../utils.js';
 
 
-const Timeline = ({ months, onMonthClick, active }) => {
+const Timeline = ({ byDate, onMonthClick, active }) => {
   const activeStyle = { color: '#89EEB2', 'font-weight': 'bold' };
 
+  const sortedYears = Object.keys(byDate).sort((a, b) => b > a);
   return (
     <div className="four wide column">
-      <div className="ui left vertical fixed menu visible borderless " style={{ top: '42' }}>
-        <div className="item header">2017</div>
-        {Object.keys(months).map(month =>
-          <a
-            className="item timelineMonth"
-            style={monthToEnglish[month] === active ? activeStyle : {}}
-            key={month}
-            onClick={() => onMonthClick(month)}
-          >
-            {monthToEnglish[month]}
-            <div className="ui label" key={months[month]}>{months[month].length}</div>
-          </a>
+      <div className="ui left vertical fixed menu visible borderless " style={{ top: '52' }}>
+        {sortedYears.map(year =>
+          <div>
+            <div className="item header">{year}</div>
+            <div>
+              {Object.keys(byDate[year]).sort((a, b) => b > a).map(month =>
+                <a
+                  className="item timelineMonth"
+                  style={`${year}${toMonthName[month]}` === active ? activeStyle : {}}
+                  key={month}
+                  onClick={() => onMonthClick(`${year}${toMonthName[month]}`)}
+                >
+                  {toMonthName[month]}
+                  <div className="ui label">
+                    {byDate[year][month] && byDate[year][month].length}
+                  </div>
+                </a>
+              )}
+            </div>
+          </div>
         )}
       </div>
     </div>
@@ -27,14 +36,14 @@ const Timeline = ({ months, onMonthClick, active }) => {
 };
 
 Timeline.propTypes = {
-  months: PropTypes.objectOf(PropTypes.array),
   onMonthClick: PropTypes.func.isRequired,
-  active: PropTypes.string
+  active: PropTypes.string,
+  byDate: PropTypes.objectOf(PropTypes.object)
 };
 
 Timeline.defaultProps = {
-  months: {},
-  active: ''
+  active: '',
+  byDate: {}
 };
 
 export default Timeline;

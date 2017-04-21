@@ -19,7 +19,7 @@ const newUser = {
 const entries = [
   {
     call_id: 'CA2f4221c266d6bc54f2d8b28a5594e6e6',
-    created: '2017-02-01 22:38:38.130256-07'
+    created: '2016-02-01 22:38:38.130256-07'
   },
   {
     call_id: 'CA5d76c33534d08b545618b024b9e97d18',
@@ -27,11 +27,11 @@ const entries = [
   },
   {
     call_id: 'CA1a5ce75df5bde3f74170d83c7f0e46cf',
-    created: '2017-03-03 22:38:38.130256-07'
+    created: '2016-03-03 22:38:38.130256-07'
   },
   {
     call_id: 'CA3e40fc942b94452bb3b8e718967c8dc3',
-    created: '2017-03-04 22:38:38.130256-07'
+    created: '2016-03-04 22:38:38.130256-07'
   },
   {
     call_id: 'CA843c3520841451544551652ddb96ee78',
@@ -39,7 +39,7 @@ const entries = [
   },
   {
     call_id: 'CAd7ca52765f277874becc5b28d0e43e74',
-    created: '2017-04-06 22:38:38.130256-07'
+    created: '2016-04-06 22:38:38.130256-07'
   },
   {
     call_id: 'CA84ecbfd0c763a6ba64c8c4fd5df4b394',
@@ -90,6 +90,15 @@ const users = [
   }
 ];
 
+const addTestEntry = entry => (
+  db.one(
+    'INSERT INTO entries\
+    (user_id, call_id, created)\
+    VALUES (${user_id}, ${call_id}, ${created})\
+    RETURNING entry_id, user_id, call_id, created',
+  entry)
+);
+
 User.new(newUser)
   .then((user) => {
     newUser.user_id = user.user_id;
@@ -99,7 +108,7 @@ User.new(newUser)
     entries.forEach((entry) => {
       const newEntry = entry;
       newEntry.user_id = newUser.user_id;
-      Entries.new(newEntry)
+      addTestEntry(newEntry)
         .then(() => {
           console.log('entry added!');
         })
