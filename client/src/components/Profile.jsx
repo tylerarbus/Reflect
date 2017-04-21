@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { phonePrefsUpdate } from '../actions/user_signup.js';
 
 const gridStyle = {
   marginTop: '14px'
@@ -39,7 +40,12 @@ export class Profile extends Component {
   }
 
   onClickSubmit() {
-    console.log(this.state);
+    const { hour, minute, ampm } = this.state;
+    const prefs = {
+      userId: this.props.user.id,
+      timeOfDay: `${hour}:${minute}${ampm}`
+    };
+    this.props.dispatch(phonePrefsUpdate(prefs));
   }
 
   render() {
@@ -114,7 +120,7 @@ export class Profile extends Component {
           </div>
           <div
             className="ui right floated submit button"
-            onClick={this.onClickSubmit}
+            // onClick={this.onClickSubmit}
           >
             Logout
           </div>
