@@ -1,4 +1,5 @@
 import { SET_ACTIVE_MONTH, RECEIVE_ENTRIES, REQUEST_ENTRIES, SET_DISPLAY_MONTH } from '../actions/entries';
+import { monthByYear } from '../utils.js';
 
 const initialState = {
   entries: [],
@@ -30,7 +31,7 @@ export default function entries(state=initialState, action) {
       return {
         ...state,
         displayedMonth: action.month,
-        displayedEntries: state.entries.filter(entry => entry.created.split('-')[1] === action.month)
+        displayedEntries: state.entries.filter(entry => monthByYear(entry.created) === action.month)
       }
     case SET_ACTIVE_MONTH:
       return {

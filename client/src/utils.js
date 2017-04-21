@@ -29,6 +29,11 @@ export function toDateString(sqlDate) {
   return date.toDateString();
 }
 
+export function monthByYear(sqlDate) {
+  const date = new Date(sqlDate);
+  return `${date.getFullYear()}${toMonthName[date.getMonth()]}`;
+}
+
 export function isInViewport(element) {
   const rect = element.getBoundingClientRect();
   const html = document.documentElement;
