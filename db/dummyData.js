@@ -95,7 +95,7 @@ const users = [
 User.new(newUser)
   .then((user) => {
     newUser.user_id = user.user_id;
-    CallPreferences.new(newUser.user_id, '19:39');
+    CallPreferences.new(newUser.user_id, '19:45');
   })
   .then(() => {
     entries.forEach((entry) => {

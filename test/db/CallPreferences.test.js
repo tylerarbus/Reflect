@@ -3,9 +3,9 @@ require('dotenv').config();
 if (process.env.IS_ON === 'development') {
   process.env.DATABASE_URL = 'postgres://@localhost:5432/reflectivetest';
 }
-const db = require('../../db/config.js').db;
 const User = require('../../server/models/users.js');
 const CallPreferences = require('../../server/models/call-preferences.js');
+const { db, loadDb } = require('../../db/config.js');
 
 const testUser = {
   email: 'test@example.com',
@@ -25,28 +25,35 @@ const testUser2 = {
   phone_verified: false
 };
 
+const resetDb = () => (
+  db.none('TRUNCATE users RESTART IDENTITY CASCADE')
+);
+
 beforeAll(() => (
-  User.new(testUser)
+  loadDb(db)
+    .then(() => (
+      User.new(testUser)
+    ))
     .then((user) => {
       testUser.user_id = user.user_id;
-      return CallPreferences.new(user.user_id, '19:25');
+      return CallPreferences.new(user.user_id, '19:00');
     })
     .then(() => (
       User.new(testUser2)
     ))
     .then((user2) => {
       testUser2.user_id = user2.user_id;
-      return CallPreferences.new(user2.user_id, '15:05');
+      return CallPreferences.new(user2.user_id, '15:00');
     })
 ));
 
 afterAll(() => (
-  db.none('TRUNCATE users RESTART IDENTITY CASCADE')
+  resetDb()
 ));
 
 describe('Call Preferences Tests: ', () => {
   it('should get all users with call preferences for the hour', () => {
-    return CallPreferences.getAllByHour('19')
+    return CallPreferences.getAllByHour('19', '00')
       .then((callPreference) => {
         expect(callPreference[0].user_id).toEqual(testUser.user_id);
         expect(callPreference.length).toEqual(1);
