@@ -12,10 +12,12 @@ export class Profile extends Component {
     this.state = {
       hour: null,
       minute: null,
-      ampm: null
+      ampm: null,
+      showError: false
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.onClickLogout = this.onClickLogout.bind(this);
     this.onHourChange = this.onHourChange.bind(this);
     this.onMinuteChange = this.onMinuteChange.bind(this);
     this.onAmPmChange = this.onAmPmChange.bind(this);
@@ -41,12 +43,25 @@ export class Profile extends Component {
 
   onClickSubmit() {
     const { hour, minute, ampm } = this.state;
-    const prefs = {
-      userId: this.props.user.id,
-      timeOfDay: `${hour}:${minute}${ampm}`
-    };
-    this.props.dispatch(phonePrefsUpdate(prefs));
+    if (hour === null ||
+      minute === null ||
+      ampm === null) {
+      this.setState({
+        showError: true
+      });
+    } else {
+      const prefs = {
+        userId: this.props.user.id,
+        timeOfDay: `${hour}:${minute}${ampm}`
+      };
+      this.props.dispatch(phonePrefsUpdate(prefs));
+      this.setState({
+        showError: false
+      });
+    }
   }
+
+  onClickLogout() {}
 
   render() {
     return (
@@ -106,6 +121,15 @@ export class Profile extends Component {
               </div>
             </div>
           </form>
+          {this.state.showError &&
+          <div className="ui error message">
+            <div className="header">
+              There were some errors with your submission
+            </div>
+            <ul className="list">
+              <li>All fields must be completed to update call time.</li>
+            </ul>
+          </div>}
           <div
             className="ui right floated submit button"
             onClick={this.onClickSubmit}
@@ -120,7 +144,7 @@ export class Profile extends Component {
           </div>
           <div
             className="ui right floated submit button"
-            // onClick={this.onClickSubmit}
+            onClick={this.onClickLogout}
           >
             Logout
           </div>
