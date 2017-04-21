@@ -129,10 +129,11 @@ module.exports = {
     // TODO: Update date created when ready
     // TODO: Download checking by call_sid even though 1 call_sid might have many audios
     const fromDate = new Date();
+    const dateFrom = `${fromDate.getFullYear().toString()}-${_leftPadTwoDigits(fromDate.getMonth() + 1)}-${_leftPadTwoDigits(fromDate.getDate() - 2)}`;
     const dateCreated = `${fromDate.getFullYear().toString()}-${_leftPadTwoDigits(fromDate.getMonth() + 1)}-${_leftPadTwoDigits(fromDate.getDate() + 2)}`;
     return new Promise((resolve, reject) => {
       client.recordings.list({
-        'dateCreated>': '2017-04-14',
+        'dateCreated>': dateFrom,
         'dateCreated<': dateCreated
       }, (err, data) => {
         if (err) {
