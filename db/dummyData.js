@@ -3,6 +3,7 @@ process.env.DATABASE_URL = 'postgres://@localhost:5432/reflective';
 
 const { db } = require('./config.js');
 const User = require('../server/models/users.js');
+const CallPreferences = require('../server/models/call-preferences.js');
 const Audio = require('../server/models/audio.js');
 const Entries = require('../server/models/entries.js');
 const EntryText = require('../server/models/entry-text.js');
@@ -56,11 +57,50 @@ const entries = [
   }
 ];
 
+const users = [
+  {
+    email: 'random1@email.com',
+    first_name: 'Random1',
+    last_name: 'Lastname1',
+    password: 'password',
+    phone: '6505421376',
+    phone_verified: false
+  },
+  {
+    email: 'random2@email.com',
+    first_name: 'Random2',
+    last_name: 'Lastname2',
+    password: 'password',
+    phone: '6505421376',
+    phone_verified: false
+  },
+  {
+    email: 'random3@email.com',
+    first_name: 'Random3',
+    last_name: 'Lastname3',
+    password: 'password',
+    phone: '6505421376',
+    phone_verified: false
+  },
+  {
+    email: 'random4@email.com',
+    first_name: 'Random4',
+    last_name: 'Lastname4',
+    password: 'password',
+    phone: '6505421376',
+    phone_verified: false
+  }
+];
+
 User.new(newUser)
   .then((user) => {
+    newUser.user_id = user.user_id;
+    CallPreferences.new(newUser.user_id, '19:45');
+  })
+  .then(() => {
     entries.forEach((entry) => {
       const newEntry = entry;
-      newEntry.user_id = user.user_id;
+      newEntry.user_id = newUser.user_id;
       Entries.new(newEntry)
         .then(result => (
           EntryText.new(result.entry_id, entry.entry_text)

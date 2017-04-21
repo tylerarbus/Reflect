@@ -21,6 +21,10 @@ module.exports.new = (user) => {
     });
 };
 
+module.exports.findById = userId => (
+  db.oneOrNone('SELECT * FROM users WHERE user_id = $1', [userId])
+);
+
 module.exports.verifyPhone = userId => (
   module.exports.update(userId, 'phone_verified', true)
 );

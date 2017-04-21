@@ -10,9 +10,11 @@ const callingHandler = require('./calling/callingHandler.js');
 const authHandler = require('./auth/authHandler.js');
 const Auth = require('./auth/utils.js');
 
+const Queue = require('./queue.js');
 const speechConvertWorker = require('./processing/speechConvertWorker.js');
 const downloadWorker = require('./processing/downloadWorker.js');
 const nlpWorker = require('./processing/nlpWorker.js');
+const scheduledCallsWorker = require('./processing/scheduledCallsWorker.js');
 
 const app = express();
 
@@ -26,11 +28,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client/public')));
 app.use('/calls', express.static(path.join(__dirname, '/calling/files')));
 
+app.get('/queue', (req, res) => {
+  Queue.clearQueue();
+});
+
 app.use('/api/calling', callingHandler);
 app.use('/api/auth', authHandler);
-
-app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
 app.get('/nlp', Auth.authMiddleware, requestHandler.getNLP);
+app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
 
 app.get('*', (req, res) => {
   res.redirect('/');
@@ -44,9 +49,9 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-speechConvertWorker.start();
-downloadWorker.getFileDetails.start();
-downloadWorker.downloadFiles.start();
-nlpWorker.start();
+// speechConvertWorker.start();
+// downloadWorker.getFileDetails.start();
+// downloadWorker.downloadFiles.start();
+// scheduledCallsWorker.start();
 
 module.exports = { app };

@@ -1,4 +1,4 @@
-module.exports = (db) => (
+module.exports = db => (
   db.query('CREATE TABLE IF NOT EXISTS users(\
     user_id SERIAL PRIMARY KEY,\
     email VARCHAR(30) NOT NULL UNIQUE,\
@@ -10,6 +10,15 @@ module.exports = (db) => (
     created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
     modified TIMESTAMPTZ\
     );')
+  .then(() => (
+    db.query('CREATE TABLE IF NOT EXISTS call_preferences(\
+      call_preferences_id SERIAL PRIMARY KEY,\
+      user_id INT NOT NULL REFERENCES users ON DELETE CASCADE,\
+      time_of_day VARCHAR(20),\
+      created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
+      modified TIMESTAMPTZ\
+      );')
+  ))
   .then(() => (
     db.query('CREATE TABLE IF NOT EXISTS entries(\
       entry_id SERIAL PRIMARY KEY,\
@@ -56,6 +65,19 @@ module.exports = (db) => (
       );')
   ))
   .then(() => (
+    db.query('CREATE TABLE IF NOT EXISTS call_logs(\
+      call_log_id SERIAL PRIMARY KEY,\
+      user_id INT NOT NULL,\
+      call_sid VARCHAR(50) NOT NULL,\
+      phone VARCHAR(50) NOT NULL,\
+      duration VARCHAR(10),\
+      type VARCHAR(20) NOT NULL,\
+      status VARCHAR(20) NOT NULL,\
+      created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
+      modified TIMESTAMPTZ\
+      );')
+  ))
+  .then(() => (
     db.query('CREATE OR REPLACE FUNCTION update_modified_column()\
       RETURNS TRIGGER AS $$\
       BEGIN\
@@ -66,6 +88,9 @@ module.exports = (db) => (
     ))
   .then(() => (
     db.query('DROP TRIGGER IF EXISTS update_users_changetimestamp ON users')
+  ))
+  .then(() => (
+    db.query('DROP TRIGGER IF EXISTS update_call_preferences_changetimestamp ON call_preferences')
   ))
   .then(() => (
     db.query('DROP TRIGGER IF EXISTS update_audio_changetimestamp ON audio')
@@ -80,8 +105,16 @@ module.exports = (db) => (
     db.query('DROP TRIGGER IF EXISTS update_entry_nlp_changetimestamp ON entry_nlp')
   ))
   .then(() => (
+    db.query('DROP TRIGGER IF EXISTS update_call_logs_changetimestamp ON call_logs')
+  ))
+  .then(() => (
     db.query('CREATE TRIGGER update_users_changetimestamp BEFORE UPDATE\
       ON users FOR EACH ROW EXECUTE PROCEDURE \
+      update_modified_column();')
+  ))
+  .then(() => (
+    db.query('CREATE TRIGGER update_call_preferences_changetimestamp BEFORE UPDATE\
+      ON call_preferences FOR EACH ROW EXECUTE PROCEDURE \
       update_modified_column();')
   ))
   .then(() => (
@@ -102,6 +135,11 @@ module.exports = (db) => (
   .then(() => (
     db.query('CREATE TRIGGER update_entry_nlp_changetimestamp BEFORE UPDATE\
       ON entry_nlp FOR EACH ROW EXECUTE PROCEDURE \
+      update_modified_column();')
+  ))
+  .then(() => (
+    db.query('CREATE TRIGGER update_call_logs_changetimestamp BEFORE UPDATE\
+      ON call_logs FOR EACH ROW EXECUTE PROCEDURE \
       update_modified_column();')
   ))
 );

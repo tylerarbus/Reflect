@@ -18,8 +18,8 @@ if (process.env.NODE_ENV !== 'test') {
     .then(() => {
       console.log('Database successfully loaded.');
     })
-    .catch(() => {
-      console.error('Error loading database.');
+    .catch((err) => {
+      console.error('Error loading database. ', err);
     });
 }
 

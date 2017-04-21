@@ -39,6 +39,9 @@
     },
     "SPEECH_PASSWORD": {
       "required": true
+    },
+    "REDIS_URL": {
+      "required": true
     }
   },
   "formation": {
