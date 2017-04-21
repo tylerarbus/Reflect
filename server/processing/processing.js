@@ -21,7 +21,6 @@ const createEntryFromText = (watsonResponse) => {
 
 module.exports = (audioId, filePath, entryId) => {
   const params = {
-    // TODO: Change file to correct filePath depending on where files are stored
     audio: fs.createReadStream(path.resolve(__dirname, `files/${filePath}`)),
     content_type: 'audio/wav',
     continuous: true,
@@ -33,7 +32,6 @@ module.exports = (audioId, filePath, entryId) => {
       return console.log(err);
     }
     const entryText = createEntryFromText(res);
-    // TODO: figure out with Terence how we will access entryId from DB
     return EntryText.new(entryId, entryText)
       .then(() => {
         Audio.update(audioId, 'is_processed', true);
