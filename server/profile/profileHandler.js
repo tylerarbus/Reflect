@@ -15,4 +15,17 @@ router.post('/callpreferences', (req, res) => {
     });
 });
 
+router.put('/callpreferences', (req, res) => {
+  const { userId, timeOfDay } = req.body;
+  Prefs.update(userId, timeOfDay)
+    .then(() => {
+      res.status(200).send();
+    })
+    .catch((err) => {
+      res.status(400).json({
+        error: 'Error updating phone prefs.'
+      });
+    });
+});
+
 module.exports = router;
