@@ -1,3 +1,4 @@
+require('dotenv').config();
 const kue = require('kue');
 
 const q = kue.createQueue({
