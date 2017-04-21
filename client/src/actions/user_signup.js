@@ -213,6 +213,26 @@ export function phonePrefsSubmit(prefs) {
   }
 }
 
+export function phonePrefsUpdate(prefs) {
+  let config = {
+    method: 'PUT',
+    headers: {
+      'Content-Type':'application/json',
+      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
+    },
+    body: JSON.stringify(prefs)
+  };
 
-
-
+  return dispatch => {
+    dispatch(submittingPhonePrefs());
+    return fetch('/api/profile/callpreferences', config)
+      .then( response => {
+        if (response.ok) {
+          dispatch(submittedPhonePrefs());
+        } else {
+          throw new Error('Error updating phone preferences.');
+        }
+      })
+      .catch( error => { dispatch(phonePrefsError(error)) });
+  }
+}
