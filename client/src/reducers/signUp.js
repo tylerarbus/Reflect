@@ -9,7 +9,7 @@ const initialState = {
   isVerifyingCode: false
 };
 
-export default function signUp(state=initialState, action) {
+const signUp = (state = initialState, action) => {
   switch (action.type) {
     case ACCOUNT_PAGE_SUBMIT:
       return {
@@ -17,48 +17,50 @@ export default function signUp(state=initialState, action) {
         accountPage: false,
         phoneVerificationPage: true,
         phonePreferencesPage: false
-      }
+      };
     case PHONE_VERIFY_SUBMIT:
       return {
         ...state,
         accountPage: false,
         phoneVerificationPage: false,
         phonePreferencesPage: true
-      }
+      };
     case CREATING_USER:
       return {
         ...state,
         isCreatingUser: true
-      }
+      };
     case SIGN_UP_ERROR:
       return {
         ...state,
         errorMessage: action.errorMessage,
         isCreatingUser: false
-      }
+      };
     case USER_CREATED:
       return {
         ...state,
         isCreatingUser: false,
         errorMessage: null
-      }
-      case VERIFYING_CODE:
-        return {
-          ...state,
-          isVerifyingCode: true
-        }
-      case CODE_VERIFIED:
-        return {
-          ...state,
-          isVerifyingCode: false
-        }
-      case CODE_ERROR:
-        return {
-          ...state,
-          isVerifyingCode: false,
-          errorMessage: action.error
-        }
+      };
+    case VERIFYING_CODE:
+      return {
+        ...state,
+        isVerifyingCode: true
+      };
+    case CODE_VERIFIED:
+      return {
+        ...state,
+        isVerifyingCode: false
+      };
+    case CODE_ERROR:
+      return {
+        ...state,
+        isVerifyingCode: false,
+        errorMessage: action.error
+      };
     default:
       return state;
   }
-}
+};
+
+export default signUp;
