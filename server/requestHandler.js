@@ -16,6 +16,21 @@ module.exports.getEntries = (req, res) => {
   });
 };
 
+module.exports.deleteEntries = (req, res) => {
+  Entries.delete(req.params.entry_id)
+    .then((entry) => {
+      res.status(200).json({
+        entry_id: entry.entry_id
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(400).send({
+        error
+      });
+    });
+};
+
 module.exports.getNLP = (req, res) => {
   EntryNLP.findByUserId(req.user.user_id)
     .then((results) => {

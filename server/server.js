@@ -38,10 +38,10 @@ app.get('/queue', (req, res) => {
 app.use('/api/calling', callingHandler);
 app.use('/api/auth', authHandler);
 app.use('/api/profile', profileHandler);
+app.get('/nlp', Auth.authMiddleware, requestHandler.getNLP);
 
 app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
-app.get('/nlp', Auth.authMiddleware, requestHandler.getNLP);
-app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
+app.delete('/entries/:entry_id', Auth.authMiddleware, requestHandler.deleteEntries);
 
 app.get('*', (req, res) => {
   res.redirect('/');

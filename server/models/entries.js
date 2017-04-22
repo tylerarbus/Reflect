@@ -24,3 +24,7 @@ module.exports.findByUserId = userId => (
     WHERE entries.user_id = $1\
     ORDER BY entries.created DESC', [userId])
 );
+
+module.exports.delete = entryId => (
+  db.one('DELETE FROM entries WHERE entry_id = $1 RETURNING entry_id', [entryId])
+);
