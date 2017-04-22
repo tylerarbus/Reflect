@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { fetchData, setContainerSize } from './trends.actions.js';
 import ChartContainer from './chart/ChartContainer.jsx';
+import BubbleGraphContainer from './bubbleGraph/bubbleGraphContainer.jsx';
 
 const gridStyle = {
   marginTop: '14px'
@@ -27,6 +28,11 @@ export class Trends extends Component {
         <div className="ui container segment" ref="container">
           {this.props.rawData && this.props.width &&
             <ChartContainer />
+          }
+        </div>
+        <div className="ui container segment" ref="container">
+          {this.props.rawData && this.props.width &&
+            <BubbleGraphContainer />
           }
         </div>
       </div>
