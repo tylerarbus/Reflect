@@ -21,7 +21,12 @@ const loginSuccess = userInfo => (
   }
 );
 
-const loginError = error => ({ type: LOGIN_ERROR, error });
+const loginError = error => (
+  {
+    type: LOGIN_ERROR,
+    error
+  }
+);
 
 export const checkCredentials = (credentials) => {
   const config = {
