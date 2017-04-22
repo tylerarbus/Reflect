@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { fetchData, setContainerSize } from './trends.actions.js';
 import ChartContainer from './chart/ChartContainer.jsx';
-import BubbleGraphContainer from './bubbleGraph/bubbleGraphContainer.jsx';
+import BubbleGraphContainer from './bubbleGraph/BubbleGraphContainer.jsx';
 
 const gridStyle = {
   marginTop: '14px'
