@@ -17,6 +17,7 @@ export default class Entries extends Component {
             date={entry.created}
             text={entry.text}
             key={entry.entry_id}
+            audio={entry.local_path}
           />
         )}
       </div>

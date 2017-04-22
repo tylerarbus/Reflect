@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, '../client/public')));
 app.use('/calls', express.static(path.join(__dirname, '/calling/files')));
+app.use('/audio', express.static(path.join(__dirname, '/processing/files')));
 
 app.get('/queue', (req, res) => {
   Queue.clearQueue();
@@ -59,6 +60,5 @@ if (process.env.NODE_ENV !== 'test') {
 // downloadWorker.downloadFiles.start();
 // nlpWorker.start();
 // scheduledCallsWorker.start();
-nlpWorker.start();
 
 module.exports = { app };
