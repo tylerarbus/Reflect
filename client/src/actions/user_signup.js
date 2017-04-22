@@ -18,42 +18,16 @@ export const PHONE_PREFS_SUBMIT = 'PHONE_PREFS_SUBMIT';
 export const PHONE_PREFS_SUBMITTED = 'PHONE_PREFS_SUBMITTED';
 export const PHONE_PREFS_ERROR = 'PHONE_PREFS_ERROR';
 
-export function fetchUserInfo(token) {
-  const config = {
-    method: 'POST',
-    headers: {
-      'Content-Type':'application/json',
-      authorization: 'Bearer ' + token
-    }
-  }
-
-  return dispatch => {
-    dispatch(requestUserInfo());
-    return fetch('/api/auth/me', config)
-      .then(response => response.json())
-      .then(responseJSON => {
-        dispatch(receiveUserInfo(responseJSON.user));
-      })
-      .catch(error => console.error(error))
-  }
-}
-
-function requestUserInfo() {
-  return {
+const requestUserInfo = () => (
+  {
     type: REQUEST_USER_INFO,
     isFetching: true
   }
-}
+);
 
-export function userSubmitEmail(email) {
-  return {
-    type: USER_SUBMIT_EMAIL,
-    email: email
-  }
-}
 
-function receiveUserInfo(userInfo) {
-  return {
+const receiveUserInfo = userInfo => (
+  {
     type: RECEIVE_USER_INFO,
     id: userInfo.user_id,
     firstName: userInfo.first_name,
@@ -61,44 +35,71 @@ function receiveUserInfo(userInfo) {
     phone: userInfo.phone,
     isFetching: false
   }
-}
+);
 
-export function accountPageSubmit() {
-  return {
+export const fetchUserInfo = (token) => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${token}`
+    }
+  };
+
+  return (dispatch) => {
+    dispatch(requestUserInfo());
+    return fetch('/api/auth/me', config)
+      .then(response => response.json())
+      .then((responseJSON) => {
+        dispatch(receiveUserInfo(responseJSON.user));
+      })
+      .catch(error => console.error(error));
+  };
+};
+
+export const userSubmitEmail = email => (
+  {
+    type: USER_SUBMIT_EMAIL,
+    email
+  }
+);
+
+export const accountPageSubmit = () => (
+  {
     type: ACCOUNT_PAGE_SUBMIT
   }
-}
+);
 
-function phoneVerifySubmit() {
-  return {
+const phoneVerifySubmit = () => (
+  {
     type: PHONE_VERIFY_SUBMIT
   }
-}
+);
 
-function creatingUser() {
-  return {
+const creatingUser = () => (
+  {
     type: CREATING_USER
   }
-}
+);
 
-function signUpError(error) {
-  return {
+const signUpError = error => (
+  {
     type: SIGN_UP_ERROR,
     errorMessage: error
   }
-}
+);
 
-function userCreated() {
-  return {
+const userCreated = () => (
+  {
     type: USER_CREATED
   }
-}
+);
 
-export function createUser(user) {
-  let config = {
+export const createUser = (user) => {
+  const config = {
     method: 'POST',
     headers: {
-      'Content-Type':'application/json'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       firstName: user.firstName,
@@ -107,57 +108,55 @@ export function createUser(user) {
       email: user.email,
       password: user.password
     })
-  }
+  };
 
   return (dispatch) => {
     dispatch(creatingUser());
     return fetch('/api/auth/signup', config)
-      .then(response => {
-        return response.json();
-      })
-      .then(responseJSON => {
+      .then(response => response.json())
+      .then((responseJSON) => {
         localStorage.setItem('reflective_token', responseJSON.token);
         dispatch(receiveUserInfo(responseJSON.user));
         dispatch(userCreated());
         dispatch(accountPageSubmit());
       })
-      .catch(error => dispatch(signUpError(error)))
-  }
-}
+      .catch(error => dispatch(signUpError(error)));
+  };
+};
 
-function verifyingCode() {
-  return {
+const verifyingCode = () => (
+  {
     type: VERIFYING_CODE
   }
-}
+);
 
-function codeVerified() {
-  return {
+const codeVerified = () => (
+  {
     type: CODE_VERIFIED
   }
-}
+);
 
-function codeError(error) {
-  return {
+const codeError = error => (
+  {
     type: CODE_ERROR,
     error
   }
-}
+);
 
-export function verifyPhoneCode(code) {
-  let config = {
+export const verifyPhoneCode = (code) => {
+  const config = {
     method: 'POST',
     headers: {
-      'Content-Type':'application/json',
-      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('reflective_token')}`
     },
-    body: JSON.stringify({verificationCode: code})
+    body: JSON.stringify({ verificationCode: code })
   };
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(verifyingCode());
     return fetch('/api/auth/verify', config)
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           dispatch(codeVerified());
           dispatch(phoneVerifySubmit());
@@ -165,43 +164,45 @@ export function verifyPhoneCode(code) {
           dispatch(codeError('Invalid Code'));
         }
       })
-      .catch( error => { dispatch(codeError(error)) })
-  }
-}
+      .catch((error) => {
+        dispatch(codeError(error));
+      });
+  };
+};
 
-function submittingPhonePrefs() {
-  return {
+const submittingPhonePrefs = () => (
+  {
     type: PHONE_PREFS_SUBMIT
   }
-}
+);
 
-function submittedPhonePrefs() {
-  return {
+const submittedPhonePrefs = () => (
+  {
     type: PHONE_PREFS_SUBMITTED
   }
-}
+);
 
-function phonePrefsError(err) {
-  return {
+const phonePrefsError = err => (
+  {
     type: PHONE_PREFS_ERROR,
-    error: error
+    err
   }
-}
+);
 
-export function phonePrefsSubmit(prefs) {
-  let config = {
+export const phonePrefsSubmit = (prefs) => {
+  const config = {
     method: 'POST',
     headers: {
-      'Content-Type':'application/json',
-      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('reflective_token')}`
     },
     body: JSON.stringify(prefs)
   };
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(submittingPhonePrefs());
     return fetch('/api/profile/callpreferences', config)
-      .then( response => {
+      .then((response) => {
         if (response.ok) {
           dispatch(submittedPhonePrefs());
           dispatch(push('/entries'));
@@ -209,30 +210,34 @@ export function phonePrefsSubmit(prefs) {
           throw new Error('Error saving phone preferences.');
         }
       })
-      .catch( error => { dispatch(phonePrefsError(error)) });
-  }
-}
+      .catch((error) => {
+        dispatch(phonePrefsError(error));
+      });
+  };
+};
 
-export function phonePrefsUpdate(prefs) {
-  let config = {
+export const phonePrefsUpdate = (prefs) => {
+  const config = {
     method: 'PUT',
     headers: {
-      'Content-Type':'application/json',
-      authorization: 'Bearer ' + localStorage.getItem('reflective_token')
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('reflective_token')}`
     },
     body: JSON.stringify(prefs)
   };
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(submittingPhonePrefs());
     return fetch('/api/profile/callpreferences', config)
-      .then( response => {
+      .then((response) => {
         if (response.ok) {
           dispatch(submittedPhonePrefs());
         } else {
           throw new Error('Error updating phone preferences.');
         }
       })
-      .catch( error => { dispatch(phonePrefsError(error)) });
-  }
-}
+      .catch((error) => {
+        dispatch(phonePrefsError(error));
+      });
+  };
+};

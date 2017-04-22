@@ -4,20 +4,16 @@ export const SET_CONTAINER_SIZE = 'SET_CONTAINER_SIZE';
 export const SET_CHART_VIEW = 'SET_CHART_VIEW';
 export const SET_CHART_DATA = 'SET_CHART_DATA';
 
-export function fetchingData() {
-  return {
-    type: 'FETCHING_DATA'
-  };
-}
+export const fetchingData = () => ({ type: FETCHING_DATA });
 
-export function receivedData(results) {
-  return {
-    type: 'FETCHED_DATA',
+export const receivedData = results => (
+  {
+    type: FETCHED_DATA,
     sentimentData: results
-  };
-}
+  }
+);
 
-export function fetchData() {
+export const fetchData = () => {
   const config = {
     method: 'GET',
     headers: {
@@ -33,23 +29,23 @@ export function fetchData() {
       .then(sentimentData => dispatch(receivedData(sentimentData)))
       .catch(error => console.log('error handling TBD', error));
   };
-}
+};
 
-export function setContainerSize(margin, width, height) {
-  return {
+export const setContainerSize = (margin, width, height) => (
+  {
     type: 'SET_CONTAINER_SIZE',
     margin,
     width,
     height
-  };
-}
+  }
+);
 
-export function setChartData(xScale, yScale, transformedData, chartView) {
-  return {
+export const setChartData = (xScale, yScale, transformedData, chartView) => (
+  {
     type: 'SET_CHART_DATA',
     xScale,
     yScale,
     transformedData,
     chartView
-  };
-}
+  }
+);
