@@ -1,4 +1,4 @@
-export function entriesByDate(entries) {
+export const entriesByDate = (entries) => {
   const byDate = {};
 
   entries.forEach((entry) => {
@@ -18,23 +18,23 @@ export function entriesByDate(entries) {
     }
   });
   return byDate;
-}
+};
 
 export const toMonthName = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
 
 
-export function toDateString(sqlDate) {
+export const toDateString = (sqlDate) => {
   const date = new Date(sqlDate.replace(' ', 'T'));
   return date.toDateString();
-}
+};
 
-export function monthByYear(sqlDate) {
+export const monthByYear = (sqlDate) => {
   const date = new Date(sqlDate);
   return `${date.getFullYear()}${toMonthName[date.getMonth()]}`;
-}
+};
 
-export function isInViewport(element) {
+export const isInViewport = (element) => {
   const rect = element.getBoundingClientRect();
   const html = document.documentElement;
   return (
@@ -43,4 +43,4 @@ export function isInViewport(element) {
     rect.bottom <= (window.innerHeight || html.clientHeight) &&
     rect.right <= (window.innerWidth || html.clientWidth)
   );
-}
+};

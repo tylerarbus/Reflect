@@ -15,18 +15,18 @@ const initialState = {
   error: null
 };
 
-export default function user(state=initialState, action) {
+const user = (state = initialState, action) => {
   switch (action.type) {
     case USER_SUBMIT_EMAIL:
       return {
         ...state,
         email: action.email
-      }
+      };
     case REQUEST_USER_INFO:
       return {
         ...state,
         fetchingUserInfo: action.isFetching
-      }
+      };
     case RECEIVE_USER_INFO:
       return {
         ...state,
@@ -35,18 +35,18 @@ export default function user(state=initialState, action) {
         lastName: action.lastName,
         phone: action.phone,
         fetchingUserInfo: action.isFetching
-      }
+      };
     case LOGIN_SUBMIT:
       return {
         ...state,
         isLoggingIn: true
-      }
+      };
     case LOGIN_ERROR:
       return {
         ...state,
         isLoggingIn: false,
         error: action.error
-      }
+      };
     case LOGIN_SUCCESSFUL:
       return {
         ...state,
@@ -57,40 +57,42 @@ export default function user(state=initialState, action) {
         email: action.email,
         isLoggingIn: false,
         error: null
-      }
+      };
     case CALLING_NOW:
       return {
         ...state,
         isCalling: true
-      }
+      };
     case CALL_ERROR:
       return {
         ...state,
         isCalling: false,
         error: action.error
-      }
+      };
     case CALL_SENT:
       return {
         ...state,
         isCalling: false
-      }
+      };
     case PHONE_PREFS_SUBMIT:
       return {
         ...state,
         isSubmittingPhonePrefs: true
-      }
+      };
     case PHONE_PREFS_SUBMITTED:
       return {
         ...state,
         isSubmittingPhonePrefs: false
-      }
+      };
     case PHONE_PREFS_ERROR:
       return {
         ...state,
         isSubmittingPhonePrefs: false,
         error: action.error
-      }
+      };
     default:
       return state;
   }
-}
+};
+
+export default user;

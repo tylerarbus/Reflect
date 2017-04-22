@@ -5,7 +5,7 @@ const initialState = {
   chartView: '0'
 };
 
-function trends(state = initialState, action) {
+const trends = (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_DATA:
       return {
@@ -36,6 +36,6 @@ function trends(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default trends;
