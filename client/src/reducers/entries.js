@@ -1,4 +1,4 @@
-import { SET_ACTIVE_MONTH, RECEIVE_ENTRIES, REQUEST_ENTRIES, SET_DISPLAY_MONTH } from '../actions/entries';
+import { SET_ACTIVE_MONTH, RECEIVE_ENTRIES, REQUEST_ENTRIES, SET_DISPLAY_MONTH, DELETING_ENTRY, DELETE_ENTRY } from '../actions/entries';
 import { monthByYear } from '../utils.js';
 
 const initialState = {
@@ -37,6 +37,17 @@ export default function entries(state=initialState, action) {
       return {
         ...state,
         activeMonth: action.month
+      }
+    case DELETING_ENTRY:
+      return {
+        ...state,
+        isDeleting: action.isDeleting
+      }
+    case DELETE_ENTRY:
+      return {
+        ...state,
+        displayedEntries: state.displayedEntries.filter(entry => entry.entry_id !== parseInt(action.entryId)),
+        isDeleting: action.isDeleting
       }
   default:
     return state;
