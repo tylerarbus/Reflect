@@ -5,15 +5,6 @@ const Entry = require('../models/entries.js');
 const request = require('request');
 const fs = require('fs');
 
-const downloaded = [];
-
-const _hasBeenDownloaded = (call) => {
-  const isDownloaded = downloaded.filter(item => (
-    item.call_sid === call.call_sid
-  ));
-  return !!isDownloaded.length > 0;
-};
-
 const _downloadFile = (recordingId, callId, entryId) => {
   console.log('DW:download - downloading...', recordingId);
   request(`https://api.twilio.com/2010-04-01/Accounts/${process.env.TWILIO_SID}/Recordings/${recordingId}.wav`,
@@ -26,57 +17,48 @@ const _downloadFile = (recordingId, callId, entryId) => {
         local_path: `${callId}.wav`,
         entry_id: entryId
       })
-      .then(() => {
-        console.log('Saved File');
-      })
     ));
 };
 
 module.exports.getFileDetails = cron.schedule('5 * * * * *', () => {
   console.log('DownloadWorker: getFileDetails running...');
-  Call.getRecordings()
+
+  Entry.findNotProcessed()
     .then((results) => {
-      if (results.recordings.length === 0) {
+      if (!results) {
+        throw new Error('No unprocessed Entries.');
+      }
+      return Call.getRecordings();
+    })
+    .then((calls) => {
+      if (calls.recordings.length === 0) {
         throw new Error('DW: Get file: no recordings found on server.');
       }
-      console.log('DW:GFD Get Recordings: ', results.recordings.length);
-      results.recordings.forEach((call) => {
-        let entry = null;
-        if (_hasBeenDownloaded(call)) {
-          return console.log('DW:GFD Call is in download queue, doing nothing.');
-        }
-        Entry.getByCallId(call.call_sid)
-          .then((entryDB) => {
-            if (!entryDB) {
-              throw new Error('DW: Get Recordings: No Entry found.');
+      calls.recordings.forEach(recording => (
+        Entry.getByCallId(recording.call_sid)
+          .then((entry) => {
+            if (!entry) {
+              throw new Error('No entry found.');
             }
-            entry = entryDB;
-            console.log('DW:GFD Entry found in table. entry_id: ', entryDB.entry_id);
-            return Audio.exists(entryDB.entry_id);
+            return Audio.new({
+              entry_id: entry.entry_id,
+              remote_path: recording.uri,
+              local_path: '',
+              is_processed: false,
+              is_downloaded: false,
+              recording_id: recording.sid,
+              date_file_created: recording.dateCreated
+            });
           })
-          .then((exists) => {
-            if (!exists) {
-              console.log('DW:GFD Audio for entry_id does not exist, creating new Audio.');
-              return Audio.new({
-                entry_id: entry.entry_id,
-                remote_path: call.uri,
-                local_path: '',
-                is_processed: false,
-                is_downloaded: false,
-                recording_id: call.sid,
-                date_file_created: call.dateCreated
-              });
+          .then((audio) => {
+            if (audio) {
+              return Entry.updateProcessed(audio.entry_id);
             }
-            return console.log('DW:GFD Audio for entry_id exists');
           })
-          .then(() => {
-            downloaded.push(call);
-            console.log('DW:GFD Call not not found in download queue, adding.');
+          .catch((err) => {
+            console.log(err);
           })
-          .catch(err => {
-            console.error(err);
-          });
-      });
+      ));
     })
     .catch((err) => {
       console.error(err);
