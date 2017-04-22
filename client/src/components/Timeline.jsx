@@ -4,14 +4,14 @@ import { toMonthName } from '../utils.js';
 
 
 const Timeline = ({ byDate, onMonthClick, active }) => {
-  const activeStyle = { color: '#89EEB2', 'font-weight': 'bold' };
+  const activeStyle = { color: '#89EEB2', fontWeight: 'bold' };
 
   const sortedYears = Object.keys(byDate).sort((a, b) => b > a);
   return (
     <div className="four wide column">
-      <div className="ui left vertical fixed menu visible borderless " style={{ top: '52' }}>
+      <div className="ui left vertical fixed menu visible borderless " style={{ top: '52px' }}>
         {sortedYears.map(year =>
-          <div>
+          <div key={year}>
             <div className="item header">{year}</div>
             <div>
               {Object.keys(byDate[year]).sort((a, b) => b > a).map(month =>
