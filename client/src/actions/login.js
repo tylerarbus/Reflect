@@ -4,7 +4,11 @@ export const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
 export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 
-const loginSubmit = () => ({ type: LOGIN_SUBMIT });
+const loginSubmit = () => (
+  {
+    type: LOGIN_SUBMIT
+  }
+);
 
 const loginSuccess = userInfo => (
   {

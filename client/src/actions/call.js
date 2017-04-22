@@ -2,11 +2,22 @@ export const CALLING_NOW = 'CALLING_NOW';
 export const CALL_ERROR = 'CALL_ERROR';
 export const CALL_SENT = 'CALL_SENT';
 
-const callingNow = () => ({ type: CALLING_NOW });
+const callingNow = () => (
+  {
+    type: CALLING_NOW
+  }
+);
 
-const callError = error => ({ type: CALL_ERROR, error });
+const callError = error => (
+  {
+    type: CALL_ERROR,
+    error
+  }
+);
 
-const callSent = () => ({ type: CALL_SENT });
+const callSent = () => (
+  { type: CALL_SENT }
+);
 
 export const makeCall = () => {
   const config = {
