@@ -18,6 +18,7 @@ module.exports = {
   "rules": {
     "comma-dangle": ["error", "never"],
     "no-underscore-dangle": "off",
+    "radix": "off",
     "import/no-named-as-default": "off",
     "import/extensions": "off",
     "jsx-a11y/no-static-element-interactions": "off",
