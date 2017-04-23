@@ -11,6 +11,7 @@ const User = require('../../server/models/users.js');
 const Audio = require('../../server/models/audio.js');
 
 const newEntry = {
+  entry_id: null,
   user_id: null,
   call_id: '5dsFD351234FDS'
 };
@@ -49,6 +50,7 @@ describe('Entries', () => {
     return Entry.new(newEntry)
       .then((result) => {
         entry = result;
+        newEntry.entry_id = entry.entry_id;
         expect(result).toBeDefined();
         return EntryText.new(result.entry_id, 'sample text');
       })
@@ -79,6 +81,13 @@ describe('Entries', () => {
         expect(result).toBeDefined();
         expect(result[0].user_id).toEqual(newEntry.user_id);
         expect(result[0].local_path).toBeDefined();
+      });
+  });
+
+  it('should delete an entry by entry_id', () => {
+    return Entry.delete(newEntry.entry_id)
+      .then((entry) => {
+        expect(entry.entry_id).toEqual(newEntry.entry_id);
       });
   });
 });

@@ -9,7 +9,7 @@ export default class Entries extends Component {
   }
 
   render() {
-    const { entries } = this.props;
+    const { entries, onDelete } = this.props;
     return (
       <div className="eight wide column">
         {entries.map(entry =>
@@ -18,6 +18,8 @@ export default class Entries extends Component {
             text={entry.text}
             key={entry.entry_id}
             audio={entry.local_path}
+            onDelete={onDelete}
+            entryId={entry.entry_id}
           />
         )}
       </div>
@@ -27,7 +29,8 @@ export default class Entries extends Component {
 
 
 Entries.propTypes = {
-  entries: PropTypes.arrayOf(PropTypes.object)
+  entries: PropTypes.arrayOf(PropTypes.object),
+  onDelete: PropTypes.func.isRequired
 };
 
 Entries.defaultProps = {

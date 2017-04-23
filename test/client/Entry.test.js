@@ -15,7 +15,7 @@ describe('Entry Component', () => {
   });
 
   it('Entry renders a div', () => {
-    expect(entry.find('div').length).toEqual(1);
+    expect(entry.find('div').length).toEqual(2);
   });
 
   it('Entry renders an audio tag', () => {
