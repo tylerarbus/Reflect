@@ -9,7 +9,7 @@ const Timeline = ({ byDate, onMonthClick, active }) => {
   const sortedYears = Object.keys(byDate).sort((a, b) => b > a);
   return (
     <div className="four wide column">
-      <div className="ui left vertical fixed menu visible borderless " style={{ top: '52px' }}>
+      <div className="ui left vertical fixed menu visible borderless " style={{ top: '66px' }}>
         {sortedYears.map(year =>
           <div key={year}>
             <div className="item header">{year}</div>
