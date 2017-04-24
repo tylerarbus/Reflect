@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SignUpAccountPage from './SignUpAccountPage.jsx';
-import SignUpPhoneVerification from './SignUpPhoneVerification.jsx';
-import SignUpPhonePreferences from './SignUpPhonePreferences.jsx';
+import AccountPage from './AccountPage.jsx';
+import PhoneVerification from './PhoneVerification.jsx';
+import PhonePreferences from './PhonePreferences.jsx';
 
 const gridStyle = {
   marginTop: '14px'
@@ -50,11 +50,11 @@ export class SignUp extends Component {
         </div>
         <div className="ten wide column centered">
           {this.props.signUp.accountPage &&
-            <SignUpAccountPage />}
+            <AccountPage />}
           {this.props.signUp.phoneVerificationPage &&
-            <SignUpPhoneVerification />}
+            <PhoneVerification />}
           {this.props.signUp.phonePreferencesPage &&
-            <SignUpPhonePreferences />}
+            <PhonePreferences />}
         </div>
       </div>
     );
@@ -65,7 +65,7 @@ export class SignUp extends Component {
 const mapStateToProps = state => (
   {
     user: state.user,
-    signUp: state.signUp
+    signUp: state.signup
   }
 );
 

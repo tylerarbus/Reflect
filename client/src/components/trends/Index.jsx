@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchData, setContainerSize } from '../../actions/trends.js';
+import { fetchData, setContainerSize } from './trends.actions.js';
 import ChartContainer from './chart/ChartContainer.jsx';
 
 const gridStyle = {

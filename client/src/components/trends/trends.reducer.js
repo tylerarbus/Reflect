@@ -1,4 +1,4 @@
-import { FETCHING_DATA, FETCHED_DATA, SET_CONTAINER_SIZE, SET_CHART_DATA } from '../actions/trends.js';
+import { FETCHING_DATA, FETCHED_DATA, SET_CONTAINER_SIZE, SET_CHART_DATA } from './trends.actions.js';
 
 const initialState = {
   isFetching: true,

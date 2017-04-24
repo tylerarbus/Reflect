@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchEntries, setDisplayMonth, setActiveMonth, deleteEntry } from '../actions/entries.js';
-import Entries from './Entries.jsx';
+import { fetchEntries, setDisplayMonth, setActiveMonth, deleteEntry } from './entries.actions.js';
+import EntryList from './EntryList.jsx';
 import Timeline from './Timeline.jsx';
 import CallMeNow from './CallMeNow.jsx';
-import { isInViewport, toMonthName } from '../utils.js';
+import { isInViewport, toMonthName } from './utils.js';
 
 export class App extends Component {
   constructor(props) {
@@ -56,7 +56,7 @@ export class App extends Component {
             onMonthClick={this.onMonthClick}
             active={activeMonth}
           />
-          <Entries
+          <EntryList
             entries={entries}
             onDelete={this.onDeleteEntry}
           />

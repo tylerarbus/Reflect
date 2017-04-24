@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
-import { checkCredentials } from '../actions/login.js';
-import NavDropdown from './NavDropdown.jsx';
+import { checkCredentials } from '../landing/login.actions.js';
+import Dropdown from './Dropdown.jsx';
 
 const navStyle = {
   marginBottom: '0',
@@ -137,7 +137,7 @@ export class Nav extends Component {
               {`${this.props.user.firstName} ${this.props.user.lastName}`}
             </a>
             { this.state.menuOpen &&
-              <NavDropdown onClickMenu={this.onClickMenu} />
+              <Dropdown onClickMenu={this.onClickMenu} />
             }
           </div>
         }

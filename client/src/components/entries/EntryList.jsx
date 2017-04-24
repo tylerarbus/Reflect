@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Entry from './Entry.jsx';
+import EntryListItem from './EntryListItem.jsx';
 
 export default class Entries extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class Entries extends Component {
     return (
       <div className="eight wide column">
         {entries.map(entry =>
-          <Entry
+          <EntryListItem
             date={entry.created}
             text={entry.text}
             key={entry.entry_id}

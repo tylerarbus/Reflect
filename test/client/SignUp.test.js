@@ -1,17 +1,16 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 
-import { SignUp } from '../../client/src/components/SignUp.jsx';
+import { SignUp } from '../../client/src/components/signup/Index.jsx';
 
 describe('SignUp Component', () => {
   let signup;
 
   beforeEach(() => {
     signup = mount(<SignUp signUp={{}}/>);
-  })
+  });
 
   it('should render without crashing', () => {
     expect(signup.exists()).toBe(true);
   });
-
-})
+});

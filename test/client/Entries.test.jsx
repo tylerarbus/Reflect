@@ -1,22 +1,30 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Entries from '../../client/src/components/Entries.jsx';
+import { App } from '../../client/src/components/entries/Index.jsx';
 
-describe('Entries Component', () => {
-  let entries;
-  const exampleEntries = [{ created: 'January 1, 2017', text: 'Example entry', entry_id: 1 }];
+const setup = () => {
+  const props = {
+    dispatchGetEntries: jest.fn(),
+    dispatchSetDisplayMonth: jest.fn()
+  };
 
-  beforeEach(() => {
-    entries = shallow(<Entries entries={exampleEntries} />);
-  });
+  const app = shallow(<App {...props} />);
 
+  return {
+    props,
+    app
+  };
+};
+
+describe('App Component', () => {
   it('should render without crashing', () => {
-    expect(entries.exists()).toBe(true);
+    const { app } = setup();
+    expect(app.exists()).toBe(true);
   });
 
-  it('Entries renders nested components', () => {
-    expect(entries.find('Entry')).toBeDefined();
+  it('App renders nested components', () => {
+    const { app } = setup();
+    expect(app.find('Entries').length).toEqual(1);
   });
 });
-

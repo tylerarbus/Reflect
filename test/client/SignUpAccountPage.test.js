@@ -1,14 +1,14 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 
-import { SignUpAccountPage } from '../../client/src/components/SignUpAccountPage.jsx';
+import { SignUpAccountPage } from '../../client/src/components/signup/AccountPage.jsx';
 
 describe('SignUpAccountPage Component', () => {
   let acctpage;
 
   beforeEach(() => {
     acctpage = mount(<SignUpAccountPage signUp={{}}/>);
-  })
+  });
 
   it('should render without crashing', () => {
     expect(acctpage.exists()).toBe(true);
@@ -17,5 +17,4 @@ describe('SignUpAccountPage Component', () => {
   it('should render 5 input fields', () => {
     expect(acctpage.find('input').length).toEqual(5);
   });
-
-})
+});

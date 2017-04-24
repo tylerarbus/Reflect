@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createUser } from '../actions/user_signup.js';
+import { createUser } from './signup.actions.js';
 
 export class SignUpAccountPage extends Component {
   constructor(props) {
@@ -162,7 +162,7 @@ export class SignUpAccountPage extends Component {
 const mapStateToProps = state => (
   {
     user: state.user,
-    signUp: state.signUp
+    signUp: state.signup
   }
 );
 
@@ -173,7 +173,7 @@ SignUpAccountPage.propTypes = {
 };
 
 SignUpAccountPage.defaultProps = {
-  signUp: {},
+  signup: {},
   user: {}
 };
 

@@ -1,6 +1,5 @@
-import { USER_SUBMIT_EMAIL, RECEIVE_USER_INFO, REQUEST_USER_INFO, PHONE_PREFS_SUBMIT, PHONE_PREFS_SUBMITTED, PHONE_PREFS_ERROR } from '../actions/user_signup';
-import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from '../actions/login';
-import { CALLING_NOW, CALL_ERROR, CALL_SENT } from '../actions/call.js';
+import { USER_SUBMIT_EMAIL, RECEIVE_USER_INFO, REQUEST_USER_INFO } from './user.actions.js';
+import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from './login.actions.js';
 
 const initialState = {
   id: null,
@@ -9,7 +8,6 @@ const initialState = {
   phone: '',
   email: '',
   isLoggingIn: false,
-  isCalling: false,
   isSubmittingPhonePrefs: false,
   fetchingUserInfo: false,
   error: null
@@ -57,38 +55,6 @@ const user = (state = initialState, action) => {
         email: action.email,
         isLoggingIn: false,
         error: null
-      };
-    case CALLING_NOW:
-      return {
-        ...state,
-        isCalling: true
-      };
-    case CALL_ERROR:
-      return {
-        ...state,
-        isCalling: false,
-        error: action.error
-      };
-    case CALL_SENT:
-      return {
-        ...state,
-        isCalling: false
-      };
-    case PHONE_PREFS_SUBMIT:
-      return {
-        ...state,
-        isSubmittingPhonePrefs: true
-      };
-    case PHONE_PREFS_SUBMITTED:
-      return {
-        ...state,
-        isSubmittingPhonePrefs: false
-      };
-    case PHONE_PREFS_ERROR:
-      return {
-        ...state,
-        isSubmittingPhonePrefs: false,
-        error: action.error
       };
     default:
       return state;

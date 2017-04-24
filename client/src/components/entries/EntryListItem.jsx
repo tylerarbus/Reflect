@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toDateString } from '../utils.js';
+import { toDateString } from './utils.js';
 
 const Entry = ({ entryId, date, text, audio, onDelete }) => (
   <div className="ui piled container segment">

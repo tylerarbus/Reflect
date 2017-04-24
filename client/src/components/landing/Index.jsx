@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
-import { userSubmitEmail } from '../actions/user_signup.js';
+import { userSubmitEmail } from './user.actions.js';
 
 const bgStyle = {
   backgroundImage: 'url(./assets/reflective_wallpaper.jpg)',

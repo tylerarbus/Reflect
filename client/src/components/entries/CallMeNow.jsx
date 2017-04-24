@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { makeCall } from '../actions/call.js';
+import { makeCall } from './calling.actions.js';
 
 const buttonStyle = {
   marginTop: '14px'

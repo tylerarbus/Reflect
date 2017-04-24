@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 
 import { transformWeekView, transformMonthView, filterWeekView, filterMonthView, generateArrayOfMonths } from './chartUtils';
-import { setChartData } from '../../../actions/trends.js';
+import { setChartData } from '../trends.actions.js';
 
 import ChartOptions from './ChartOptions.jsx';
 import Chart from './Chart.jsx';

@@ -1,4 +1,4 @@
-import { entriesByDate } from '../utils.js';
+import { entriesByDate } from './utils.js';
 
 export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES';
 export const REQUEST_ENTRIES = 'REQUEST_ENTRIES';

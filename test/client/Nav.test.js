@@ -1,10 +1,9 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 
-import { Nav } from '../../client/src/components/Nav.jsx';
+import { Nav } from '../../client/src/components/nav/Index.jsx';
 
 describe('Nav Component', () => {
-
   let navbar;
 
   beforeEach(() => {
@@ -17,8 +16,4 @@ describe('Nav Component', () => {
   it('should render a div with id "navbar"', () => {
     expect(navbar.find('#navbar').length).toEqual(1);
   });
-
 });
-
-
-
