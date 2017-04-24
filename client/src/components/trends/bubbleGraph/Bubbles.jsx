@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
+import { emotionCenters } from './bubbleUtils.js';
 
 export class Bubbles extends Component {
   constructor(props) {
@@ -26,6 +27,17 @@ export class Bubbles extends Component {
   componentDidMount() {
     const { keywordData } = this.props;
     this.renderBubbles(keywordData);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('willreceiveporps');
+    if (nextProps.emotionView !== this.props.emotionView) {
+      this.regroupBubbles(nextProps.emotionView);
+    }
+  }
+
+  shouldComponentUpdate() {
+    return false;
   }
 
   charge(d) {
@@ -71,6 +83,19 @@ export class Bubbles extends Component {
 
   }
 
+  regroupBubbles(emotionView) {
+
+    if (emotionView) {
+      this.simulation.force('x', d3.forceX().strength(0.03).x(d => emotionCenters[d.emotion].x))
+                      .force('y', d3.forceY().strength(0.03).y(d => emotionCenters[d.emotion].y))
+    } else {
+      this.simulation.force("x", d3.forceX().strength(0.03).x(this.props.width / 2))
+                     .force("y", d3.forceY().strength(0.03).y(this.props.height / 2))
+    }
+
+    this.simulation.alpha(1).restart()
+  }
+
 
   render() {
     return (
@@ -85,7 +110,8 @@ const mapStateToProps = state => (
     height: state.trends.height,
     margin: state.trends.margin,
     rawData: state.trends.rawData,
-    keywordData: state.trends.keywordData
+    keywordData: state.trends.keywordData,
+    emotionView: state.trends.emotionView
   }
 )
 

@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 import Bubbles from './Bubbles.jsx';
-import { setBubbleData } from '../../../actions/trends.js';
+import ChartOptions from '../chart/ChartOptions.jsx';
+import { setBubbleData, setBubbleView } from '../../../actions/trends.js';
 import { getKeywordData } from './bubbleUtils.js';
+
+const defaultFilterOptions = [['All History', 0], ['Last Week', 1], ['Last Month', 2]];
 
 export class BubbleGraphContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      filterOptions: defaultFilterOptions
+    }
   }
 
   componentDidMount() {
@@ -25,11 +32,20 @@ export class BubbleGraphContainer extends Component {
     dispatchBubbleData(keywordData);
   }
 
+  handleViewChange(e) {
+    dispatch()
+  }
+
   render() {
-    const { width, height, keywordData } = this.props;
+    const { width, height, keywordData, dispatchBubbleView } = this.props;
 
     return (
       <div>
+        <ChartOptions 
+          handleViewChange={dispatchBubbleView}
+          handleFilterChange={console.log('hmm')}
+          filterOptions={this.state.filterOptions}
+        />
         <svg className="bubbleChart" width={width} height={height}>
           <g className="bubbleChartContainer">
             {keywordData.length > 0 && <Bubbles />}
@@ -52,7 +68,8 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   {
-    dispatchBubbleData: (data) => dispatch(setBubbleData(data))
+    dispatchBubbleData: (data) => dispatch(setBubbleData(data)),
+    dispatchBubbleView: () => dispatch(setBubbleView())
   }
 );
 
