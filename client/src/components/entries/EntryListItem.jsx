@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { toDateString } from './utils.js';
 
 const Entry = ({ entryId, date, text, audio, onDelete }) => (
-  <div className="ui piled container segment">
+  <div className="ui container segment">
     <div className="ui icon buttons right floated">
       <button className="ui button">
         <i className="edit icon" />

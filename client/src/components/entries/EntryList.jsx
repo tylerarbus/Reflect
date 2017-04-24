@@ -11,7 +11,10 @@ export default class Entries extends Component {
   render() {
     const { entries, onDelete } = this.props;
     return (
-      <div className="eight wide column">
+      <div
+        className="eight wide column"
+        style={{ marginTop: '14px' }}
+      >
         {entries.map(entry =>
           <EntryListItem
             date={entry.created}
