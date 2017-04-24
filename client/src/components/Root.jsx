@@ -4,11 +4,11 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { fetchUserInfo } from './landing/user_signup.actions.js';
+import { fetchUserInfo } from './landing/user.actions.js';
 import Entries from './entries/Index.jsx';
 import Landing from './landing/Index.jsx';
 import Nav from './nav/Index.jsx';
-import Signup from './landing/signup/Index.jsx';
+import Signup from './signup/Index.jsx';
 import Trends from './trends/Index.jsx';
 import Profile from './profile/Index.jsx';
 

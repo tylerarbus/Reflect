@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createUser } from '../user_signup.actions.js';
+import { createUser } from './signup.actions.js';
 
 export class SignUpAccountPage extends Component {
   constructor(props) {

@@ -1,11 +1,5 @@
 import { push } from 'react-router-redux';
 
-// User Actions
-export const USER_SUBMIT_EMAIL = 'USER_SUBMIT_EMAIL';
-export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
-export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
-
-// SignUp Actions
 export const CREATING_USER = 'CREATING_USER';
 export const SIGN_UP_ERROR = 'SIGN_UP_ERROR';
 export const USER_CREATED = 'USER_CREATED';
@@ -17,14 +11,7 @@ export const CODE_ERROR = 'CODE_ERROR';
 export const PHONE_PREFS_SUBMIT = 'PHONE_PREFS_SUBMIT';
 export const PHONE_PREFS_SUBMITTED = 'PHONE_PREFS_SUBMITTED';
 export const PHONE_PREFS_ERROR = 'PHONE_PREFS_ERROR';
-
-const requestUserInfo = () => (
-  {
-    type: REQUEST_USER_INFO,
-    isFetching: true
-  }
-);
-
+export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
 
 const receiveUserInfo = userInfo => (
   {
@@ -34,33 +21,6 @@ const receiveUserInfo = userInfo => (
     lastName: userInfo.last_name,
     phone: userInfo.phone,
     isFetching: false
-  }
-);
-
-export const fetchUserInfo = (token) => {
-  const config = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${token}`
-    }
-  };
-
-  return (dispatch) => {
-    dispatch(requestUserInfo());
-    return fetch('/api/auth/me', config)
-      .then(response => response.json())
-      .then((responseJSON) => {
-        dispatch(receiveUserInfo(responseJSON.user));
-      })
-      .catch(error => console.error(error));
-  };
-};
-
-export const userSubmitEmail = email => (
-  {
-    type: USER_SUBMIT_EMAIL,
-    email
   }
 );
 

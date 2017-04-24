@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { phonePrefsUpdate } from '../landing/user_signup.actions.js';
+import { phonePrefsUpdate } from '../signup/signup.actions.js';
 
 const gridStyle = {
   marginTop: '14px'
