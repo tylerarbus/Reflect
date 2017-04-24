@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Timeline from '../../client/src/components/Timeline.jsx';
+import Timeline from '../../client/src/components/entries/Timeline.jsx';
 
 const exampleMonthData = { 2016: { '02': ['entryID', 'entryID'], '03': ['entryID'] } };
 
