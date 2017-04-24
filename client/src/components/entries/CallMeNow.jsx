@@ -10,13 +10,23 @@ const buttonStyle = {
 export class CallMeNow extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showLoader: false
+    };
 
     this.onClickCall = this.onClickCall.bind(this);
   }
 
   onClickCall() {
     this.props.dispatch(makeCall());
+    this.setState({
+      showLoader: true
+    });
+    setTimeout(() => {
+      this.setState({
+        showLoader: false
+      });
+    }, 2000);
   }
 
   render() {
@@ -27,7 +37,8 @@ export class CallMeNow extends Component {
       >
         <button
           id="call-now"
-          className="huge ui button green"
+          className={this.state.showLoader ? "huge ui button loading" : "huge ui button"}
+          style={{ backgroundColor: '#89EEB2' }}
           onClick={this.onClickCall}
         >
           Call Me Now
