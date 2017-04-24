@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toMonthName } from '../utils.js';
+import { toMonthName } from './utils.js';
 
 
 const Timeline = ({ byDate, onMonthClick, active }) => {

@@ -1,6 +1,6 @@
-import { USER_SUBMIT_EMAIL, RECEIVE_USER_INFO, REQUEST_USER_INFO, PHONE_PREFS_SUBMIT, PHONE_PREFS_SUBMITTED, PHONE_PREFS_ERROR } from '../actions/user_signup';
-import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from '../actions/login';
-import { CALLING_NOW, CALL_ERROR, CALL_SENT } from '../actions/call.js';
+import { USER_SUBMIT_EMAIL, RECEIVE_USER_INFO, REQUEST_USER_INFO, PHONE_PREFS_SUBMIT, PHONE_PREFS_SUBMITTED, PHONE_PREFS_ERROR } from './user_signup.actions.js';
+import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from './login.actions.js';
+import { CALLING_NOW, CALL_ERROR, CALL_SENT } from '../entries/calling.actions.js';
 
 const initialState = {
   id: null,

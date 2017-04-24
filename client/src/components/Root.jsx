@@ -4,13 +4,13 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { fetchUserInfo } from '../actions/user_signup.js';
-import App from './App.jsx';
-import Home from './Home.jsx';
-import Nav from './Nav.jsx';
-import SignUp from './SignUp.jsx';
-import Trends from './trends/Root.jsx';
-import Profile from './Profile.jsx';
+import { fetchUserInfo } from './landing/user_signup.actions.js';
+import Entries from './entries/Index.jsx';
+import Landing from './landing/Index.jsx';
+import Nav from './nav/Index.jsx';
+import Signup from './landing/signup/Index.jsx';
+import Trends from './trends/Index.jsx';
+import Profile from './profile/Index.jsx';
 
 export class Root extends React.Component {
 
@@ -29,12 +29,12 @@ export class Root extends React.Component {
         <div style={{ height: '100%' }}>
           <Nav />
           <ConnectedRouter history={this.props.history}>
-            <div style={{height: 'calc(100% - 52px)'}}>
-              <Route exact path='/' component={Home} />
-              <Route path='/entries' component={App} />
-              <Route path='/signup' component={SignUp} />
-              <Route path='/trends' component={Trends} />
-              <Route path='/profile' component={Profile} />
+            <div style={{ height: 'calc(100% - 52px)' }}>
+              <Route exact path="/" component={Landing} />
+              <Route path="/entries" component={Entries} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/trends" component={Trends} />
+              <Route path="/profile" component={Profile} />
             </div>
           </ConnectedRouter>
         </div>

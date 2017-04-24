@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
-import { phonePrefsSubmit } from '../actions/user_signup.js';
+import { phonePrefsSubmit } from '../user_signup.actions.js';
 
 export class SignUpPhonePreferences extends Component {
   constructor(props) {

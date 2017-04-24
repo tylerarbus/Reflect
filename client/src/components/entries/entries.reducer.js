@@ -1,5 +1,5 @@
-import { SET_ACTIVE_MONTH, RECEIVE_ENTRIES, REQUEST_ENTRIES, SET_DISPLAY_MONTH, DELETING_ENTRY, DELETE_ENTRY } from '../actions/entries';
-import { monthByYear } from '../utils.js';
+import { SET_ACTIVE_MONTH, RECEIVE_ENTRIES, REQUEST_ENTRIES, SET_DISPLAY_MONTH, DELETING_ENTRY, DELETE_ENTRY } from './entries.actions.js';
+import { monthByYear } from './utils.js';
 
 const initialState = {
   entries: [],
