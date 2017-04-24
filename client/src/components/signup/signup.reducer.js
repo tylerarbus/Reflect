@@ -9,7 +9,7 @@ const initialState = {
   isVerifyingCode: false
 };
 
-const signUp = (state = initialState, action) => {
+const signup = (state = initialState, action) => {
   switch (action.type) {
     case ACCOUNT_PAGE_SUBMIT:
       return {
@@ -79,4 +79,4 @@ const signUp = (state = initialState, action) => {
   }
 };
 
-export default signUp;
+export default signup;

@@ -162,7 +162,7 @@ export class SignUpAccountPage extends Component {
 const mapStateToProps = state => (
   {
     user: state.user,
-    signUp: state.signUp
+    signUp: state.signup
   }
 );
 
@@ -173,7 +173,7 @@ SignUpAccountPage.propTypes = {
 };
 
 SignUpAccountPage.defaultProps = {
-  signUp: {},
+  signup: {},
   user: {}
 };
 

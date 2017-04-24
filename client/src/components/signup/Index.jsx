@@ -65,7 +65,7 @@ export class SignUp extends Component {
 const mapStateToProps = state => (
   {
     user: state.user,
-    signUp: state.signUp
+    signUp: state.signup
   }
 );
 
