@@ -1,8 +1,9 @@
-import { FETCHING_DATA, FETCHED_DATA, SET_CONTAINER_SIZE, SET_CHART_DATA } from './trends.actions.js';
+import { FETCHING_DATA, FETCHED_DATA, SET_CONTAINER_SIZE, SET_CHART_DATA, SET_BUBBLE_DATA } from '../actions/trends.js';
 
 const initialState = {
   isFetching: true,
-  chartView: '0'
+  chartView: '0',
+  keywordData: []
 };
 
 const trends = (state = initialState, action) => {
@@ -33,6 +34,11 @@ const trends = (state = initialState, action) => {
         transformedData: action.transformedData,
         chartView: action.chartView
       };
+    case SET_BUBBLE_DATA:
+      return {
+        ...state,
+        keywordData: action.keywordData
+      }
     default:
       return state;
   }

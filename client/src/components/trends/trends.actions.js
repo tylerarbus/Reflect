@@ -3,6 +3,7 @@ export const FETCHED_DATA = 'FETCHED_DATA';
 export const SET_CONTAINER_SIZE = 'SET_CONTAINER_SIZE';
 export const SET_CHART_VIEW = 'SET_CHART_VIEW';
 export const SET_CHART_DATA = 'SET_CHART_DATA';
+export const SET_BUBBLE_DATA = 'SET_BUBBLE_DATA';
 
 export const fetchingData = () => ({ type: FETCHING_DATA });
 
@@ -49,3 +50,10 @@ export const setChartData = (xScale, yScale, transformedData, chartView) => (
     chartView
   }
 );
+
+export const setBubbleData = (keywordData) => (
+{
+  type: 'SET_BUBBLE_DATA',
+  keywordData
+}
+)
