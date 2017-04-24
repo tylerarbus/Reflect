@@ -48,6 +48,7 @@ module.exports = db => (
       entry_id INT NOT NULL REFERENCES entries ON DELETE CASCADE,\
       text TEXT,\
       is_analyzed BOOLEAN DEFAULT false,\
+      is_indexed BOOLEAN DEFAULT false,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );')

@@ -17,6 +17,7 @@ const speechConvertWorker = require('./processing/speechConvertWorker.js');
 const downloadWorker = require('./processing/downloadWorker.js');
 const nlpWorker = require('./processing/nlpWorker.js');
 const scheduledCallsWorker = require('./processing/scheduledCallsWorker.js');
+const searchWorker = require('./processing/searchWorker.js');
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.get('/nlp', Auth.authMiddleware, requestHandler.getNLP);
 
 app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
 app.delete('/entries/:entry_id', Auth.authMiddleware, requestHandler.deleteEntries);
+app.post('/search', Auth.authMiddleware, requestHandler.search);
 
 app.get('*', (req, res) => {
   res.redirect('/');
@@ -60,5 +62,6 @@ if (process.env.NODE_ENV !== 'test') {
 // downloadWorker.downloadFiles.start();
 // nlpWorker.start();
 // scheduledCallsWorker.start();
+searchWorker.start();
 
 module.exports = { app };
