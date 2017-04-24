@@ -17,7 +17,8 @@ export class Trends extends Component {
 
     const margin = { top: 20, right: 20, bottom: 30, left: 70 };
     const width = this.refs.container.offsetWidth - 70 - margin.top - margin.bottom;
-    const height = 500 - margin.top - margin.bottom;
+    const height = 700 - margin.top - margin.bottom;
+    //TODO: tell Tyler about height change
 
     this.props.dispatchContainerSize(margin, width, height);
   }
