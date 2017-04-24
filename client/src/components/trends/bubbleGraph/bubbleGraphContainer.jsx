@@ -18,7 +18,6 @@ export class BubbleGraphContainer extends Component {
     d3.select('.bubbleChart')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-        //TODO: decide how want to calculate height and width
 
     d3.select('.bubbleChartContainer')
         .attr('transform', `translate(${margin.left},${margin.top})`);
