@@ -5,7 +5,7 @@ import Bubbles from './Bubbles.jsx';
 import ChartOptions from '../chart/ChartOptions.jsx';
 import EmotionTitles from './EmotionTitles.jsx';
 import { setBubbleData, setBubbleView } from '../../../actions/trends.js';
-import { getKeywordData, emotionCenters, emotions } from './bubbleUtils.js';
+import { getKeywordData } from './bubbleUtils.js';
 
 const defaultFilterOptions = [['All History', 0], ['Last Week', 1], ['Last Month', 2]];
 
@@ -41,7 +41,7 @@ export class BubbleGraphContainer extends Component {
   }
 
   render() {
-    const { width, height, margin, keywordData, dispatchBubbleView, emotionView } = this.props;
+    const { width, height, margin, keywordData, dispatchBubbleView, emotionView, emotionCenters } = this.props;
 
     return (
       <div>
@@ -53,7 +53,7 @@ export class BubbleGraphContainer extends Component {
         <svg className="bubbleChart" width={width} height={height}>
           <g className="bubbleChartContainer">
             {keywordData.length > 0 && <Bubbles />}
-            {emotionView && <EmotionTitles width={width} height={height} margin={margin} emotions={emotions} centers={emotionCenters}/>}
+            {emotionView && <EmotionTitles width={width} height={height} margin={margin} centers={emotionCenters}/>}
           </g>
         </svg>
       </div>
@@ -68,7 +68,8 @@ const mapStateToProps = state => (
     margin: state.trends.margin,
     rawData: state.trends.rawData,
     keywordData: state.trends.keywordData,
-    emotionView:state.trends.emotionView
+    emotionView:state.trends.emotionView,
+    emotionCenters: state.trends.emotionCenters
   }
 )
 

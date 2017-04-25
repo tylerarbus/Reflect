@@ -61,40 +61,32 @@ const findMaxEmotion = (emotionObj) => {
 
 export const getEmotionCenters = (width, height) => {
   const emotionCenters = {
-    'anger': { left: 0, center: { x: width * 0.2, y: height * 0.5 }, right: width * 0.267 },
-    'disgust': { left: width * 0.265, center: { x: width * 0.33, y: height * 0.5 }, right: width * 0.415 },
-    'fear': { left: width * 0.415, center: { x: width * 0.5, y: height * 0.5 }, right: width * 0.583 },
-    'joy': { left: width * 0.583, center: { x: width * 0.66, y: height * 0.5 }, right: width * 0.735},
-    'sadness': { left: width * 0.735, center: { x: (4 / 5) * width, y: height / 2 }, right: width}
+    'anger': { left: 0, right: width * 0.2 },
+    'disgust': { left: width * 0.2, right: width * 0.4 },
+    'fear': { left: width * 0.4, right: width * 0.6 },
+    'joy': { left: width * 0.6, right: width * 0.8},
+    'sadness': { left: width * 0.8, right: width}
   }
 
   return emotionCenters;
 }
 
-export const checkBoundaries = (x, coordinates) => {
-  const closerToLeft = Math.abs(x - coordinates.left) < Math.abs(x - coordinates.right) ? true : false
+export const checkBoundariesY = (y, height) => {
+  const closerToBottom = height - x < x;
 
-  if (closerToLeft) {
-    return Math.min(x, coordinates.left);
+  if (closerToBottom) {
+    return Math.min(24 + y, height);
   } else {
-    return Math.min(x, coordinates.right);
+    return Math.max(24 + y, height + 24);
   }
 }
 
-// const width = 960;
-// const height = 640;
+export const checkBoundariesX = (x, coordinates) => {
+  const closerToLeft = Math.abs(x - coordinates.left) < Math.abs(x - coordinates.right) ? true : false
 
-export const emotions = ['anger', 'disgust', 'fear', 'joy', 'sadness'];
-
-export const emotionCenters = (height, width, emotion, axis) => {
-  const emotionCoordinates = {
-    'anger': { x: width / 5, y: height / 2 },
-    'disgust': { x: width / 3, y: height / 2 },
-    'fear': { x: width / 2, y: height / 2 },
-    'joy': { x: (2 / 3) * width, y: height / 2 },
-    'sadness': { x: (4 / 5) * width, y: height / 2 }
+  if (closerToLeft) {
+    return Math.max(x, coordinates.left);
+  } else {
+    return Math.min(x, coordinates.right);
   }
-  console.log('emotion', emotion)
-
-  return emotionCoordinates[emotion][axis];
 }

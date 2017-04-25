@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
-import { emotionCenters, checkBoundaries } from './bubbleUtils.js';
+import { checkBoundariesX } from './bubbleUtils.js';
 
 export class Bubbles extends Component {
   constructor(props) {
@@ -56,14 +56,13 @@ export class Bubbles extends Component {
     if (emotionView) {
       bubbles
           //.attr('cx', d => Math.min(d.x, width - margin.right))
-          .attr('cx', d => checkBoundaries(d.x, emotionCenters[d.emotion]))
-          .attr('cy', d => Math.min(d.y, height - margin.top));
+          .attr('cx', d => checkBoundariesX(d.x, emotionCenters[d.emotion]))
+          .attr('cy', d => 24 + Math.min(d.y, height - margin.top));
 
       text
-          .attr('x', d => checkBoundaries(d.x, emotionCenters[d.emotion]))//width - margin.right))
-          .attr('y', d => Math.min(d.y, height - margin.top));
+          .attr('x', d => checkBoundariesX(d.x, emotionCenters[d.emotion]))//width - margin.right))
+          .attr('y', d => 24 + Math.min(d.y, height - margin.top));
     } else {
-      console.log('not emotionview');
       bubbles
           //.attr('cx', d => Math.min(d.x, width - margin.right))
           .attr('cx', d => d.x)//checkBoundaries(d.x, emotionCenters[d.emotion]))
@@ -110,9 +109,14 @@ export class Bubbles extends Component {
     const { width, height, margin, emotionCenters } = this.props;
     //console.log('emotioncenters', emotionCenters(height, width, 'Anger', x))
     if (emotionView) {
-      this.simulation.force('x', d3.forceX().strength(0.03).x(d => emotionCenters[d.emotion].center.x)) //   emotionCenters(height, width - margin.right, d.emotion, 'x')))
-                     .force('y', d3.forceY().strength(0.03).y(d => emotionCenters[d.emotion].center.y)) //   emotionCenters(height, width - margin.right, d.emotion, 'y')))
-                     //.force('center', d3.forceCenter([width / 2, height / 2]))
+      this.simulation.force('x', d3.forceX().strength(0.03).x(d => {
+          const diff = (emotionCenters[d.emotion].right - emotionCenters[d.emotion].left) / 2;
+          return emotionCenters[d.emotion].left + diff;
+         // return (emotionCenters[d.emotion].right - emotionCenters[d.emotion].left) / 2
+        }))//   emotionCenters(height, width - margin.right, d.emotion, 'x')))
+                     .force('y', d3.forceY().strength(0.03).y(d => (height - margin.top) / 2))
+                    //.force('charge', d3.forceManyBody().strength(this.charge))//emotionCenters[d.emotion].center.y)) //   emotionCenters(height, width - margin.right, d.emotion, 'y')))
+                    // .force('collide', d3.forceCollide(10));//.force('center', d3.forceCenter([width / 2, height / 2]))
     } else {
       this.simulation.force("x", d3.forceX().strength(0.03).x(width / 2))
                      .force("y", d3.forceY().strength(0.045).y(height / 2))
