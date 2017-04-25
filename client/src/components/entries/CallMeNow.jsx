@@ -32,7 +32,7 @@ export class CallMeNow extends Component {
   render() {
     return (
       <div
-        className="right floated right aligned four wide column"
+        className="right floated right aligned three wide column"
         style={buttonStyle}
       >
         <button
