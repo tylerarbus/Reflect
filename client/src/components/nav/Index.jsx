@@ -50,6 +50,7 @@ export class Nav extends Component {
 
   onClickEntries() {
     this.props.dispatch(push('/entries'));
+    console.log(this.props.router.location.pathname);
   }
 
   onClickMenu() {
@@ -94,7 +95,7 @@ export class Nav extends Component {
         </a>
         {this.props.user.id &&
           <a
-            className="item"
+            className={this.props.router.location.pathname === '/entries' ? 'active item' : 'item'}
             onClick={this.onClickEntries}
           >
             Entries
@@ -102,7 +103,7 @@ export class Nav extends Component {
         }
         {this.props.user.id &&
           <a
-            className="item"
+            className={this.props.router.location.pathname === '/trends' ? 'active item' : 'item'}
             onClick={this.onClickTrends}
           >
             Trends
@@ -157,7 +158,8 @@ export class Nav extends Component {
 
 const mapStateToProps = state => (
   {
-    user: state.user
+    user: state.user,
+    router: state.router
   }
 );
 
