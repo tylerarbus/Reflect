@@ -51,7 +51,7 @@ module.exports.search = (req, res) => {
         bool: {
           must: [{
             match: {
-              text: req.body.searchQuery
+              text: req.body.query
             }
           },
           {

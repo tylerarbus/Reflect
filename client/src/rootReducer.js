@@ -5,6 +5,7 @@ import signup from './components/signup/signup.reducer.js';
 import user from './components/landing/user.reducer.js';
 import trends from './components/trends/trends.reducer.js';
 import calling from './components/entries/calling.reducer.js';
+import search from './components/entries/search/search.reducer.js';
 
 const rootReducer = combineReducers({
   entries,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   user,
   trends,
   calling,
+  search,
   router: routerReducer
 });
 

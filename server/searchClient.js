@@ -6,7 +6,7 @@ const client = new elasticsearch.Client({
 });
 
 client.ping({
-  requestTimeout: 30000
+  requestTimeout: 300000
 }, (error) => {
   if (error) {
     console.error('Error connecting to elasticsearch');
