@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import Bubbles from './Bubbles.jsx';
 import ChartOptions from '../chart/ChartOptions.jsx';
 import EmotionTitles from './EmotionTitles.jsx';
-import { setBubbleData, setBubbleView } from '../../../actions/trends.js';
+import { setBubbleData, setBubbleView } from '../trends.actions.js';
 import { getKeywordData } from './bubbleUtils.js';
 
 const defaultFilterOptions = [['All History', 0], ['Last Week', 1], ['Last Month', 2]];
