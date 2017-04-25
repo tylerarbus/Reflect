@@ -118,12 +118,14 @@ export class Nav extends Component {
                 type="password"
                 placeholder="Password"
                 onChange={this.onChangePassword}
+                style={{ marginLeft: '8px' }}
               />
             </div>
             <div
               className={this.props.user.isLoggingIn ? 'ui loading primary button' : 'ui primary button'}
               onClick={this.onClickLogin}
-            >Login</div>
+              style={{ marginLeft: '8px', whiteSpace: 'nowrap' }}
+            >Log in</div>
           </div>
         }
         { this.props.user.id &&
