@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import * as d3 from 'd3';
 import Bubbles from './Bubbles.jsx';
 import ChartOptions from '../chart/ChartOptions.jsx';
+import EmotionTitles from './EmotionTitles.jsx';
 import { setBubbleData, setBubbleView } from '../../../actions/trends.js';
-import { getKeywordData } from './bubbleUtils.js';
+import { getKeywordData, emotionCenters, emotions } from './bubbleUtils.js';
 
 const defaultFilterOptions = [['All History', 0], ['Last Week', 1], ['Last Month', 2]];
 
@@ -15,6 +16,8 @@ export class BubbleGraphContainer extends Component {
     this.state = {
       filterOptions: defaultFilterOptions
     }
+
+    this.handleViewChange = this.handleViewChange.bind(this);
   }
 
   componentDidMount() {
@@ -33,22 +36,24 @@ export class BubbleGraphContainer extends Component {
   }
 
   handleViewChange(e) {
-    dispatch()
+    const { dispatchBubbleView } = this.props;
+    dispatchBubbleView();
   }
 
   render() {
-    const { width, height, keywordData, dispatchBubbleView } = this.props;
+    const { width, height, margin, keywordData, dispatchBubbleView, emotionView } = this.props;
 
     return (
       <div>
         <ChartOptions 
-          handleViewChange={dispatchBubbleView}
+          handleViewChange={this.handleViewChange}
           handleFilterChange={console.log('hmm')}
           filterOptions={this.state.filterOptions}
         />
         <svg className="bubbleChart" width={width} height={height}>
           <g className="bubbleChartContainer">
             {keywordData.length > 0 && <Bubbles />}
+            {emotionView && <EmotionTitles width={width} height={height} margin={margin} emotions={emotions} centers={emotionCenters}/>}
           </g>
         </svg>
       </div>
@@ -62,7 +67,8 @@ const mapStateToProps = state => (
     height: state.trends.height,
     margin: state.trends.margin,
     rawData: state.trends.rawData,
-    keywordData: state.trends.keywordData
+    keywordData: state.trends.keywordData,
+    emotionView:state.trends.emotionView
   }
 )
 

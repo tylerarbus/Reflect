@@ -10,11 +10,12 @@ export class Bubbles extends Component {
 
     this.renderBubbles = this.renderBubbles.bind(this);
     this.charge = this.charge.bind(this);
+    this.ticked = this.ticked.bind(this);
 
     this.simulation = d3.forceSimulation()
       .velocityDecay(0.2)
       .force("x", d3.forceX().strength(0.03).x(this.props.width / 2))
-      .force("y", d3.forceY().strength(0.03).y(this.props.height / 2))
+      .force("y", d3.forceY().strength(0.045).y(this.props.height / 2))
       .on('tick', this.ticked)
       .force('charge', d3.forceManyBody().strength(this.charge))
       .stop();
@@ -22,6 +23,8 @@ export class Bubbles extends Component {
     // create a new simulation and add forces to it 
     // forces x and y use positioning forces to push our nodes towards center 
     // forceManyBody - simulates repulsion
+    // TODO: ask group if we want to keep height as is and have difference force for y
+    // or increase height and have it as perfect circle
   }
 
   componentDidMount() {
@@ -45,16 +48,18 @@ export class Bubbles extends Component {
   } 
 
   ticked() {
+    const { width, height, margin } = this.props;
+
     const bubbles = d3.select('.bubbleChartContainer').selectAll('circle');
-    const text = d3.select('.bubbleChartContainer').selectAll('text');
+    const text = d3.select('.bubbleChartContainer').selectAll('.bubbleText');
 
     bubbles
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y);
+        .attr('cx', d => Math.min(d.x, width - margin.right))
+        .attr('cy', d => Math.min(d.y, height - margin.top));
 
     text
-        .attr('x', d => d.x)
-        .attr('y', d => d.y);
+        .attr('x', d => Math.min(d.x, width - margin.right))
+        .attr('y', d => Math.min(d.y, height - margin.top));
   }
 
   renderBubbles(data) {
@@ -70,8 +75,9 @@ export class Bubbles extends Component {
         .attr('r', d => d.r)
         .attr('fill', '#89EEB2');
 
-    const text = d3.select('.bubbleChartContainer').selectAll('text')
+    const text = d3.select('.bubbleChartContainer').selectAll('.bubbleText')
       .data(data).enter().append('text')
+        .classed('bubbleText', true)
         .text(d => d.word)
         .attr('font-family', 'helvetica')
         .attr('font-size', '10px')
@@ -85,12 +91,15 @@ export class Bubbles extends Component {
 
   regroupBubbles(emotionView) {
 
+    const { width, height, margin } = this.props;
+    //console.log('emotioncenters', emotionCenters(height, width, 'Anger', x))
     if (emotionView) {
-      this.simulation.force('x', d3.forceX().strength(0.03).x(d => emotionCenters[d.emotion].x))
-                      .force('y', d3.forceY().strength(0.03).y(d => emotionCenters[d.emotion].y))
+      this.simulation.force('x', d3.forceX().strength(0.03).x(d => emotionCenters(height, width - margin.right, d.emotion, 'x')))
+                     .force('y', d3.forceY().strength(0.03).y(d => emotionCenters(height, width - margin.right, d.emotion, 'y')))
+                     //.force('center', d3.forceCenter([width / 2, height / 2]))
     } else {
-      this.simulation.force("x", d3.forceX().strength(0.03).x(this.props.width / 2))
-                     .force("y", d3.forceY().strength(0.03).y(this.props.height / 2))
+      this.simulation.force("x", d3.forceX().strength(0.03).x(width / 2))
+                     .force("y", d3.forceY().strength(0.045).y(height / 2))
     }
 
     this.simulation.alpha(1).restart()
