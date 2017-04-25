@@ -1,50 +1,39 @@
+import * as d3 from 'd3';
+
 export function getKeywordData(rawData, width, height) {
   const keywords = {};
-  const emotions = ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness'];
-  const finalKeywords = [];
-  const test = [];
+  const keywordsWithEmotion = [];
 
   rawData.forEach(entry => {
     entry.keywords.forEach(word => {
-      if (word.relevance > 0.5) {
-        //TODO: push this higher
-        const impact = word.relevance * 38;
-        const num = Math.floor(Math.random() * 5);
+      if (word.relevance > 0.8) {
         if (keywords[word.text]) {
           keywords[word.text].relevance += word.relevance;
           for (var emotion in keywords[word.text].emotions) {
             keywords[word.text].emotions[emotion] += entry.emotions[emotion];
           }
+          keywords[word.text].sentiment = (keywords[word.text].sentiment + entry.sentiment) / 2;
         } else {
           keywords[word.text] = {};
           keywords[word.text].relevance = word.relevance;
           keywords[word.text].emotions = entry.emotions;
+          keywords[word.text].sentiment = entry.sentiment;
         }
-        test.push({
-          word: word.text,
-          x: Math.random() * width,
-          y: Math.random() * height,
-          r: impact,
-          emotion: emotions[num]
-          //TODO: add scaling and coordinates here 
-        })
       }
     })
   })
+
   Object.keys(keywords).forEach(word => {
-    finalKeywords.push({
+    keywordsWithEmotion.push({
       word: word,
-      // x: Math.random() * width,
-      // y: Math.random() * height,
       r: keywords[word].relevance * 40,
-      emotion: findMaxEmotion(keywords[word].emotions)
+      emotion: findMaxEmotion(keywords[word].emotions),
+      sentiment: keywords[word].sentiment,
     })
   })
 
-  // sort desc to prevent occlusion of less relevant
-  finalKeywords.sort((a, b) => b.r - a.r);
-  return finalKeywords.slice(0, 50);
-  //return test.slice(0, 50);
+  keywordsWithEmotion.sort((a, b) => b.r - a.r);
+  return keywordsWithEmotion.slice(0, 50);
 }
 
 const findMaxEmotion = (emotionObj) => {
@@ -71,22 +60,18 @@ export const getEmotionCenters = (width, height) => {
   return emotionCenters;
 }
 
-export const checkBoundariesY = (y, height) => {
-  const closerToBottom = height - x < x;
-
-  if (closerToBottom) {
-    return Math.min(24 + y, height);
-  } else {
-    return Math.max(24 + y, height + 24);
-  }
-}
-
-export const checkBoundariesX = (x, coordinates) => {
+export const checkBoundariesX = (x, r, coordinates) => {
   const closerToLeft = Math.abs(x - coordinates.left) < Math.abs(x - coordinates.right) ? true : false
 
   if (closerToLeft) {
     return Math.max(x, coordinates.left);
   } else {
-    return Math.min(x, coordinates.right);
+    return Math.min(x, coordinates.right - r);
   }
 }
+
+export const colorScale = d3.scaleLinear()
+    .domain([-1, 1])
+    .interpolate(d3.interpolateRgb)
+    .range(['#00c3ff','#ffff1c']);
+

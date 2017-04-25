@@ -1,9 +1,11 @@
-import { FETCHING_DATA, FETCHED_DATA, SET_CONTAINER_SIZE, SET_CHART_DATA, SET_BUBBLE_DATA } from '../actions/trends.js';
+import { FETCHING_DATA, FETCHED_DATA, SET_CONTAINER_SIZE, SET_CHART_DATA, SET_BUBBLE_DATA, SET_BUBBLE_VIEW, SET_EMOTION_CENTERS } from '../actions/trends.js';
 
 const initialState = {
   isFetching: true,
   chartView: '0',
-  keywordData: []
+  keywordData: [],
+  emotionView: false,
+  emotionCenters: {}
 };
 
 const trends = (state = initialState, action) => {
@@ -38,6 +40,16 @@ const trends = (state = initialState, action) => {
       return {
         ...state,
         keywordData: action.keywordData
+      };
+    case SET_BUBBLE_VIEW:
+      return {
+        ...state,
+        emotionView: !state.emotionView
+      };
+    case SET_EMOTION_CENTERS:
+      return {
+        ...state,
+        emotionCenters: action.emotionCenters
       }
     default:
       return state;

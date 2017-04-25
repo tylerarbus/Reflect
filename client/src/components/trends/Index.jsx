@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchData, setContainerSize } from './trends.actions.js';
+import { fetchData, setContainerSize, setEmotionCenters } from '../../actions/trends.js';
 import ChartContainer from './chart/ChartContainer.jsx';
 import BubbleGraphContainer from './bubbleGraph/BubbleGraphContainer.jsx';
+import { getEmotionCenters } from './bubbleGraph/bubbleUtils.js';
 
 const gridStyle = {
   marginTop: '14px'
@@ -17,10 +18,11 @@ export class Trends extends Component {
 
     const margin = { top: 20, right: 20, bottom: 30, left: 70 };
     const width = this.refs.container.offsetWidth - 70 - margin.top - margin.bottom;
-    const height = 700 - margin.top - margin.bottom;
+    const height = 500 - margin.top - margin.bottom;
     //TODO: tell Tyler about height change
 
     this.props.dispatchContainerSize(margin, width, height);
+    this.props.dispatchEmotionCenters(getEmotionCenters(width - margin.right, height - margin.top));
   }
 
   render() {
@@ -55,6 +57,9 @@ const mapDispatchToProps = dispatch => (
     dispatchFetchData: () => dispatch(fetchData()),
     dispatchContainerSize: (margin, width, height) => {
       dispatch(setContainerSize(margin, width, height));
+    },
+    dispatchEmotionCenters: (emotionCenters) => {
+      dispatch(setEmotionCenters(emotionCenters));
     }
   }
 );
@@ -62,6 +67,7 @@ const mapDispatchToProps = dispatch => (
 Trends.propTypes = {
   dispatchFetchData: PropTypes.func.isRequired,
   dispatchContainerSize: PropTypes.func.isRequired,
+  dispatchEmotionCenters: PropTypes.func.isRequired,
   rawData: PropTypes.arrayOf(PropTypes.object),
   width: PropTypes.number
 };

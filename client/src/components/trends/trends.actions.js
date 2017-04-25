@@ -4,6 +4,8 @@ export const SET_CONTAINER_SIZE = 'SET_CONTAINER_SIZE';
 export const SET_CHART_VIEW = 'SET_CHART_VIEW';
 export const SET_CHART_DATA = 'SET_CHART_DATA';
 export const SET_BUBBLE_DATA = 'SET_BUBBLE_DATA';
+export const SET_BUBBLE_VIEW = 'SET_BUBBLE_VIEW';
+export const SET_EMOTION_CENTERS = 'SET_EMOTION_CENTERS';
 
 export const fetchingData = () => ({ type: FETCHING_DATA });
 
@@ -52,8 +54,21 @@ export const setChartData = (xScale, yScale, transformedData, chartView) => (
 );
 
 export const setBubbleData = (keywordData) => (
-{
-  type: 'SET_BUBBLE_DATA',
-  keywordData
-}
+  {
+    type: SET_BUBBLE_DATA,
+    keywordData
+  }
+)
+
+export const setBubbleView = () => (
+  {
+    type: SET_BUBBLE_VIEW
+  }
+)
+
+export const setEmotionCenters = (emotionCenters) => (
+  {
+    type: SET_EMOTION_CENTERS,
+    emotionCenters
+  }
 )
