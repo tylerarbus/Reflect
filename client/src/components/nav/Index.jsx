@@ -50,7 +50,6 @@ export class Nav extends Component {
 
   onClickEntries() {
     this.props.dispatch(push('/entries'));
-    console.log(this.props.router.location.pathname);
   }
 
   onClickMenu() {
