@@ -41,7 +41,11 @@ export class Nav extends Component {
   }
 
   onClickHome() {
-    this.props.dispatch(push('/'));
+    if (this.props.user.id) {
+      this.props.dispatch(push('/entries'));
+    } else {
+      this.props.dispatch(push('/'));
+    }
   }
 
   onClickEntries() {
