@@ -59,6 +59,18 @@ const findMaxEmotion = (emotionObj) => {
   return maxEmotion;
 }
 
+export const getEmotionCenters = (width, height) => {
+  const emotionCenters = {
+    'anger': { center: { x: width / 5, y: height / 2 } },
+    'disgust': { x: width / 3, y: height / 2 },
+    'fear': { x: width / 2, y: height / 2 },
+    'joy': { x: (2 / 3) * width, y: height / 2 },
+    'sadness': { x: (4 / 5) * width, y: height / 2 }
+  }
+
+  return emotionCenters;
+}
+
 // const width = 960;
 // const height = 640;
 

@@ -48,11 +48,11 @@ export class Bubbles extends Component {
   } 
 
   ticked() {
-    const { width, height, margin } = this.props;
+    const { width, height, margin, emotionView } = this.props;
 
     const bubbles = d3.select('.bubbleChartContainer').selectAll('circle');
     const text = d3.select('.bubbleChartContainer').selectAll('.bubbleText');
-
+    
     bubbles
         .attr('cx', d => Math.min(d.x, width - margin.right))
         .attr('cy', d => Math.min(d.y, height - margin.top));
@@ -91,11 +91,11 @@ export class Bubbles extends Component {
 
   regroupBubbles(emotionView) {
 
-    const { width, height, margin } = this.props;
+    const { width, height, margin, emotionCenters } = this.props;
     //console.log('emotioncenters', emotionCenters(height, width, 'Anger', x))
     if (emotionView) {
-      this.simulation.force('x', d3.forceX().strength(0.03).x(d => emotionCenters(height, width - margin.right, d.emotion, 'x')))
-                     .force('y', d3.forceY().strength(0.03).y(d => emotionCenters(height, width - margin.right, d.emotion, 'y')))
+      this.simulation.force('x', d3.forceX().strength(0.03).x(d => emotionCenters[d.emotion].x)) //   emotionCenters(height, width - margin.right, d.emotion, 'x')))
+                     .force('y', d3.forceY().strength(0.03).y(d => emotionCenters[d.emotion].y)) //   emotionCenters(height, width - margin.right, d.emotion, 'y')))
                      //.force('center', d3.forceCenter([width / 2, height / 2]))
     } else {
       this.simulation.force("x", d3.forceX().strength(0.03).x(width / 2))
@@ -120,7 +120,8 @@ const mapStateToProps = state => (
     margin: state.trends.margin,
     rawData: state.trends.rawData,
     keywordData: state.trends.keywordData,
-    emotionView: state.trends.emotionView
+    emotionView: state.trends.emotionView,
+    emotionCenters: state.trends.emotionCenters
   }
 )
 
