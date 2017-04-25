@@ -2,14 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toMonthName } from './utils.js';
 
+const timelineStyle = {
+  top: '66px',
+  marginLeft: '24px'
+};
 
 const Timeline = ({ byDate, onMonthClick, active }) => {
   const activeStyle = { color: '#89EEB2', fontWeight: 'bold' };
 
   const sortedYears = Object.keys(byDate).sort((a, b) => b > a);
   return (
-    <div className="four wide column">
-      <div className="ui left vertical fixed menu visible borderless " style={{ top: '52px' }}>
+    <div className="three wide column">
+      <div
+        className="ui left secondary vertical fixed menu visible borderless"
+        style={timelineStyle}
+      >
         {sortedYears.map(year =>
           <div key={year}>
             <div className="item header">{year}</div>
