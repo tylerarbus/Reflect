@@ -15,7 +15,7 @@ export class SignUpAccountPage extends Component {
       fieldErrors: false
     };
 
-    this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.onChangeFirstName = this.onChangeFirstName.bind(this);
     this.onChangeLastName = this.onChangeLastName.bind(this);
     this.onChangePhone = this.onChangePhone.bind(this);
@@ -23,7 +23,7 @@ export class SignUpAccountPage extends Component {
     this.onChangePasswordVerify = this.onChangePasswordVerify.bind(this);
   }
 
-  onClickSubmit() {
+  onSubmit() {
     const { firstName, lastName, phone, password, passwordVerify } = this.state;
 
     if (firstName === null ||
@@ -79,7 +79,10 @@ export class SignUpAccountPage extends Component {
   render() {
     return (
       <div>
-        <form className="ui form">
+        <form
+          className="ui form"
+          onSubmit={this.onSubmit}
+        >
           <h4 className="ui dividing header">Account Information</h4>
           <div className="field">
             <label>Name</label>
@@ -89,6 +92,7 @@ export class SignUpAccountPage extends Component {
                   type="text"
                   placeholder="First Name"
                   onChange={this.onChangeFirstName}
+                  autoFocus
                 />
               </div>
               <div className="field">
@@ -135,6 +139,10 @@ export class SignUpAccountPage extends Component {
               </div>
             </div>
           </div>
+          <button
+            type="Submit"
+            style={{visibility: 'hidden'}}
+          />
         </form>
         {this.state.fieldErrors &&
           <div className="ui error message">
@@ -149,7 +157,7 @@ export class SignUpAccountPage extends Component {
           </div>}
         <div
           className={this.props.signUp.isCreatingUser ? 'ui loading right floated submit button' : 'ui right floated submit button'}
-          onClick={this.onClickSubmit}
+          onClick={this.onSubmit}
         >
           Submit
         </div>

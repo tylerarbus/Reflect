@@ -27,7 +27,10 @@ export class SignUpPhoneVerification extends Component {
   render() {
     return (
       <div>
-        <form className="ui form">
+        <form
+          className="ui form"
+          onSubmit={this.onClickSubmit}
+        >
           <h4 className="ui dividing header">Phone Verification</h4>
           <div className="field">
             <label>Verification Code</label>
@@ -37,10 +40,15 @@ export class SignUpPhoneVerification extends Component {
                   type="text"
                   placeholder="Enter Code"
                   onChange={this.onChangeCode}
+                  autoFocus
                 />
               </div>
             </div>
           </div>
+          <button
+            type="Submit"
+            style={{ visibility: 'hidden' }}
+          />
         </form>
         <div
           className="ui right floated submit button"
