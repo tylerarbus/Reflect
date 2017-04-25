@@ -1,107 +1,60 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchEntries, setDisplayMonth, setActiveMonth, deleteEntry } from './entries.actions.js';
-import EntryList from './EntryList.jsx';
-import Timeline from './Timeline.jsx';
-import CallMeNow from './CallMeNow.jsx';
-import { isInViewport, toMonthName } from './utils.js';
 
-export class App extends Component {
-  constructor(props) {
-    super(props);
+import { newSearch, endSearch } from './search/search.actions.js';
 
-    this.onMonthClick = this.onMonthClick.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
-    this.onDeleteEntry = this.onDeleteEntry.bind(this);
-  }
+import JournalView from './JournalView.jsx';
+import SearchView from './search/SearchView.jsx';
 
-  componentDidMount() {
-    const { dispatchGetEntries, userId } = this.props;
-    dispatchGetEntries(userId);
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  onDeleteEntry(entry) {
-    const { dispatchDeleteEntry } = this.props;
-    dispatchDeleteEntry(entry);
-  }
-
-  onMonthClick(month) {
-    const { dispatchSetDisplayMonth } = this.props;
-    dispatchSetDisplayMonth(month);
-  }
-
-  handleScroll() {
-    const { dispatchSetActiveMonth } = this.props;
-    const dates = document.getElementsByClassName('date');
-    const dateKeys = Object.keys(dates).filter(index => isInViewport(dates[index]));
-    const topVisibleDate = new Date(dates[dateKeys[0]].textContent);
-    const topVisibleMonth = `${topVisibleDate.getFullYear()}${toMonthName[topVisibleDate.getMonth()]}`
-    dispatchSetActiveMonth(topVisibleMonth);
-  }
-
-  render() {
-    const { entries, byDate, activeMonth } = this.props;
-
-    return (
-      <div>
-        <div className="ui three column grid container">
-          <Timeline
-            byDate={byDate}
-            onMonthClick={this.onMonthClick}
-            active={activeMonth}
-          />
-          <EntryList
-            entries={entries}
-            onDelete={this.onDeleteEntry}
-          />
-          <CallMeNow />
-        </div>
-      </div>
-    );
-  }
-}
+const EntriesIndex = props => (
+  <div>
+    <br />
+    <div className="ui icon input" style={{ marginLeft: '250px' }}>
+      <input
+        placeholder="Search..."
+        type="text"
+        onChange={props.dispatchNewSearch}
+        value={props.query}
+      />
+      {!props.isSearching &&
+        <i className="search icon" />
+      }
+      {props.isSearching &&
+        <i
+          className="circular remove link icon"
+          onClick={props.dispatchEndSearch}
+        />
+      }
+    </div>
+    {!props.isSearching &&
+      <JournalView />
+    }
+    {props.isSearching &&
+      <SearchView />
+    }
+  </div>
+);
 
 const mapStateToProps = state => (
   {
-    userId: state.user.id,
-    entries: state.entries.displayedEntries,
-    byDate: state.entries.byDate,
-    activeMonth: state.entries.activeMonth
+    isSearching: state.search.isSearching,
+    query: state.search.query
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
-    dispatchGetEntries: () => dispatch(fetchEntries()),
-    dispatchSetDisplayMonth: month => dispatch(setDisplayMonth(month)),
-    dispatchSetActiveMonth: month => dispatch(setActiveMonth(month)),
-    dispatchDeleteEntry: entry => dispatch(deleteEntry(entry))
+    dispatchNewSearch: (query) => { dispatch(newSearch(query)); },
+    dispatchEndSearch: () => { dispatch(endSearch()); }
   }
 );
 
-App.propTypes = {
-  dispatchGetEntries: PropTypes.func.isRequired,
-  dispatchSetDisplayMonth: PropTypes.func.isRequired,
-  dispatchSetActiveMonth: PropTypes.func.isRequired,
-  dispatchDeleteEntry: PropTypes.func.isRequired,
-  userId: PropTypes.number,
-  entries: PropTypes.arrayOf(PropTypes.object),
-  months: PropTypes.objectOf(PropTypes.array),
-  activeMonth: PropTypes.string
+EntriesIndex.propTypes = {
+  dispatchEndSearch: PropTypes.func.isRequired,
+  dispatchNewSearch: PropTypes.func.isRequired,
+  isSearching: PropTypes.bool.isRequired,
+  query: PropTypes.string.isRequired
 };
 
-App.defaultProps = {
-  userId: null,
-  entries: [],
-  months: {},
-  activeMonth: ''
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
-
+export default connect(mapStateToProps, mapDispatchToProps)(EntriesIndex);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { CallMeNow } from '../../client/src/components/entries/CallMeNow.jsx';
+import { CallMeNow } from '../../client/src/components/entries/calling/CallMeNow.jsx';
 
 describe('CallMeNow Component', () => {
 

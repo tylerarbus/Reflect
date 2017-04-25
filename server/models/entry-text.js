@@ -14,8 +14,9 @@ module.exports.findNotAnalyzed = () => (
 );
 
 module.exports.findNotIndexed = () => (
-  db.any('SELECT entry_text.*, entries.user_id FROM entry_text INNER JOIN entries\
-  ON entry_text.is_indexed = false AND entries.entry_id = entry_text.entry_id')
+  db.any('SELECT entry_text.entry_id, entry_text.entry_text_id, entry_text.text, entries.created, entries.user_id, audio.local_path FROM entry_text\
+  INNER JOIN entries ON entry_text.is_indexed = false AND entries.entry_id = entry_text.entry_id\
+  INNER JOIN audio ON entries.entry_id = audio.entry_id')
 );
 
 module.exports.update = (entryTextId, column, updatedValue) => (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { App } from '../../client/src/components/entries/Index.jsx';
+import { JournalView } from '../../client/src/components/entries/JournalView.jsx';
 
 const setup = () => {
   const props = {
@@ -9,22 +9,22 @@ const setup = () => {
     dispatchSetDisplayMonth: jest.fn()
   };
 
-  const app = shallow(<App {...props} />);
+  const journalView = shallow(<JournalView {...props} />);
 
   return {
     props,
-    app
+    journalView
   };
 };
 
-describe('App Component', () => {
+describe('JournalView Component', () => {
   it('should render without crashing', () => {
-    const { app } = setup();
-    expect(app.exists()).toBe(true);
+    const { journalView } = setup();
+    expect(journalView.exists()).toBe(true);
   });
 
-  it('App renders nested components', () => {
-    const { app } = setup();
-    expect(app.find('Entries').length).toEqual(1);
+  it('JournalView renders nested components', () => {
+    const { journalView } = setup();
+    expect(journalView.find('Entries').length).toEqual(1);
   });
 });
