@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeCall } from './calling.actions.js';
 
-const buttonStyle = {
+const buttonDivStyle = {
   marginTop: '14px'
+};
+
+const buttonStyle = {
+  backgroundColor: '#89EEB2',
+  width: '180px'
 };
 
 export class CallMeNow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showLoader: false
+      showLoader: false,
+      showCallPlaced: false
     };
 
     this.onClickCall = this.onClickCall.bind(this);
@@ -19,6 +25,9 @@ export class CallMeNow extends Component {
 
   onClickCall() {
     this.props.dispatch(makeCall());
+    this.setState({
+      showCallPlaced: true
+    });
     this.setState({
       showLoader: true
     });
@@ -33,15 +42,15 @@ export class CallMeNow extends Component {
     return (
       <div
         className="right floated right aligned three wide column"
-        style={buttonStyle}
+        style={buttonDivStyle}
       >
         <button
           id="call-now"
           className={this.state.showLoader ? "huge ui button loading" : "huge ui button"}
-          style={{ backgroundColor: '#89EEB2' }}
+          style={buttonStyle}
           onClick={this.onClickCall}
         >
-          Call Me Now
+          {this.state.showCallPlaced ? 'Call Placed' : 'Call Me Now'}
         </button>
       </div>
     );
