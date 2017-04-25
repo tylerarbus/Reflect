@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toMonthName } from './utils.js';
 
+const timelineStyle = {
+  top: '66px',
+  marginLeft: '24px'
+};
 
 const Timeline = ({ byDate, onMonthClick, active }) => {
   const activeStyle = { color: '#89EEB2', fontWeight: 'bold' };
@@ -11,7 +15,7 @@ const Timeline = ({ byDate, onMonthClick, active }) => {
     <div className="three wide column">
       <div
         className="ui left secondary vertical fixed menu visible borderless"
-        style={{ top: '66px' }}
+        style={timelineStyle}
       >
         {sortedYears.map(year =>
           <div key={year}>
