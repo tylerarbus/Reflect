@@ -10,7 +10,7 @@ import SearchView from './search/SearchView.jsx';
 const EntriesIndex = props => (
   <div>
     <br />
-    <div className="ui icon input">
+    <div className="ui icon input" style={{ marginLeft: '250px' }}>
       <input
         placeholder="Search..."
         type="text"
