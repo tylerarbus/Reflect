@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
-import { emotionCenters } from './bubbleUtils.js';
+import { emotionCenters, checkBoundaries } from './bubbleUtils.js';
 
 export class Bubbles extends Component {
   constructor(props) {
@@ -48,18 +48,34 @@ export class Bubbles extends Component {
   } 
 
   ticked() {
-    const { width, height, margin, emotionView } = this.props;
+    const { width, height, margin, emotionView, emotionCenters } = this.props;
 
     const bubbles = d3.select('.bubbleChartContainer').selectAll('circle');
     const text = d3.select('.bubbleChartContainer').selectAll('.bubbleText');
 
-    bubbles
-        .attr('cx', d => Math.min(d.x, width - margin.right))
-        .attr('cy', d => Math.min(d.y, height - margin.top));
+    if (emotionView) {
+      bubbles
+          //.attr('cx', d => Math.min(d.x, width - margin.right))
+          .attr('cx', d => checkBoundaries(d.x, emotionCenters[d.emotion]))
+          .attr('cy', d => Math.min(d.y, height - margin.top));
 
-    text
-        .attr('x', d => Math.min(d.x, width - margin.right))
-        .attr('y', d => Math.min(d.y, height - margin.top));
+      text
+          .attr('x', d => checkBoundaries(d.x, emotionCenters[d.emotion]))//width - margin.right))
+          .attr('y', d => Math.min(d.y, height - margin.top));
+    } else {
+      console.log('not emotionview');
+      bubbles
+          //.attr('cx', d => Math.min(d.x, width - margin.right))
+          .attr('cx', d => d.x)//checkBoundaries(d.x, emotionCenters[d.emotion]))
+          .attr('cy', d => d.y)//Math.min(d.y, height - margin.top));
+
+      text
+          .attr('x', d => d.x)//Math.min(d.x, emotionCenters[d.emotion]))//width - margin.right))
+          .attr('y', d => d.y)//Math.min(d.y, height - margin.top));
+    }
+
+
+
   }
 
   renderBubbles(data) {

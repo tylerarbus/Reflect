@@ -71,6 +71,16 @@ export const getEmotionCenters = (width, height) => {
   return emotionCenters;
 }
 
+export const checkBoundaries = (x, coordinates) => {
+  const closerToLeft = Math.abs(x - coordinates.left) < Math.abs(x - coordinates.right) ? true : false
+
+  if (closerToLeft) {
+    return Math.min(x, coordinates.left);
+  } else {
+    return Math.min(x, coordinates.right);
+  }
+}
+
 // const width = 960;
 // const height = 640;
 
