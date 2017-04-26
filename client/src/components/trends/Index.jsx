@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchData, setContainerSize, setEmotionCenters, setCurrentChart } from './trends.actions.js';
 import ChartContainer from './chart/ChartContainer.jsx';
-import BubbleGraphContainer from './bubbleGraph/BubbleGraphContainer.jsx';
+import BubbleGraphContainer from './bubbleGraph/bubbleGraphContainer.jsx';
 import ChartMenu from './ChartMenu.jsx';
 import { getEmotionCenters } from './bubbleGraph/bubbleUtils.js';
 
