@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
-import { userSubmitEmail } from './user.actions.js';
+import { userEditEmail } from './user.actions.js';
+import { userSubmitEmail } from '../signup/signup.actions.js'
 
 const bgStyle = {
   backgroundImage: 'url(./assets/reflective_wallpaper.jpg)',
@@ -29,11 +30,12 @@ export class Home extends Component {
   }
 
   onSubmitEmail() {
+    this.props.dispatch(userSubmitEmail());
     this.props.dispatch(push('/signup'));
   }
 
   onEmailFieldChange(e) {
-    this.props.dispatch(userSubmitEmail(e.target.value));
+    this.props.dispatch(userEditEmail(e.target.value));
   }
 
   render() {
