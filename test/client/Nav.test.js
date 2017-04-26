@@ -8,7 +8,7 @@ describe('Nav Component', () => {
   let navbar;
 
   beforeEach(() => {
-    navbar = shallow(<Nav user={{id:10}}/>);
+    navbar = shallow(<Nav user={{id:10}} router={{location:'/entries'}} />);
   });
 
   it('should render without crashing', () => {
