@@ -45,7 +45,7 @@ export function getKeywordData(rawData) {
   });
 
   keywordsWithEmotion.sort((a, b) => b.r - a.r);
-  return keywordsWithEmotion.slice(0, 50);
+  return keywordsWithEmotion.slice(0, 30);
 }
 
 export const getEmotionCenters = (width) => {
