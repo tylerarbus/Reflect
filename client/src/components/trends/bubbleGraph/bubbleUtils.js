@@ -75,3 +75,11 @@ export const colorScale = d3.scaleLinear()
     .interpolate(d3.interpolateRgb)
     .range(['#00c3ff','#ffff1c']);
 
+export const upperCase = (word) => {
+  const upperCased = word[0].toUpperCase();
+  let letters = word.split('');
+  letters.shift();
+  letters.unshift(upperCased);
+  return letters.join('');
+}
+

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 import Bubbles from './Bubbles.jsx';
-import ChartOptions from '../chart/ChartOptions.jsx';
+import ChartOptions from './ChartOptions.jsx';
 import EmotionTitles from './EmotionTitles.jsx';
 import { setBubbleData, setBubbleView } from '../trends.actions.js';
 import { getKeywordData } from './bubbleUtils.js';
@@ -47,8 +47,6 @@ export class BubbleGraphContainer extends Component {
       <div>
         <ChartOptions 
           handleViewChange={this.handleViewChange}
-          handleFilterChange={console.log('hmm')}
-          filterOptions={this.state.filterOptions}
         />
         <svg className="bubbleChart" width={width} height={height}>
           <g className="bubbleChartContainer">
