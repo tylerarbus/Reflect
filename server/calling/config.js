@@ -96,9 +96,15 @@ module.exports = {
     });
 
     return fetch(`https://api.authy.com/protected/json/phones/verification/start?${params}`, config)
-      .then(() => (
-        console.log('Verification sms sent successfully to: ', phone)
-      ))
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJSON) => {
+        if (!responseJSON.success) {
+          throw new Error(`Error sending verification:  ${responseJSON.message}`);
+        }
+        return console.log('Verification sms sent successfully to: ', phone);
+      })
       .catch(error => (
         console.log(error)
       ));
