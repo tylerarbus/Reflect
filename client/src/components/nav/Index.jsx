@@ -111,7 +111,7 @@ export class Nav extends Component {
             className={this.props.router.location.pathname === '/trends' ? 'active item' : 'item'}
             onClick={this.onClickTrends}
           >
-            Trends
+            Insights
           </a>
         }
         { !this.props.user.id &&
