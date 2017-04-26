@@ -15,8 +15,7 @@ export class ChartContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterOptions: defaultFilterOptions,
-      byEmotion: false
+      filterOptions: defaultFilterOptions
     };
 
     this.handleViewChange = this.handleViewChange.bind(this);
