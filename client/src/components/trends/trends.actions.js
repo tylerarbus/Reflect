@@ -53,22 +53,22 @@ export const setChartData = (xScale, yScale, transformedData, chartView) => (
   }
 );
 
-export const setBubbleData = (keywordData) => (
+export const setBubbleData = keywordData => (
   {
     type: SET_BUBBLE_DATA,
     keywordData
   }
-)
+);
 
 export const setBubbleView = () => (
   {
     type: SET_BUBBLE_VIEW
   }
-)
+);
 
-export const setEmotionCenters = (emotionCenters) => (
+export const setEmotionCenters = emotionCenters => (
   {
     type: SET_EMOTION_CENTERS,
     emotionCenters
   }
-)
+);

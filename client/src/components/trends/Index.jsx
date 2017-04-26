@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-import { fetchData, setContainerSize, setEmotionCenters } from './trends.actions.js'; 
+import { fetchData, setContainerSize, setEmotionCenters } from './trends.actions.js';
 import ChartContainer from './chart/ChartContainer.jsx';
 import BubbleGraphContainer from './bubbleGraph/BubbleGraphContainer.jsx';
 import ChartMenu from './ChartMenu.jsx';
@@ -20,7 +19,7 @@ export class Trends extends Component {
     super(props);
     this.state = {
       currentView: 'Sentiment Chart'
-    }
+    };
 
     this.handleViewChange = this.handleViewChange.bind(this);
   }
@@ -33,14 +32,13 @@ export class Trends extends Component {
     const height = 500 - margin.top - margin.bottom;
 
     this.props.dispatchContainerSize(margin, width, height);
-    this.props.dispatchEmotionCenters(getEmotionCenters(width - margin.right, height - margin.top));
+    this.props.dispatchEmotionCenters(getEmotionCenters(width - margin.right));
   }
 
   handleViewChange(e) {
-    console.log('view change', e.target.text);
     this.setState({
       currentView: e.target.text
-    })
+    });
   }
 
   render() {
@@ -48,14 +46,14 @@ export class Trends extends Component {
 
     return (
       <div style={gridStyle}>
-        {this.props.rawData && 
-          <ChartMenu 
-            charts={charts} 
+        {this.props.rawData &&
+          <ChartMenu
+            charts={charts}
             active={currentView}
             handleViewChange={this.handleViewChange}
           />}
         <div className="ui container segment" ref="container">
-          {this.props.rawData && this.props.width && 
+          {this.props.rawData && this.props.width &&
             currentView === 'Sentiment Chart' &&
             <ChartContainer />
           }

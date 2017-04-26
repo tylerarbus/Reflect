@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
+import PropTypes from 'prop-types';
 import { checkBoundariesX, colorScale } from './bubbleUtils.js';
 
 export class Bubbles extends Component {
+
   constructor(props) {
     super(props);
-    this.state = { g: null };
-
     this.renderBubbles = this.renderBubbles.bind(this);
-    this.charge = this.charge.bind(this);
     this.ticked = this.ticked.bind(this);
 
     this.simulation = d3.forceSimulation()
       .velocityDecay(0.2)
-      .force("x", d3.forceX().strength(0.03).x(this.props.width / 2))
-      .force("y", d3.forceY().strength(0.045).y(this.props.height / 2))
+      .force('x', d3.forceX().strength(0.03).x(this.props.width / 2))
+      .force('y', d3.forceY().strength(0.045).y(this.props.height / 2))
       .on('tick', this.ticked)
-      .force('charge', d3.forceManyBody().strength(this.charge))
+      .force('charge', d3.forceManyBody().strength(d => -0.04 * (d.r ** 2.0)))
       .stop();
   }
 
@@ -36,12 +35,8 @@ export class Bubbles extends Component {
     return false;
   }
 
-  charge(d) {
-    return -0.04 * Math.pow(d.r, 2.0);
-  } 
-
   ticked() {
-    const { width, height, margin, emotionView, emotionCenters } = this.props;
+    const { height, margin, emotionView, emotionCenters } = this.props;
     const bubbles = d3.select('.bubbleChartContainer').selectAll('circle');
     const text = d3.select('.bubbleChartContainer').selectAll('.bubbleText');
 
@@ -56,69 +51,64 @@ export class Bubbles extends Component {
     } else {
       bubbles
           .attr('cx', d => d.x)
-          .attr('cy', d => d.y)
+          .attr('cy', d => d.y);
 
       text
           .attr('x', d => d.x)
-          .attr('y', d => d.y)
+          .attr('y', d => d.y);
+    }
+  }
+
+
+  regroupBubbles(emotionView) {
+    const { width, height, margin, emotionCenters } = this.props;
+    if (emotionView) {
+      this.simulation
+        .force('x', d3.forceX().strength(0.03).x((d) => {
+          const diff = (emotionCenters[d.emotion].right - emotionCenters[d.emotion].left) / 2;
+          return emotionCenters[d.emotion].left + diff;
+        }))
+        .force('y', d3.forceY().strength(0.03).y((height - margin.top) / 2));
+    } else {
+      this.simulation
+        .force('x', d3.forceX().strength(0.03).x(width / 2))
+        .force('y', d3.forceY().strength(0.045).y(height / 2));
     }
 
-
-
+    this.simulation.alpha(1).restart();
   }
 
   renderBubbles(data) {
-    const { width, height, margin } = this.props;
-    const forceStrength = 0.03;
     const bubbles = d3.select('.bubbleChartContainer').selectAll('circle')
       .data(data);
 
-    bubbles.exit().remove()
+    bubbles.exit().remove();
 
-    const bubblesE = bubbles.enter().append('circle')
+    bubbles.enter().append('circle')
         .classed('bubble', true)
         .attr('r', d => d.r)
         .attr('fill', d => colorScale(d.sentiment))
         .attr('opacity', '0.4');
 
-    const text = d3.select('.bubbleChartContainer').selectAll('.bubbleText')
-      .data(data).enter().append('text')
+    d3.select('.bubbleChartContainer').selectAll('.bubbleText')
+      .data(data).enter()
+      .append('text')
         .classed('bubbleText', true)
         .text(d => d.word)
         .attr('font-family', 'helvetica')
         .attr('font-size', d => `${d.r * 0.25}px`)
         .attr('text-anchor', 'middle')
-        .attr('fill', 'black')
+        .attr('fill', 'black');
 
     this.simulation
-      .nodes(data).alpha(1).restart()
-
-  }
-
-  regroupBubbles(emotionView) {
-
-    const { width, height, margin, emotionCenters } = this.props;
-    if (emotionView) {
-      this.simulation
-        .force('x', d3.forceX().strength(0.03).x(d => {
-          const diff = (emotionCenters[d.emotion].right - emotionCenters[d.emotion].left) / 2;
-          return emotionCenters[d.emotion].left + diff;
-        }))
-        .force('y', d3.forceY().strength(0.03).y(d => (height - margin.top) / 2))
-    } else {
-      this.simulation
-        .force("x", d3.forceX().strength(0.03).x(width / 2))
-        .force("y", d3.forceY().strength(0.045).y(height / 2))
-    }
-
-    this.simulation.alpha(1).restart()
+      .nodes(data).alpha(1).restart();
   }
 
 
   render() {
     return (
       <g className="bubble" />
-    )
+    );
   }
 }
 
@@ -127,17 +117,19 @@ const mapStateToProps = state => (
     width: state.trends.width,
     height: state.trends.height,
     margin: state.trends.margin,
-    rawData: state.trends.rawData,
     keywordData: state.trends.keywordData,
     emotionView: state.trends.emotionView,
     emotionCenters: state.trends.emotionCenters
   }
-)
-
-const mapDispatchToProps = dispatch => (
-  {
-    dispatchBubbleData: () => dispatch(setBubbleData())
-  }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bubbles);
+Bubbles.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  margin: PropTypes.objectOf(PropTypes.number).isRequired,
+  keywordData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  emotionView: PropTypes.bool.isRequired,
+  emotionCenters: PropTypes.objectOf(PropTypes.object).isRequired
+};
+
+export default connect(mapStateToProps)(Bubbles);

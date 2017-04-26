@@ -50,7 +50,7 @@ const trends = (state = initialState, action) => {
       return {
         ...state,
         emotionCenters: action.emotionCenters
-      }
+      };
     default:
       return state;
   }

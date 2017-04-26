@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ChartOptions = ({ handleViewChange, filterOptions }) => (
+const ChartOptions = ({ handleViewChange }) => (
   <div>
     View Mode:
     <select
@@ -14,6 +14,10 @@ const ChartOptions = ({ handleViewChange, filterOptions }) => (
     </select>
     <br />
   </div>
-)
+);
+
+ChartOptions.propTypes = {
+  handleViewChange: PropTypes.func.isRequired
+};
 
 export default ChartOptions;
