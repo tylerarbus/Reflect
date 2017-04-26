@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { fetchEntries, setDisplayMonth, setActiveMonth, deleteEntry } from './entries.actions.js';
 import EntryList from './EntryList.jsx';
 import Timeline from './Timeline.jsx';
+import CallMeNow from './calling/CallMeNow.jsx';
+import Welcome from './Welcome.jsx';
 import { isInViewport, toMonthName } from './utils.js';
 
 export class JournalView extends Component {
@@ -51,15 +53,21 @@ export class JournalView extends Component {
 
     return (
       <div className="ui centered grid container">
-        <Timeline
-          byDate={byDate}
-          onMonthClick={this.onMonthClick}
-          active={activeMonth}
-        />
-        <EntryList
-          entries={entries}
-          onDelete={this.onDeleteEntry}
-        />
+          <Timeline
+            byDate={byDate}
+            onMonthClick={this.onMonthClick}
+            active={activeMonth}
+          />
+          { this.props.entries.length === 0 &&
+            <Welcome />
+          }
+          { this.props.entries.length > 0 &&
+            <EntryList
+              entries={entries}
+              onDelete={this.onDeleteEntry}
+            />
+          }
+          <CallMeNow />
       </div>
     );
   }
