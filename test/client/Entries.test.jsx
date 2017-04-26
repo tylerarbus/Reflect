@@ -10,7 +10,7 @@ const setup = () => {
     entries: [{}]
   };
 
-  const journalView = shallow(<JournalView {...props}/>);
+  const journalView = shallow(<JournalView {...props} />);
 
   return {
     props,
