@@ -3,9 +3,9 @@ const Entry = require('../models/entries.js');
 const Call = require('../calling/config.js');
 const Audio = require('../models/audio.js');
 
-module.exports = cron.schedule('5 * * * * *', () => {
-  console.log('DownloadWorker: getFileDetails running...');
+const cronSchedule = '5 * * * * *';
 
+module.exports = cron.schedule(cronSchedule, () => {
   Entry.findNotProcessed()
     .then((results) => {
       if (!results) {
@@ -44,6 +44,6 @@ module.exports = cron.schedule('5 * * * * *', () => {
       ));
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
     });
 }, false);

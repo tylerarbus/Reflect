@@ -1,0 +1,15 @@
+{
+  "name": "reflective-getfiledetails",
+  "version": "0.0.1",
+  "description": "Get File Details Worker for Reflective App",
+  "main": "getFileDetails.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg-promise": "^5.6.7",
+    "request": "^2.81.0"
+  }
+}

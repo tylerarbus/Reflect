@@ -3,6 +3,8 @@ const cron = require('node-cron');
 const EntryText = require('../models/entry-text.js');
 const EntryNLP = require('../models/entryNLP.js');
 
+const cronSchedule = '20 * * * * *';
+
 const sendToAPI = (text) => {
   const watsonRequestBody = {
     text,
@@ -43,7 +45,7 @@ const analyze = entry => (
     ))
 );
 
-module.exports = cron.schedule('20 * * * * *', () => {
+module.exports = cron.schedule(cronSchedule, () => {
   EntryText.findNotAnalyzed()
     .then(entries => (
       Promise.all(entries.map(entry => (

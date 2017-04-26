@@ -1,8 +1,10 @@
 const cron = require('node-cron');
+const fs = require('fs');
 const Audio = require('../models/audio.js');
 const Entry = require('../models/entries.js');
 const request = require('request');
-const fs = require('fs');
+
+const cronSchedule = '10 * * * * *';
 
 const _downloadFile = (recordingId, callId, entryId) => {
   console.log('DW:download - downloading...', recordingId);
@@ -19,7 +21,7 @@ const _downloadFile = (recordingId, callId, entryId) => {
     ));
 };
 
-module.exports = cron.schedule('10 * * * * *', () => {
+module.exports = cron.schedule(cronSchedule, () => {
   console.log('DownloadWorker: downloadFiles running...');
   Audio.findNotDownloaded()
     .then((results) => {

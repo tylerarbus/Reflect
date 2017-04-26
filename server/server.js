@@ -13,9 +13,7 @@ const profileHandler = require('./profile/profileHandler.js');
 const Auth = require('./auth/utils.js');
 
 const Queue = require('./queue.js');
-const speechConvertWorker = require('./processing/speechConvertWorker.js');
-const downloadWorker = require('./processing/downloadWorker.js');
-const nlpWorker = require('./processing/nlpWorker.js');
+const DevWorkers = require('./processing/workers.js');
 const scheduledCallsWorker = require('./processing/scheduledCallsWorker.js');
 const searchWorker = require('./processing/searchWorker.js');
 
@@ -57,10 +55,15 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-// speechConvertWorker.start();
-// fileDetailsWorker.start();
-// downloadWorker.start();
-// nlpWorker.start();
+/**
+ * Workers for development environments. Uncomment to kick start workers.
+ * On production, workers run on AWS lambda.
+ */
+// DevWorkers.start();
+
+/**
+ * Workers for production. Uncomment to start.
+ */
 // scheduledCallsWorker.start();
 searchWorker.start();
 
