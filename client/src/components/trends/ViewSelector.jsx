@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ChartMenu = ({ charts, active, handleViewChange }) => (
+const ViewSelector = ({ charts, active, handleViewChange }) => (
   <div className="ui center aligned container">
     <div className="ui compact menu">
       {charts.map(chart => (
@@ -17,10 +17,10 @@ const ChartMenu = ({ charts, active, handleViewChange }) => (
   </div>
 );
 
-ChartMenu.propTypes = {
+ViewSelector.propTypes = {
   charts: PropTypes.arrayOf(PropTypes.string).isRequired,
   active: PropTypes.string.isRequired,
   handleViewChange: PropTypes.func.isRequired
 };
 
-export default ChartMenu;
+export default ViewSelector;

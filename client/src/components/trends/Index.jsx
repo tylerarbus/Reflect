@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchData, setContainerSize, setEmotionCenters, setCurrentChart } from './trends.actions.js';
 import ChartContainer from './chart/ChartContainer.jsx';
 import BubbleGraphContainer from './bubbleGraph/bubbleGraphContainer.jsx';
-import ChartMenu from './ChartMenu.jsx';
+import ViewSelector from './ViewSelector.jsx';
 import { getEmotionCenters } from './bubbleGraph/bubbleUtils.js';
 
 const gridStyle = {
@@ -43,7 +43,7 @@ export class Trends extends Component {
     return (
       <div style={gridStyle}>
         {this.props.rawData &&
-          <ChartMenu
+          <ViewSelector
             charts={charts}
             active={currentChart}
             handleViewChange={this.handleViewChange}
