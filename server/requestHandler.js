@@ -1,3 +1,5 @@
+const bodybuilder = require('bodybuilder');
+
 const Entries = require('./models/entries.js');
 const EntryNLP = require('./models/entryNLP.js');
 const searchClient = require('./searchClient.js');
@@ -44,25 +46,18 @@ module.exports.getNLP = (req, res) => {
 };
 
 module.exports.search = (req, res) => {
-  return searchClient.search({
+  const query = bodybuilder()
+    .query('match_phrase_prefix', 'text', req.body.query)
+    .filter('term', 'user_id', req.user.user_id)
+    .size(10)
+    .build();
+
+  const params = {
     index: 'entries',
-    body: {
-      query: {
-        bool: {
-          must: [{
-            match: {
-              text: req.body.query
-            }
-          },
-          {
-            match: {
-              user_id: req.user.user_id
-            }
-          }]
-        }
-      }
-    }
-  })
+    body: query
+  };
+
+  return searchClient.search(params)
     .then(({ hits }) => {
       res.status(200).json(hits);
     })

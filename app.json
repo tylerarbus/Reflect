@@ -42,6 +42,9 @@
     },
     "REDIS_URL": {
       "required": true
+    },
+    "SEARCH_URL": {
+      "required": true
     }
   },
   "formation": {
