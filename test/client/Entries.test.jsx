@@ -7,7 +7,7 @@ const setup = () => {
   const props = {
     dispatchGetEntries: jest.fn(),
     dispatchSetDisplayMonth: jest.fn(),
-    entries: []
+    entries: [{}]
   };
 
   const journalView = shallow(<JournalView {...props}/>);
