@@ -37,12 +37,14 @@ export class JournalView extends Component {
   }
 
   handleScroll() {
-    const { dispatchSetActiveMonth } = this.props;
+    const { dispatchSetActiveMonth, activeMonth } = this.props;
     const dates = document.getElementsByClassName('date');
     const dateKeys = Object.keys(dates).filter(index => isInViewport(dates[index]));
     const topVisibleDate = new Date(dates[dateKeys[0]].textContent);
-    const topVisibleMonth = `${topVisibleDate.getFullYear()}${toMonthName[topVisibleDate.getMonth()]}`
-    dispatchSetActiveMonth(topVisibleMonth);
+    const topVisibleMonth = `${topVisibleDate.getFullYear()}${toMonthName[topVisibleDate.getMonth()]}`;
+    if (activeMonth !== topVisibleMonth) {
+      dispatchSetActiveMonth(topVisibleMonth);
+    }
   }
 
   render() {
@@ -90,15 +92,15 @@ JournalView.propTypes = {
   dispatchDeleteEntry: PropTypes.func.isRequired,
   userId: PropTypes.number,
   entries: PropTypes.arrayOf(PropTypes.object),
-  months: PropTypes.objectOf(PropTypes.array),
-  activeMonth: PropTypes.string
+  activeMonth: PropTypes.string,
+  byDate: PropTypes.objectOf(PropTypes.array)
 };
 
 JournalView.defaultProps = {
   userId: null,
   entries: [],
-  months: {},
-  activeMonth: ''
+  activeMonth: '',
+  byDate: {}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(JournalView);
