@@ -5,7 +5,8 @@ module.exports.new = audio => (
     'INSERT INTO audio\
     (entry_id, remote_path, local_path, is_processed, is_downloaded, recording_id, date_file_created)\
     VALUES (${entry_id}, ${remote_path}, ${local_path}, ${is_processed}, ${is_downloaded}, ${recording_id}, ${date_file_created})\
-    RETURNING audio_id',
+    ON CONFLICT (recording_id) DO NOTHING\
+    RETURNING audio_id, entry_id',
     audio)
 );
 

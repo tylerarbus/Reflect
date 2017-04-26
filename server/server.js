@@ -58,8 +58,8 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 // speechConvertWorker.start();
-// downloadWorker.getFileDetails.start();
-// downloadWorker.downloadFiles.start();
+// fileDetailsWorker.start();
+// downloadWorker.start();
 // nlpWorker.start();
 // scheduledCallsWorker.start();
 searchWorker.start();

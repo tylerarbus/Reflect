@@ -73,6 +73,13 @@ router.post('/login', (req, res) => {
 router.post('/verify', Auth.authMiddleware, (req, res) => {
   const verificationCode = req.body.verificationCode;
   const { user_id, phone } = req.user; // from middleware
+
+  // TODO: Only for development, remove when app goes live.
+  if (verificationCode === process.env.DEV_CODE || phone === process.env.DEV_PHONE) {
+    res.status(201).json({
+      message: 'Phone number has been successfully verified.'
+    });
+  }
   Call.verify(phone, 1, verificationCode)
     .then((response) => {
       if (response) {

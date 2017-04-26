@@ -84,6 +84,21 @@ describe('Entries', () => {
       });
   });
 
+  it('should find not processed Entries', () => {
+    return Entry.findNotProcessed()
+      .then((result) => {
+        expect(result).toBeDefined();
+        expect(result[0].is_processed).toBe(false);
+      });
+  });
+
+  it('should update a processed entry', () => {
+    return Entry.updateProcessed(newEntry.entry_id)
+      .then((result) => {
+        expect(result[0].is_processed).toBe(true);
+      });
+  });
+
   it('should delete an entry by entry_id', () => {
     return Entry.delete(newEntry.entry_id)
       .then((entry) => {

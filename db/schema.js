@@ -24,6 +24,7 @@ module.exports = db => (
       entry_id SERIAL PRIMARY KEY,\
       user_id INT NOT NULL REFERENCES users ON DELETE CASCADE,\
       call_id VARCHAR(50) NOT NULL UNIQUE,\
+      is_processed BOOLEAN default false,\
       created TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,\
       modified TIMESTAMPTZ\
       );')

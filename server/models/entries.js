@@ -17,6 +17,14 @@ module.exports.getCallIdByEntryId = entryId => (
   db.oneOrNone('SELECT * FROM entries WHERE entry_id = $1', [entryId])
 );
 
+module.exports.findNotProcessed = () => (
+  db.manyOrNone('SELECT * FROM entries WHERE is_processed = false')
+);
+
+module.exports.updateProcessed = entryId => (
+  db.query('UPDATE entries SET is_processed = true WHERE entry_id = $1 RETURNING *', [entryId])
+);
+
 module.exports.findByUserId = userId => (
   db.manyOrNone('SELECT entry_text.text, entries.entry_id, entries.created, entries.user_id, audio.local_path FROM entry_text\
     INNER JOIN entries ON entry_text.entry_id = entries.entry_id\
