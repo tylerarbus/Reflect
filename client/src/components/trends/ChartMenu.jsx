@@ -8,6 +8,7 @@ const ChartMenu = ({ charts, active, handleViewChange }) => (
         <a
           className={chart === active ? 'active item' : 'item'}
           onClick={handleViewChange}
+          key={chart}
         >
           {chart}
         </a>

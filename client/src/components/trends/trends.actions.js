@@ -6,6 +6,7 @@ export const SET_CHART_DATA = 'SET_CHART_DATA';
 export const SET_BUBBLE_DATA = 'SET_BUBBLE_DATA';
 export const SET_BUBBLE_VIEW = 'SET_BUBBLE_VIEW';
 export const SET_EMOTION_CENTERS = 'SET_EMOTION_CENTERS';
+export const SET_CURRENT_CHART = 'SET_CURRENT_CHART';
 
 export const fetchingData = () => ({ type: FETCHING_DATA });
 
@@ -70,5 +71,12 @@ export const setEmotionCenters = emotionCenters => (
   {
     type: SET_EMOTION_CENTERS,
     emotionCenters
+  }
+);
+
+export const setCurrentChart = chart => (
+  {
+    type: SET_CURRENT_CHART,
+    chart
   }
 );
