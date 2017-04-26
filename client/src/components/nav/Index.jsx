@@ -92,7 +92,10 @@ export class Nav extends Component {
         >
           <span style={logoStyle}>Reflective</span>
         </a>
-        {this.props.user.id &&
+        { this.props.user.id &&
+          !this.props.signup.accountPage &&
+          !this.props.signup.phonePreferencesPage &&
+          !this.props.signup.phoneVerificationPage &&
           <a
             className={this.props.router.location.pathname === '/entries' ? 'active item' : 'item'}
             onClick={this.onClickEntries}
@@ -100,7 +103,10 @@ export class Nav extends Component {
             Entries
           </a>
         }
-        {this.props.user.id &&
+        { this.props.user.id &&
+          !this.props.signup.accountPage &&
+          !this.props.signup.phonePreferencesPage &&
+          !this.props.signup.phoneVerificationPage &&
           <a
             className={this.props.router.location.pathname === '/trends' ? 'active item' : 'item'}
             onClick={this.onClickTrends}
@@ -109,6 +115,9 @@ export class Nav extends Component {
           </a>
         }
         { !this.props.user.id &&
+          !this.props.signup.accountPage &&
+          !this.props.signup.phonePreferencesPage &&
+          !this.props.signup.phoneVerificationPage &&
           <div className="right item">
             <div className={this.props.user.error === 'Invalid User/Password' ? 'ui input error' : 'ui input'}>
               <input
@@ -133,6 +142,9 @@ export class Nav extends Component {
           </div>
         }
         { this.props.user.id &&
+          !this.props.signup.accountPage &&
+          !this.props.signup.phonePreferencesPage &&
+          !this.props.signup.phoneVerificationPage &&
           <div
             className="right menu"
             style={menuStyle}
@@ -158,7 +170,8 @@ export class Nav extends Component {
 const mapStateToProps = state => (
   {
     user: state.user,
-    router: state.router
+    router: state.router,
+    signup: state.signup
   }
 );
 
