@@ -45,6 +45,12 @@
     },
     "SEARCH_URL": {
       "required": true
+    },
+    "DEV_CODE": {
+      "required": true
+    },
+    "DEV_PHONE": {
+      "required": true
     }
   },
   "formation": {
