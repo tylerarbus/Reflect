@@ -8,7 +8,7 @@ import ViewSelector from './ViewSelector.jsx';
 import { getEmotionCenters } from './bubbleGraph/bubbleUtils.js';
 
 const gridStyle = {
-  marginTop: '14px'
+  marginTop: '67px'
 };
 
 const charts = ['Sentiment Chart', 'Keywords Bubble Chart'];
