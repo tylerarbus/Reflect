@@ -48,6 +48,7 @@ export class EntriesIndex extends Component {
   }
 
   render() {
+<<<<<<< HEAD:client/src/components/entries/Index.jsx
     const { entries, byDate, activeMonth, isSearching, searchResults, isFetchingSearch, isFetchingEntries } = this.props;
 
     return (
@@ -84,6 +85,22 @@ export class EntriesIndex extends Component {
             numSearchResults={searchResults.length}
           />
         }
+=======
+    const { entries, byDate, activeMonth, keywords } = this.props;
+
+    return (
+      <div className="ui centered grid container">
+        <Timeline
+          byDate={byDate}
+          onMonthClick={this.onMonthClick}
+          active={activeMonth}
+        />
+        <EntryList
+          entries={entries}
+          onDelete={this.onDeleteEntry}
+          keywords={keywords}
+        />
+>>>>>>> Add Keyword tags to each entry:client/src/components/entries/JournalView.jsx
       </div>
     );
   }
@@ -95,10 +112,14 @@ const mapStateToProps = state => (
     entries: state.entries.displayedEntries,
     byDate: state.entries.byDate,
     activeMonth: state.entries.activeMonth,
+<<<<<<< HEAD:client/src/components/entries/Index.jsx
     isSearching: state.search.isSearching,
     searchResults: state.search.results,
     isFetchingSearch: state.search.isFetching,
     isFetchingEntries: state.entries.isFetching
+=======
+    keywords: state.entries.keywords
+>>>>>>> Add Keyword tags to each entry:client/src/components/entries/JournalView.jsx
   }
 );
 
@@ -120,10 +141,14 @@ EntriesIndex.propTypes = {
   entries: PropTypes.arrayOf(PropTypes.object),
   activeMonth: PropTypes.string,
   byDate: PropTypes.objectOf(PropTypes.array),
+<<<<<<< HEAD:client/src/components/entries/Index.jsx
   isSearching: PropTypes.bool.isRequired,
   searchResults: PropTypes.arrayOf(PropTypes.object),
   isFetchingSearch: PropTypes.bool.isRequired,
   isFetchingEntries: PropTypes.bool.isRequired
+=======
+  keywords: PropTypes.objectOf(PropTypes.array)
+>>>>>>> Add Keyword tags to each entry:client/src/components/entries/JournalView.jsx
 };
 
 EntriesIndex.defaultProps = {
@@ -131,7 +156,11 @@ EntriesIndex.defaultProps = {
   entries: [],
   activeMonth: '',
   byDate: {},
+<<<<<<< HEAD:client/src/components/entries/Index.jsx
   searchResults: null
+=======
+  keywords: {}
+>>>>>>> Add Keyword tags to each entry:client/src/components/entries/JournalView.jsx
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntriesIndex);

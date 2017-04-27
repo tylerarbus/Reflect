@@ -10,7 +10,8 @@ export default class Entries extends Component {
   }
 
   render() {
-    const { entries, onDelete, numSearchResults } = this.props;
+    const { entries, onDelete, keywords, numSearchResults } = this.props;
+    
     return (
       <div
         className="ten wide column"
@@ -27,6 +28,7 @@ export default class Entries extends Component {
             audio={entry.local_path}
             onDelete={onDelete}
             entryId={entry.entry_id}
+            keywords={keywords[entry.entry_id]}
           />
         )}
       </div>
@@ -39,10 +41,12 @@ Entries.propTypes = {
   entries: PropTypes.arrayOf(PropTypes.object),
   onDelete: PropTypes.func.isRequired,
   numSearchResults: PropTypes.number
+  keywords: PropTypes.objectOf(PropTypes.array)
 };
 
 Entries.defaultProps = {
   entries: [],
   numSearchResults: null
+  keywords: {}
 };
 
