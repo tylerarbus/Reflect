@@ -17,7 +17,9 @@ const containerStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
-  transform: 'translate(-50%, -70%)'
+  transform: 'translate(-50%, -70%)',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  padding: '36px'
 };
 
 export class Home extends Component {
@@ -54,7 +56,9 @@ export class Home extends Component {
           >
             Reflective
           </h1>
-          <h3 style={{ fontSize: '1.5rem' }}>Get a 60 second phone call every day to record your how your day went.</h3>
+          <h3 style={{ fontSize: '1.4rem' }}>
+            <span style={{ color: '#e3e7e8' }}>Get a 60 second phone call every day to record your how your day went.</span>
+          </h3>
           <form
             className="ui form"
             onSubmit={this.onSubmitEmail}
