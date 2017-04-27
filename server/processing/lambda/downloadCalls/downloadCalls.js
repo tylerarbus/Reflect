@@ -81,7 +81,15 @@ exports.myHandler = (event, context, callback) => {
     })
     .then(() => {
       pgp.end();
-      callback(null, 'done');
+      const sns = new AWS.SNS();
+      const params = {
+        Message: 'New files downloaded onto S3',
+        Subject: 'New files on S3',
+        TopicArn: 'arn:aws:sns:us-west-1:319272982868:audio_is_downloaded'
+      }
+      sns.publish(params, (err, data) => {
+        callback(null, 'done'); 
+      });
     })
     .catch((error) => {
       pgp.end();

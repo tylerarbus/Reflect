@@ -1,5 +1,6 @@
 const pgp = require('pg-promise')();
 const request = require('request');
+const AWS = require('aws-sdk');
 
 pgp.pg.defaults.ssl = true;
 const cn = `postgres://${process.env.DB_LOGIN}:${process.env.DB_PASS}@${process.env.DB_URL}`;
@@ -92,7 +93,15 @@ exports.myHandler = (event, context, callback) => {
     })
     .then(() => {
       pgp.end();
-      callback(null, 'done');
+      const sns = new AWS.SNS();
+      const params = {
+        Message: 'New files from Twilio',
+        Subject: 'New Files',
+        TopicArn: 'arn:aws:sns:us-west-1:319272982868:entry_is_processed'
+      }
+      sns.publish(params, (err, data) => {
+        callback(null, 'done'); 
+      });
     })
     .catch((error) => {
       pgp.end();
