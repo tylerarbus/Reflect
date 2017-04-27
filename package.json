@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
+  "name": "Reflective",
+  "version": "1.0.0-beta",
   "description": "",
-  "author": "",
+  "author": "Jason Chang, Scott Clendening, Terence Mac, Tyler Arbus",
   "license": "",
   "engines": {
     "node": ">=6.4.0"

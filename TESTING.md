@@ -2,14 +2,13 @@
 
 ## Requirements
 
-1. [Mocha - Test runner](https://mochajs.org/)
-2. [Chai - Assertions](http://chaijs.com/)
+1. [Jest - Test runner](https://facebook.github.io/jest/)
 
 ```javascript
-expect(foo).to.be.a('string');
-expect(foo).to.equal('bar');
-expect(foo).to.have.lengthOf(3);
-expect(tea).to.have.property('flavors').with.lengthOf(3);
+expect(foo).toBeInstanceOf('string');
+expect(foo).toBe('bar');
+expect(foo).toHaveLength(3);
+expect(tea).toHaveProperty('flavors');
 ```
 
 3. [Enzyme - React Component Testing](https://github.com/airbnb/enzyme)
@@ -65,7 +64,6 @@ Tests are arranged based on their sections. Files are named based on the parent 
 2. Import your component from '.../src/components...'
 3. Write tests under the appropriate Describe sections
 
-[Great resource on testing React Components with Mocha & Enzyme](https://medium.freecodecamp.com/react-unit-testing-with-mocha-and-enzyme-77d18b6875cb#.xos1h93qw)
 
 ## What to Test?
 Here is a list of possible tests for React Components
