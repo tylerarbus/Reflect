@@ -40,7 +40,7 @@ export class CallMeNow extends Component {
       <div className="right item">
         <button
           id="call-now"
-          className={this.state.showLoader ? 'ui button floated loading' : 'ui floated button'}
+          className={this.state.showLoader ? 'ui button loading' : 'ui button'}
           style={buttonStyle}
           onClick={this.onClickCall}
         >
