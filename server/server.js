@@ -43,6 +43,10 @@ app.get('/entries', Auth.authMiddleware, requestHandler.getEntries);
 app.delete('/entries/:entry_id', Auth.authMiddleware, requestHandler.deleteEntries);
 app.post('/search', Auth.authMiddleware, requestHandler.search);
 
+app.get('/.well-known/acme-challenge/:id', (req, res) => {
+  res.send(`${req.params.id}.r6lTkEhcZcvEj2G5jWAwJJ94HY_FeHd_ZlKqVeDhSfw`);
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });
