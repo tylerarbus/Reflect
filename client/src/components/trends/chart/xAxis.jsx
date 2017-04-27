@@ -26,7 +26,6 @@ export class XAxis extends Component {
         .style('font', '12px lato')
         .attr('transform', `translate(0, ${this.props.height})`)
         .call(xAxis);
-
   }
 
   componentWillReceiveProps(nextProps) {

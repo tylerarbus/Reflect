@@ -23,9 +23,11 @@ export class ChartContainer extends Component {
   }
 
   componentDidMount() {
-    const transformedData = transformWeekView(this.props.rawData);
-
-    this.newChartData(this.props.chartView, transformedData);
+    this.handleViewChange({
+      target: {
+        value: '0'
+      }
+    });
 
     d3.select('.chart')
         .attr('width', this.props.width + this.props.margin.left + this.props.margin.right)
