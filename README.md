@@ -51,7 +51,7 @@ TBD - Discuss insights feature.
 
 ## :busts_in_silhouette: Team
 
-We're a team of full-stack engineers who are passionate about creating beautiful, fast and scalable web applications. Feel free to say hello!
+We're a team of full-stack engineers who are passionate about creating beautiful, fast and scalable web applications. Say hello - we'd love to chat!
 
   - [Jason Chang](https://github.com/j-chang)
   - [Scott Clendening](https://github.com/smclendening)
@@ -126,11 +126,11 @@ You may use a local or hosted database/search service for Redis, Postgresql, and
 
 ### APIs
 
-Reflective uses third-party services to power its calling and analytics features. To use the application, you'll need to generate API keys for the following services:
+Reflective uses third-party services to power its calling and analytics features. To use the application, you'll need to generate API keys from the following services:
 
-- [Twillio Calling API](https://www.twilio.com/)
-- [Watson - Speech to Text Service](https://www.ibm.com/watson/developercloud/speech-to-text.html)
-- [Watson - Natural Language Understanding](https://www.ibm.com/watson/developercloud/natural-language-understanding.html)
+- [Twillio](https://www.twilio.com/)
+- [IBM Watson - Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html)
+- [IBM Watson - Natural Language Understanding](https://www.ibm.com/watson/developercloud/natural-language-understanding.html)
 
 ## :rocket: Development
 
@@ -150,11 +150,11 @@ Our test suite is build with **Jest, Enzyme** (for testing React components), an
 npm run test:dev
 ```
 
-Refer to [TESTING.md](TESTING.md) for testing guidelines.
+Refer to [TESTING.md](./docs/TESTING.md) for testing guidelines.
 
 ## :speech_balloon: Contributing
 
-We keep track of features, bugs, ui fixes, and other tickets using **Github Issues**. Check out [this page](https://github.com/ConvivialChameleons/Reflective/issues) for a list of open issues. Refer to [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+We keep track of features, bugs, ui fixes, and other tickets using **Github Issues**. Check out [this page](https://github.com/ConvivialChameleons/Reflective/issues) for a list of open issues. Refer to [CONTRIBUTING.md](./docs/CONTRIBUTING.md) for contribution guidelines.
 
 Our application was written in ES6 (ECMAScript 2015) syntax and follows the [Airbnb Style Guide](https://github.com/airbnb/javascript).
 

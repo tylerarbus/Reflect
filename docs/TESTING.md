@@ -11,15 +11,15 @@ expect(foo).toHaveLength(3);
 expect(tea).toHaveProperty('flavors');
 ```
 
-3. [Enzyme - React Component Testing](https://github.com/airbnb/enzyme)
+2. [Enzyme - React Component Testing](https://github.com/airbnb/enzyme)
 
 ## Running Tests
-`npm run test`
+`npm run test:dev`
 
-Webpack will bundle and transpile code. Mocha will run all the tests that have been defined.
+Webpack will bundle and transpile code. Jest will run all the tests that have been defined.
 
 ### Configuration
-Any test related configuration can be found in webpack.config-test.js.
+Any test related configuration can be found in test/jest.json.
 
 ## General Component Best Practices
 
