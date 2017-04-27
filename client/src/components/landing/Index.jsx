@@ -49,7 +49,7 @@ export class Home extends Component {
           style={containerStyle}
         >
           <h1 className="ui inverted header">Reflective</h1>
-          <h3>Get a 60 second phone call every day to record your how your day went.</h3>
+          <h3 style={{ fontSize: '1.5rem' }}>Get a 60 second phone call every day to record your how your day went.</h3>
           <form
             className="ui form"
             onSubmit={this.onSubmitEmail}
