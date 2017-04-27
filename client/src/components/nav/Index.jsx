@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
 import { checkCredentials } from '../landing/login.actions.js';
 import Dropdown from './Dropdown.jsx';
+import CallMeNow from '../entries/calling/CallMeNow.jsx';
 
 const navStyle = {
   marginBottom: '0',
@@ -80,7 +81,7 @@ export class Nav extends Component {
 
   render() {
     return (
-      <div id="navbar" className="ui inverted menu" style={navStyle}>
+      <div id="navbar" className="ui inverted fixed menu" style={navStyle}>
         <a
           className="item"
           onClick={this.onClickHome}
@@ -130,6 +131,7 @@ export class Nav extends Component {
             className="right menu"
             style={menuStyle}
           >
+            <CallMeNow />
             <a
               className="item"
               onClick={this.onClickMenu}

@@ -1,13 +1,14 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { Nav } from '../../client/src/components/nav/Index.jsx';
+
 
 describe('Nav Component', () => {
   let navbar;
 
   beforeEach(() => {
-    navbar = mount(<Nav user={{id:10}}/>);
+    navbar = shallow(<Nav user={{id:10}}/>);
   });
 
   it('should render without crashing', () => {
