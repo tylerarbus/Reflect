@@ -18,7 +18,7 @@ const Entry = ({ entryId, date, text, audio, onDelete }) => (
     <h4 className="date ui header">{toDateString(date)}</h4>
     <p>{text}</p>
     <audio controls style={{ width: '100%' }}>
-      <source src={`/audio/${audio}`} />
+      <source src={`${audio}`} />
     </audio>
   </div>
 );

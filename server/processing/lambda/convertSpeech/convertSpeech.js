@@ -1,5 +1,5 @@
 const SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
-const aws = require('aws-sdk');
+const AWS = require('aws-sdk');
 const pgp = require('pg-promise')();
 
 pgp.pg.defaults.ssl = true;
@@ -14,7 +14,7 @@ const speechToText = new SpeechToTextV1({
 const bucket = 'elasticbeanstalk-us-west-1-319272982868';
 const bucketRegion = 'us-west-1';
 
-const s3 = new aws.S3({
+const s3 = new AWS.S3({
   apiVersion: '2006-03-01',
   params: { Bucket: bucketRegion }
 });
@@ -91,7 +91,15 @@ exports.myHandler = (event, context, callback) => {
     })
     .then(() => {
       pgp.end();
-      callback(null, 'done');
+      const sns = new AWS.SNS();
+      const params = {
+        Message: 'Speech converted to text',
+        Subject: 'Speech convert to text',
+        TopicArn: 'arn:aws:sns:us-west-1:319272982868:audio_is_processed'
+      }
+      sns.publish(params, (err, data) => {
+        callback(null, 'done');
+      });
     })
     .catch((error) => {
       pgp.end();
