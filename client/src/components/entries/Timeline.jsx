@@ -12,7 +12,7 @@ const Timeline = ({ byDate, onMonthClick, active }) => {
 
   const sortedYears = Object.keys(byDate).sort((a, b) => b > a);
   return (
-    <div className="four wide column">
+    <div className="four wide column" style={{ paddingLeft: '0px' }}>
       <div
         className="ui left secondary vertical menu visible borderless"
         style={timelineStyle}
@@ -29,7 +29,7 @@ const Timeline = ({ byDate, onMonthClick, active }) => {
                   onClick={() => onMonthClick(`${year}${toMonthName[month]}`)}
                 >
                   {toMonthName[month]}
-                  <div className="ui label">
+                  <div className="ui circular black label">
                     {byDate[year][month] && byDate[year][month].length}
                   </div>
                 </a>

@@ -12,7 +12,7 @@ export default class Entries extends Component {
     const { entries, onDelete } = this.props;
     return (
       <div
-        className="eleven wide column"
+        className="ten wide column"
         style={{ marginTop: '14px' }}
       >
         {entries.map(entry =>
