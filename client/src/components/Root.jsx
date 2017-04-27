@@ -29,7 +29,7 @@ export class Root extends React.Component {
         <div style={{ height: '100%' }}>
           <Nav />
           <ConnectedRouter history={this.props.history}>
-            <div style={{ height: 'calc(100% - 52px)' }}>
+            <div style={{ height: '100%', paddingTop: '52px' }}>
               <Route exact path="/" component={Landing} />
               <Route path="/entries" component={Entries} />
               <Route path="/signup" component={Signup} />

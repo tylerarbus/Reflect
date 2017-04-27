@@ -67,7 +67,6 @@ export class JournalView extends Component {
               onDelete={this.onDeleteEntry}
             />
           }
-          <CallMeNow />
       </div>
     );
   }
