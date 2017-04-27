@@ -20,6 +20,18 @@ export const entriesByDate = (entries) => {
   return byDate;
 };
 
+export const keywordsByEntry = (nlpData) => {
+  const byEntry = {};
+
+  nlpData.forEach((entry) => {
+    byEntry[entry.entry_id] = entry.keywords
+      .filter(keywordObj => keywordObj.relevance > 0.8)
+      .map(keyword => keyword.text);
+  });
+
+  return byEntry;
+};
+
 export const toMonthName = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
 
