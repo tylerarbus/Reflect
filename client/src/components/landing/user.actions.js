@@ -1,4 +1,6 @@
-export const USER_SUBMIT_EMAIL = 'USER_SUBMIT_EMAIL';
+import { push } from 'react-router-redux';
+
+export const USER_EDIT_EMAIL = 'USER_EDIT_EMAIL';
 export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
 export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
 
@@ -35,14 +37,15 @@ export const fetchUserInfo = (token) => {
       .then(response => response.json())
       .then((responseJSON) => {
         dispatch(receiveUserInfo(responseJSON.user));
+        dispatch(push('/entries'));
       })
       .catch(error => console.error(error));
   };
 };
 
-export const userSubmitEmail = email => (
+export const userEditEmail = email => (
   {
-    type: USER_SUBMIT_EMAIL,
+    type: USER_EDIT_EMAIL,
     email
   }
 );

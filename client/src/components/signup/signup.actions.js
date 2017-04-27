@@ -12,6 +12,13 @@ export const PHONE_PREFS_SUBMIT = 'PHONE_PREFS_SUBMIT';
 export const PHONE_PREFS_SUBMITTED = 'PHONE_PREFS_SUBMITTED';
 export const PHONE_PREFS_ERROR = 'PHONE_PREFS_ERROR';
 export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
+export const USER_SUBMIT_EMAIL = 'USER_SUBMIT_EMAIL';
+
+export const userSubmitEmail = () => (
+  {
+    type: USER_SUBMIT_EMAIL
+  }
+);
 
 const receiveUserInfo = userInfo => (
   {

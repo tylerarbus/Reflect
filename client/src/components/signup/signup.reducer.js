@@ -1,9 +1,9 @@
-import { ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, CREATING_USER, SIGN_UP_ERROR, USER_CREATED, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, PHONE_PREFS_SUBMIT, PHONE_PREFS_SUBMITTED, PHONE_PREFS_ERROR } from './signup.actions.js';
+import { ACCOUNT_PAGE_SUBMIT, PHONE_VERIFY_SUBMIT, CREATING_USER, SIGN_UP_ERROR, USER_CREATED, VERIFYING_CODE, CODE_VERIFIED, CODE_ERROR, PHONE_PREFS_SUBMIT, PHONE_PREFS_SUBMITTED, PHONE_PREFS_ERROR, USER_SUBMIT_EMAIL } from './signup.actions.js';
 
 const initialState = {
   isCreatingUser: false,
   errorMessage: null,
-  accountPage: true,
+  accountPage: false,
   phoneVerificationPage: false,
   phonePreferencesPage: false,
   isVerifyingCode: false
@@ -11,6 +11,11 @@ const initialState = {
 
 const signup = (state = initialState, action) => {
   switch (action.type) {
+    case USER_SUBMIT_EMAIL:
+      return {
+        ...state,
+        accountPage: true
+      };
     case ACCOUNT_PAGE_SUBMIT:
       return {
         ...state,
@@ -66,7 +71,8 @@ const signup = (state = initialState, action) => {
     case PHONE_PREFS_SUBMITTED:
       return {
         ...state,
-        isSubmittingPhonePrefs: false
+        isSubmittingPhonePrefs: false,
+        phonePreferencesPage: false
       };
     case PHONE_PREFS_ERROR:
       return {

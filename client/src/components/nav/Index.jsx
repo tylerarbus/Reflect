@@ -41,7 +41,11 @@ export class Nav extends Component {
   }
 
   onClickHome() {
-    this.props.dispatch(push('/'));
+    if (this.props.user.id) {
+      this.props.dispatch(push('/entries'));
+    } else {
+      this.props.dispatch(push('/'));
+    }
   }
 
   onClickEntries() {
@@ -88,23 +92,32 @@ export class Nav extends Component {
         >
           <span style={logoStyle}>Reflective</span>
         </a>
-        {this.props.user.id &&
+        { this.props.user.id &&
+          !this.props.signup.accountPage &&
+          !this.props.signup.phonePreferencesPage &&
+          !this.props.signup.phoneVerificationPage &&
           <a
-            className="item"
+            className={this.props.router.location.pathname === '/entries' ? 'active item' : 'item'}
             onClick={this.onClickEntries}
           >
             Entries
           </a>
         }
-        {this.props.user.id &&
+        { this.props.user.id &&
+          !this.props.signup.accountPage &&
+          !this.props.signup.phonePreferencesPage &&
+          !this.props.signup.phoneVerificationPage &&
           <a
-            className="item"
+            className={this.props.router.location.pathname === '/trends' ? 'active item' : 'item'}
             onClick={this.onClickTrends}
           >
-            Trends
+            Insights
           </a>
         }
         { !this.props.user.id &&
+          !this.props.signup.accountPage &&
+          !this.props.signup.phonePreferencesPage &&
+          !this.props.signup.phoneVerificationPage &&
           <div className="right item">
             <div className={this.props.user.error === 'Invalid User/Password' ? 'ui input error' : 'ui input'}>
               <input
@@ -118,15 +131,22 @@ export class Nav extends Component {
                 type="password"
                 placeholder="Password"
                 onChange={this.onChangePassword}
+                style={{ marginLeft: '8px' }}
               />
             </div>
             <div
               className={this.props.user.isLoggingIn ? 'ui loading primary button' : 'ui primary button'}
               onClick={this.onClickLogin}
-            >Login</div>
+              style={{ marginLeft: '8px', whiteSpace: 'nowrap', backgroundColor: '#3F93B8' }}
+            >
+              Log in
+            </div>
           </div>
         }
         { this.props.user.id &&
+          !this.props.signup.accountPage &&
+          !this.props.signup.phonePreferencesPage &&
+          !this.props.signup.phoneVerificationPage &&
           <div
             className="right menu"
             style={menuStyle}
@@ -151,7 +171,9 @@ export class Nav extends Component {
 
 const mapStateToProps = state => (
   {
-    user: state.user
+    user: state.user,
+    router: state.router,
+    signup: state.signup
   }
 );
 

@@ -6,7 +6,8 @@ import { JournalView } from '../../client/src/components/entries/JournalView.jsx
 const setup = () => {
   const props = {
     dispatchGetEntries: jest.fn(),
-    dispatchSetDisplayMonth: jest.fn()
+    dispatchSetDisplayMonth: jest.fn(),
+    entries: [{}]
   };
 
   const journalView = shallow(<JournalView {...props} />);

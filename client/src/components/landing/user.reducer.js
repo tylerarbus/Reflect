@@ -1,4 +1,4 @@
-import { USER_SUBMIT_EMAIL, RECEIVE_USER_INFO, REQUEST_USER_INFO } from './user.actions.js';
+import { USER_EDIT_EMAIL, RECEIVE_USER_INFO, REQUEST_USER_INFO } from './user.actions.js';
 import { LOGIN_SUBMIT, LOGIN_ERROR, LOGIN_SUCCESSFUL } from './login.actions.js';
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case USER_SUBMIT_EMAIL:
+    case USER_EDIT_EMAIL:
       return {
         ...state,
         email: action.email

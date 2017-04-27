@@ -23,7 +23,8 @@ export class SignUpAccountPage extends Component {
     this.onChangePasswordVerify = this.onChangePasswordVerify.bind(this);
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     const { firstName, lastName, phone, password, passwordVerify } = this.state;
 
     if (firstName === null ||

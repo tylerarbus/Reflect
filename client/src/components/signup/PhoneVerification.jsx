@@ -14,7 +14,8 @@ export class SignUpPhoneVerification extends Component {
     this.onChangeCode = this.onChangeCode.bind(this);
   }
 
-  onClickSubmit() {
+  onClickSubmit(e) {
+    e.preventDefault();
     this.props.dispatch(verifyPhoneCode(this.state.verificationCode));
   }
 
