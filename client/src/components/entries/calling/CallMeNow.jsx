@@ -3,13 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeCall } from './calling.actions.js';
 
-const buttonDivStyle = {
-  marginTop: '14px'
-};
-
 const buttonStyle = {
   backgroundColor: '#89EEB2',
-  width: '180px'
+  width: '180px',
+  color: 'black'
 };
 
 export class CallMeNow extends Component {
@@ -40,13 +37,10 @@ export class CallMeNow extends Component {
 
   render() {
     return (
-      <div
-        className="right floated right aligned three wide column"
-        style={buttonDivStyle}
-      >
+      <div className="right item">
         <button
           id="call-now"
-          className={this.state.showLoader ? "huge ui button loading" : "huge ui button"}
+          className={this.state.showLoader ? 'ui button floated loading' : 'ui floated button'}
           style={buttonStyle}
           onClick={this.onClickCall}
         >
