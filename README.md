@@ -2,23 +2,23 @@
 
 Reflective is a simple, yet powerful, journaling app. Here's how it works:
 
-1. :phone: "How's your day going?" - every day, you'll receive a phone call from the app. You'll have 60 seconds to say whatever you'd like.
+1. :phone: "How's your day going?" - every day you'll receive a phone call from the app. You're given 60 seconds to say whatever you'd like.
 
-2. :green_book: Reflective will store a recording of your call on the server and convert it into text. The next time you log into the web app, you'll be able to see (and listen to!) your past journal entries.
+2. :green_book: Reflective will store a recording of your call on the server and convert it into text. The next time you log into the web app, you'll be able to see (and listen to!) past journal entries.
 
 3. :crystal_ball: With the *insights* feature, Reflective will run analysis on your entries to glean insights into their sentiment, emotion, and keywords. It will then generate custom charts which show how your mood changes over time, and how topics/keywords mentioned in your entries relate to your emotional state.
 
 ## Table of Contents
 
 1. [Features](#zap-features)
-    1.[Calling](#calling)
-    1.[Journal](#journal)
-    1.[Insights](#insights)
+    1. [Calling](#calling)
+    1. [Journal](#journal)
+    1. [Insights](#insights)
 1. [Team](#busts_in_silhouette-team)
 1. [Tech Stack](#package-tech-stack)
-    1.[Front-End](#front-end)
-    1.[Back-End](#back-end)
-    1.[Development Tools](#development-tools)
+    1. [Front-End](#front-end)
+    1. [Back-End](#back-end)
+    1. [Development Tools](#development-tools)
 1. [Usage](#runner-usage)
 1. [Requirements](#o-requirements)
     1. [Technologies](#technologies)
@@ -50,6 +50,8 @@ TBD - Discuss entries view, including timeline and search.
 TBD - Discuss insights feature.
 
 ## :busts_in_silhouette: Team
+
+We're a team of full-stack engineers who are passionate about creating beautiful, fast and scalable web applications. Feel free to say hello!
 
   - [Jason Chang](https://github.com/j-chang)
   - [Scott Clendening](https://github.com/smclendening)
