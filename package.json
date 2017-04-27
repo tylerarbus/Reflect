@@ -1,8 +1,8 @@
 {
   "name": "Reflective",
   "version": "1.0.0-beta",
-  "description": "",
-  "author": "Jason Chang, Scott Clendening, Terence Mac, Tyler Arbus",
+  "description": "Virtual journal that calls you once a day for 60 seconds, converts your call to text, and visualizes insights on sentiment, emotions and keywords.",
+  "author": "Jason Chang, Scott Clendening, Terence Tham, Tyler Arbus",
   "license": "",
   "engines": {
     "node": ">=6.4.0"
