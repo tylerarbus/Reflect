@@ -5,10 +5,16 @@ const EntryNLP = require('./models/entryNLP.js');
 const searchClient = require('./searchClient.js');
 
 module.exports.getEntries = (req, res) => {
+  let entries;
   Entries.findByUserId(req.user.user_id)
   .then((results) => {
+    entries = results;
+    return EntryNLP.findByUserId(req.user.user_id);
+  })
+  .then((results) => {
     res.status(200).json({
-      entries: results
+      entries,
+      nlp: results
     });
   })
   .catch((error) => {
