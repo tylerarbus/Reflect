@@ -4,7 +4,7 @@ import { toMonthName } from './utils.js';
 
 const timelineStyle = {
   top: '66px',
-  marginLeft: '24px'
+  position: 'sticky'
 };
 
 const Timeline = ({ byDate, onMonthClick, active }) => {
@@ -12,9 +12,9 @@ const Timeline = ({ byDate, onMonthClick, active }) => {
 
   const sortedYears = Object.keys(byDate).sort((a, b) => b > a);
   return (
-    <div className="three wide column">
+    <div className="four wide column">
       <div
-        className="ui left secondary vertical fixed menu visible borderless"
+        className="ui left secondary vertical menu visible borderless"
         style={timelineStyle}
       >
         {sortedYears.map(year =>
