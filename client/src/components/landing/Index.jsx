@@ -48,7 +48,12 @@ export class Home extends Component {
           className="ui text container"
           style={containerStyle}
         >
-          <h1 className="ui inverted header">Reflective</h1>
+          <h1
+            className="ui inverted header"
+            style={{ fontSize: '3rem' }}
+          >
+            Reflective
+          </h1>
           <h3 style={{ fontSize: '1.5rem' }}>Get a 60 second phone call every day to record your how your day went.</h3>
           <form
             className="ui form"
@@ -60,8 +65,12 @@ export class Home extends Component {
                 onChange={this.onEmailFieldChange}
               />
             </div>
-            <button className="ui fluid large teal submit button" type="Submit">
-              Get Started
+            <button
+              className="ui fluid large submit button"
+              type="Submit"
+              style={{ backgroundColor: '#3F93B8' }}
+            >
+              <span style={{ color: '#fff' }}>Get Started</span>
             </button>
           </form>
         </div>

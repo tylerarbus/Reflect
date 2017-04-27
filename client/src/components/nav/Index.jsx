@@ -137,8 +137,10 @@ export class Nav extends Component {
             <div
               className={this.props.user.isLoggingIn ? 'ui loading primary button' : 'ui primary button'}
               onClick={this.onClickLogin}
-              style={{ marginLeft: '8px', whiteSpace: 'nowrap' }}
-            >Log in</div>
+              style={{ marginLeft: '8px', whiteSpace: 'nowrap', backgroundColor: '#3F93B8' }}
+            >
+              Log in
+            </div>
           </div>
         }
         { this.props.user.id &&
