@@ -135,7 +135,7 @@ You may use a local or hosted database/search service for Redis, Postgresql, and
 
 Reflective uses third-party services to power its calling and analytics features. To use the application, you'll need to generate API keys from the following services:
 
-- [Twillio](https://www.twilio.com/)
+- [Twilio](https://www.twilio.com/)
 - [IBM Watson - Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html)
 - [IBM Watson - Natural Language Understanding](https://www.ibm.com/watson/developercloud/natural-language-understanding.html)
 
@@ -151,7 +151,7 @@ npm install
 
 ### Testing
 
-Our test suite is build with **Jest, Enzyme** (for testing React components), and **Supertest** (for mock HTTP requests). To run all tests:
+Our test suite is built with **Jest, Enzyme** (for testing React components), and **Supertest** (for mock HTTP requests). To run all tests:
 
 ```sh
 npm run test:dev
