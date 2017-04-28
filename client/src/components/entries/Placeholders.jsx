@@ -36,7 +36,7 @@ export function LoadingEntries() {
       <div className="ui active inverted dimmer">
         <div className="ui text loader">Loading Entries</div>
       </div>
-      <p></p>
+      <p />
     </div>
   );
 }
@@ -48,8 +48,8 @@ export function NoResults() {
       style={{ marginTop: '14px' }}
     >
       <div className="ui container" style={{ border: 'none' }} >
-        <i className="large search icon" style={{ marginBottom: '10px' }} />
-        <h2 style={{ display: 'inline-block' }} >&nbsp;Sorry, no results found.</h2>
+        <i className="large search icon" style={{ marginBottom: '12px' }} />
+        <h2 style={{ display: 'inline-block', marginTop: '5px' }} >&nbsp;Sorry, no results found.</h2>
       </div>
     </div>
   );
@@ -62,9 +62,23 @@ export function Searching() {
       style={{ marginTop: '14px' }}
     >
       <div className="ui container" style={{ border: 'none' }} >
-        <i className="large spinner loading icon" style={{ marginBottom: '10px' }} />
-        <h2 style={{ display: 'inline-block' }} >&nbsp;Searching...</h2>
+        <i className="large spinner loading icon" style={{ marginBottom: '12px' }} />
+        <h2 style={{ display: 'inline-block', marginTop: '5px' }} >&nbsp;Searching...</h2>
       </div>
+    </div>
+  );
+}
+
+export function SearchResults({ results }) {
+  return (
+    <div className="ui container" style={{ border: 'none' }} >
+      <i className="large search icon" style={{ marginBottom: '12px' }} />
+      {results > 1 &&
+        <h2 style={{ display: 'inline-block', marginTop: '5px' }} >&nbsp;Found {results} results.</h2>
+      }
+      {results === 1 &&
+        <h2 style={{ display: 'inline-block', marginTop: '5px' }} >&nbsp;Found 1 result.</h2>
+      }
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EntryListItem from './EntryListItem.jsx';
+import { SearchResults } from './Placeholders.jsx';
 
 export default class Entries extends Component {
   constructor(props) {
@@ -9,12 +10,15 @@ export default class Entries extends Component {
   }
 
   render() {
-    const { entries, onDelete } = this.props;
+    const { entries, onDelete, numSearchResults } = this.props;
     return (
       <div
         className="ten wide column"
         style={{ marginTop: '14px' }}
       >
+        {numSearchResults &&
+          <SearchResults results={numSearchResults} />
+        }
         {entries.map(entry =>
           <EntryListItem
             date={entry.created}
@@ -33,10 +37,12 @@ export default class Entries extends Component {
 
 Entries.propTypes = {
   entries: PropTypes.arrayOf(PropTypes.object),
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  numSearchResults: PropTypes.number
 };
 
 Entries.defaultProps = {
-  entries: []
+  entries: [],
+  numSearchResults: null
 };
 

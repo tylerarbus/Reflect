@@ -79,6 +79,7 @@ export class EntriesIndex extends Component {
           <EntryList
             entries={searchResults.map(result => (result._source))}
             onDelete={this.onDeleteEntry}
+            numSearchResults={searchResults.length}
           />
         }
       </div>
