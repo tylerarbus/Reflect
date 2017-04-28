@@ -37,16 +37,16 @@ const deleteStyle = {
 
 const Entry = ({ entryId, date, text, audio, onDelete, analysis }) => (
   <div className="ui container segment" style={entryStyle}>
-    <div className="ui icon right floated">
+    {analysis && <div className="ui icon right floated">
       <i className={`large ${getFaceIcon(analysis.sentiment)} icon`} style={faceStyle} />
-    </div>
+    </div>}
     <h4 className="date ui header">{toDateString(date)}</h4>
     <p>{text}</p>
     <audio controls style={{ width: '100%' }}>
       <source src={`${audio}`} />
     </audio>
-    <div className="ui horizontal label" style={keywordStyle}>Keywords:</div>
-    {analysis.keywords.map(keyword =>
+    {analysis && <div className="ui horizontal label" style={keywordStyle}>Keywords:</div>}
+    {analysis && analysis.keywords.map(keyword =>
       <div className="ui horizontal label" style={labelStyle}>
         {keyword}
       </div>
