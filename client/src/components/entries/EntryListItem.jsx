@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toDateString, getFaceIcon } from './utils.js';
 
-const style = {
+const labelStyle = {
   marginTop: '8px'
 };
 
@@ -16,19 +16,11 @@ const faceStyle = {
   float: 'right'
 };
 
-const test = {
+const entryStyle = {
   position: 'relative'
 };
 
-const please = {
-  position: 'absolute',
-  right: '5%',
-  bottom: '5%',
-  width: '1px'
- // width: '30px'
-};
-
-const hmm = {
+const deleteButton = {
   position: 'absolute',
   height: '5px',
   width: '5px',
@@ -36,7 +28,7 @@ const hmm = {
   right: '3%'
 };
 
-const trash = {
+const deleteStyle = {
   position: 'absolute',
   left: '15%',
   bottom: '27%'
@@ -44,7 +36,7 @@ const trash = {
 
 
 const Entry = ({ entryId, date, text, audio, onDelete, analysis }) => (
-  <div className="ui container segment" style={test}>
+  <div className="ui container segment" style={entryStyle}>
     <div className="ui icon right floated">
       <i className={`large ${getFaceIcon(analysis.sentiment)} icon`} style={faceStyle} />
     </div>
@@ -55,7 +47,7 @@ const Entry = ({ entryId, date, text, audio, onDelete, analysis }) => (
     </audio>
     <div className="ui horizontal label" style={keywordStyle}>Keywords:</div>
     {analysis.keywords.map(keyword =>
-      <div className="ui horizontal label" style={style}>
+      <div className="ui horizontal label" style={labelStyle}>
         {keyword}
       </div>
     )}
@@ -63,9 +55,9 @@ const Entry = ({ entryId, date, text, audio, onDelete, analysis }) => (
       <button
         className="ui small button"
         onClick={() => { onDelete(entryId); }}
-        style={hmm}
+        style={deleteButton}
       >
-        <i className="trash icon" style={trash} />
+        <i className="trash icon" style={deleteStyle} />
       </button>
     </div>
   </div>
