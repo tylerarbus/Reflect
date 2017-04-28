@@ -52,11 +52,13 @@ export class EntriesIndex extends Component {
 
     return (
       <div className="ui centered grid container">
-        <Sidebar
-          byDate={byDate}
-          onMonthClick={this.onMonthClick}
-          active={activeMonth}
-        />
+        { entries.length !== 0 &&
+          <Sidebar
+            byDate={byDate}
+            onMonthClick={this.onMonthClick}
+            active={activeMonth}
+          />
+        }
         { !isSearching && isFetchingEntries &&
           <LoadingEntries />
         }
