@@ -6,7 +6,10 @@ const spanStyle = { display: 'block', margin: '0 0 3px', font: 'lato', 'fontSize
 const inputStyle = { width: '200px', padding: '5px', height: '30px' };
 
 const ChartOptions = ({ handleViewChange, handleFilterChange, filterOptions }) => (
-  <div>
+  <div
+    className="ui one column stackable center aligned page grid"
+    style={{ marginTop: '5px' }}
+  >
     <label style={labelStyle}>
       <span style={spanStyle}>View Mode:</span>
       <select

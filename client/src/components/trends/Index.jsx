@@ -42,6 +42,14 @@ export class Trends extends Component {
 
     return (
       <div style={gridStyle}>
+        {!this.props.rawData &&
+          <div style={{ height: '100%' }}>
+            <div className="ui active inverted dimmer">
+              <div className="ui text loader">Loading Insights</div>
+            </div>
+            <p />
+          </div>
+        }
         {this.props.rawData &&
           <ViewSelector
             charts={charts}
