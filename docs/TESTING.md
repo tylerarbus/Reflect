@@ -53,11 +53,9 @@ this.setState(prevState => ({ expanded: !prevState.expanded }))
 Tests are arranged based on their sections. Files are named based on the parent section's component name and suffixed with .test.js.
 
 /test
-- SearchView.test.js
-- ShortlistView.test.js
-- LazyView.test.js
+- /client
+- /db
 - /server
--- server.test.js
 
 ## How to Test?
 1. Import necessary dependencies as required by your component
@@ -125,14 +123,14 @@ These are common tests that you might want to write for your components.
 1. Smoke Test, testing if a component renders
 ```javascript
 it('should render without crashing', () => {
-	const wrapper = shallow(<ShortlistView />);
+	const wrapper = shallow(<Component />);
 });
 ```
 
 2. If an element exists
 ```javascript
 it('should have an image to display the gravatar', function () {
-  const wrapper = shallow(<Avatar/>);
+  const wrapper = shallow(<Avatar />);
   expect(wrapper.find('img')).to.have.length(1);
 });
 ```
@@ -140,7 +138,7 @@ it('should have an image to display the gravatar', function () {
 3. Testing for certain props
 ```javascript
 it('should have props for email and src', function () {
-  const wrapper = shallow(<Avatar/>);
+  const wrapper = shallow(<Avatar />);
   expect(wrapper.props().email).to.be.defined;
   expect(wrapper.props().src).to.be.defined;
 });
@@ -154,8 +152,8 @@ it('renders items', () => {
 
 4. Checking if a component contains another component
 ```javascript
-it('contains an <Avatar/> component', function () {
-  const wrapper = mount(<Gravatar/>);
+it('contains an <Avatar /> component', function () {
+  const wrapper = mount(<Gravatar />);
   expect(wrapper.find(Avatar)).to.have.length(1);
 });
 ```
@@ -163,10 +161,10 @@ it('contains an <Avatar/> component', function () {
 5. Checking if something happens after a click
 ```javascript
 it('should update the src state on clicking fetch', function () {
-  const wrapper = mount(<Gravatar/>);
-  wrapper.setState({ email: 'hello@ifelse.io' });
+  const wrapper = mount(<Gravatar />);
+  wrapper.setState({ email: 'hello@email.io' });
   wrapper.find('button').simulate('click');
-  expect(wrapper.state('email')).to.equal('hello@ifelse.io');
+  expect(wrapper.state('email')).to.equal('hello@email.io');
 });
 
 it('toggles the completed status of an item when clicking', () => {
@@ -182,7 +180,7 @@ it('toggles the completed status of an item when clicking', () => {
 6. Testing for State
 ```javascript
 it('should start with an empty list', () => {
-  const wrapper = shallow(<BeerListContainer/>);
+  const wrapper = shallow(<Component />);
   expect(wrapper.state('beers')).to.equal([]);
 });
 ```
