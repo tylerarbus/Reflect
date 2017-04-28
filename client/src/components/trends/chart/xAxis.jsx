@@ -23,6 +23,7 @@ export class XAxis extends Component {
     const xAxis = createXAxis(this.props);
 
     d3.select('.xAxis')
+        .style('font', '12px lato')
         .attr('transform', `translate(0, ${this.props.height})`)
         .call(xAxis);
   }

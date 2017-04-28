@@ -11,11 +11,12 @@ export class YAxis extends Component {
         .tickFormat((d) => {
           let label = 'Neutral';
           if (d === 0) { return label; }
-          label = d > 0 ? 'More Happy' : 'Less Happy';
+          label = d > 0 ? 'Positive' : 'Negative';
           return label;
         });
 
     d3.select('.yAxis')
+        .style('font', '12px lato')
         .call(yAxis);
   }
 
