@@ -48,7 +48,7 @@ export class EntriesIndex extends Component {
   }
 
   render() {
-    const { entries, byDate, activeMonth, isSearching, searchResults, isFetchingSearch, isFetchingEntries } = this.props;
+    const { entries, byDate, activeMonth, analysis, isSearching, searchResults, isFetchingSearch, isFetchingEntries } = this.props;
 
     return (
       <div className="ui centered grid container">
@@ -69,6 +69,7 @@ export class EntriesIndex extends Component {
           <EntryList
             entries={entries}
             onDelete={this.onDeleteEntry}
+            analysis={analysis}
           />
         }
         { isSearching && isFetchingSearch &&
@@ -82,6 +83,7 @@ export class EntriesIndex extends Component {
             entries={searchResults.map(result => (result._source))}
             onDelete={this.onDeleteEntry}
             numSearchResults={searchResults.length}
+            analysis={analysis}
           />
         }
       </div>
@@ -98,7 +100,8 @@ const mapStateToProps = state => (
     isSearching: state.search.isSearching,
     searchResults: state.search.results,
     isFetchingSearch: state.search.isFetching,
-    isFetchingEntries: state.entries.isFetching
+    isFetchingEntries: state.entries.isFetching,
+    analysis: state.entries.analysis
   }
 );
 
@@ -123,7 +126,8 @@ EntriesIndex.propTypes = {
   isSearching: PropTypes.bool.isRequired,
   searchResults: PropTypes.arrayOf(PropTypes.object),
   isFetchingSearch: PropTypes.bool.isRequired,
-  isFetchingEntries: PropTypes.bool.isRequired
+  isFetchingEntries: PropTypes.bool.isRequired,
+  analysis: PropTypes.objectOf(PropTypes.object)
 };
 
 EntriesIndex.defaultProps = {
@@ -131,7 +135,8 @@ EntriesIndex.defaultProps = {
   entries: [],
   activeMonth: '',
   byDate: {},
-  searchResults: null
+  searchResults: null,
+  analysis: {}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntriesIndex);

@@ -1,4 +1,4 @@
-import { entriesByDate } from './utils.js';
+import { entriesByDate, entryAnalysis } from './utils.js';
 
 export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES';
 export const REQUEST_ENTRIES = 'REQUEST_ENTRIES';
@@ -14,11 +14,12 @@ const requestEntries = () => (
   }
 );
 
-const receiveEntries = (entries, byDate) => (
+const receiveEntries = (entries, byDate, analysis) => (
   {
     type: RECEIVE_ENTRIES,
     entries,
     byDate,
+    analysis,
     receivedAt: Date.now(),
     isFetching: false
   }
@@ -37,8 +38,9 @@ export const fetchEntries = () => {
     return fetch('/entries', config)
       .then(response => response.json())
       .then((responseJSON) => {
+        const analysis = entryAnalysis(responseJSON.nlp);
         const byDate = entriesByDate(responseJSON.entries);
-        dispatch(receiveEntries(responseJSON.entries, byDate));
+        dispatch(receiveEntries(responseJSON.entries, byDate, analysis));
       })
       .catch(error => console.error(error));
   };

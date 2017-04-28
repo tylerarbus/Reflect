@@ -16,6 +16,7 @@ const SearchBar = ({ dispatchNewSearch, query, isSearching, dispatchEndSearch })
           dispatchEndSearch();
         }
       }}
+      autoFocus
     />
     {!isSearching &&
       <i className="search icon" />

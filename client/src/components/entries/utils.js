@@ -20,6 +20,19 @@ export const entriesByDate = (entries) => {
   return byDate;
 };
 
+export const entryAnalysis = (nlpData) => {
+  const byEntry = {};
+  nlpData.forEach((entry) => {
+    byEntry[entry.entry_id] = {};
+    byEntry[entry.entry_id].keywords = entry.keywords
+      .filter(keywordObj => keywordObj.relevance > 0.8)
+      .map(keyword => keyword.text);
+    byEntry[entry.entry_id].sentiment = entry.sentiment;
+  });
+
+  return byEntry;
+};
+
 export const toMonthName = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -43,4 +56,13 @@ export const isInViewport = (element) => {
     rect.bottom <= (window.innerHeight || html.clientHeight) &&
     rect.right <= (window.innerWidth || html.clientWidth)
   );
+};
+
+export const getFaceIcon = (sentiment) => {
+  if (sentiment >= 0.5) {
+    return 'green smile';
+  } else if (sentiment <= -0.5) {
+    return 'red frown';
+  }
+  return 'grey meh';
 };

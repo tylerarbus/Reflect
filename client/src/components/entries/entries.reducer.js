@@ -6,6 +6,7 @@ const initialState = {
   displayedMonth: null,
   displayedEntries: [],
   byDate: {},
+  analysis: {},
   activeMonth: null,
   receivedAt: '',
   isFetching: false
@@ -18,6 +19,7 @@ const entries = (state = initialState, action) => {
         ...state,
         entries: action.entries,
         byDate: action.byDate,
+        analysis: action.analysis,
         displayedEntries: action.entries,
         receivedAt: action.receivedAt,
         isFetching: action.isFetching
