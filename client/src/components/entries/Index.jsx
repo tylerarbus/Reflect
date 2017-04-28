@@ -49,6 +49,7 @@ export class EntriesIndex extends Component {
 
   render() {
 <<<<<<< HEAD:client/src/components/entries/Index.jsx
+<<<<<<< HEAD:client/src/components/entries/Index.jsx
     const { entries, byDate, activeMonth, isSearching, searchResults, isFetchingSearch, isFetchingEntries } = this.props;
 
     return (
@@ -87,6 +88,9 @@ export class EntriesIndex extends Component {
         }
 =======
     const { entries, byDate, activeMonth, keywords } = this.props;
+=======
+    const { entries, byDate, activeMonth, analysis } = this.props;
+>>>>>>> Add face icon to entries:client/src/components/entries/JournalView.jsx
 
     return (
       <div className="ui centered grid container">
@@ -98,7 +102,7 @@ export class EntriesIndex extends Component {
         <EntryList
           entries={entries}
           onDelete={this.onDeleteEntry}
-          keywords={keywords}
+          analysis={analysis}
         />
 >>>>>>> Add Keyword tags to each entry:client/src/components/entries/JournalView.jsx
       </div>
@@ -113,6 +117,7 @@ const mapStateToProps = state => (
     byDate: state.entries.byDate,
     activeMonth: state.entries.activeMonth,
 <<<<<<< HEAD:client/src/components/entries/Index.jsx
+<<<<<<< HEAD:client/src/components/entries/Index.jsx
     isSearching: state.search.isSearching,
     searchResults: state.search.results,
     isFetchingSearch: state.search.isFetching,
@@ -120,6 +125,9 @@ const mapStateToProps = state => (
 =======
     keywords: state.entries.keywords
 >>>>>>> Add Keyword tags to each entry:client/src/components/entries/JournalView.jsx
+=======
+    analysis: state.entries.analysis
+>>>>>>> Add face icon to entries:client/src/components/entries/JournalView.jsx
   }
 );
 
@@ -142,6 +150,7 @@ EntriesIndex.propTypes = {
   activeMonth: PropTypes.string,
   byDate: PropTypes.objectOf(PropTypes.array),
 <<<<<<< HEAD:client/src/components/entries/Index.jsx
+<<<<<<< HEAD:client/src/components/entries/Index.jsx
   isSearching: PropTypes.bool.isRequired,
   searchResults: PropTypes.arrayOf(PropTypes.object),
   isFetchingSearch: PropTypes.bool.isRequired,
@@ -149,6 +158,9 @@ EntriesIndex.propTypes = {
 =======
   keywords: PropTypes.objectOf(PropTypes.array)
 >>>>>>> Add Keyword tags to each entry:client/src/components/entries/JournalView.jsx
+=======
+  analysis: PropTypes.objectOf(PropTypes.object)
+>>>>>>> Add face icon to entries:client/src/components/entries/JournalView.jsx
 };
 
 EntriesIndex.defaultProps = {
@@ -157,10 +169,14 @@ EntriesIndex.defaultProps = {
   activeMonth: '',
   byDate: {},
 <<<<<<< HEAD:client/src/components/entries/Index.jsx
+<<<<<<< HEAD:client/src/components/entries/Index.jsx
   searchResults: null
 =======
   keywords: {}
 >>>>>>> Add Keyword tags to each entry:client/src/components/entries/JournalView.jsx
+=======
+  analysis: {}
+>>>>>>> Add face icon to entries:client/src/components/entries/JournalView.jsx
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntriesIndex);

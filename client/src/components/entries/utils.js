@@ -20,13 +20,14 @@ export const entriesByDate = (entries) => {
   return byDate;
 };
 
-export const keywordsByEntry = (nlpData) => {
+export const entryAnalysis = (nlpData) => {
   const byEntry = {};
-
   nlpData.forEach((entry) => {
-    byEntry[entry.entry_id] = entry.keywords
+    byEntry[entry.entry_id] = {};
+    byEntry[entry.entry_id].keywords = entry.keywords
       .filter(keywordObj => keywordObj.relevance > 0.8)
       .map(keyword => keyword.text);
+    byEntry[entry.entry_id].sentiment = entry.sentiment;
   });
 
   return byEntry;
@@ -55,4 +56,13 @@ export const isInViewport = (element) => {
     rect.bottom <= (window.innerHeight || html.clientHeight) &&
     rect.right <= (window.innerWidth || html.clientWidth)
   );
+};
+
+export const getFaceIcon = (sentiment) => {
+  if (sentiment >= 0.5) {
+    return 'smile';
+  } else if (sentiment <= -0.5) {
+    return 'frown';
+  }
+  return 'meh';
 };

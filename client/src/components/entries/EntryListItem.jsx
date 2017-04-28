@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toDateString } from './utils.js';
+import { toDateString, getFaceIcon } from './utils.js';
 
 const style = {
   marginTop: '8px'
@@ -12,28 +12,46 @@ const keywordStyle = {
   color: 'white'
 };
 
-const Entry = ({ entryId, date, text, audio, onDelete, keywords }) => (
-  <div className="ui container segment">
-    <div className="ui icon buttons right floated">
-      <button
-        className="ui button"
-        onClick={() => { onDelete(entryId); }}
-      >
-        <i className="trash icon" />
-      </button>
+const faceStyle = {
+  float: 'right'
+};
+
+const test = {
+  position: 'relative'
+};
+
+const please = {
+  position: 'absolute',
+  right: '5%',
+  bottom: '5%'
+ // width: '30px'
+};
+
+const Entry = ({ entryId, date, text, audio, onDelete, analysis }) => (
+  <div className="ui container segment" style={test}>
+    <div className="ui icon right floated">
+      <i className={`large ${getFaceIcon(analysis.sentiment)} icon`} style={faceStyle} />
     </div>
     <h4 className="date ui header">{toDateString(date)}</h4>
     <p>{text}</p>
     <audio controls style={{ width: '100%' }}>
       <source src={`${audio}`} />
     </audio>
-    <br />
     <div className="ui horizontal label" style={keywordStyle}>Keywords:</div>
-    {keywords.map(keyword =>
+    {analysis.keywords.map(keyword =>
       <div className="ui horizontal label" style={style}>
         {keyword}
       </div>
     )}
+    <div className="ui buttons right" style={please}>
+     <button
+       className="ui button"
+       onClick={() => { onDelete(entryId); }}
+     //  style={please}
+      >
+       <i className="trash icon" />
+     </button>
+     </div>
   </div>
 );
 
@@ -43,7 +61,7 @@ Entry.propTypes = {
   text: PropTypes.string.isRequired,
   audio: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
-  keywords: PropTypes.objectOf(PropTypes.array).isRequired
+  analysis: PropTypes.objectOf(PropTypes.object).isRequired
 };
 
 export default Entry;
