@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
-import Timeline from '../../client/src/components/entries/Timeline.jsx';
+import { Sidebar } from '../../client/src/components/entries/Sidebar.jsx';
 
 const exampleMonthData = { 2016: { '02': ['entryID', 'entryID'], '03': ['entryID'] } };
 
@@ -11,7 +11,7 @@ const setup = () => {
     onMonthClick: jest.fn()
   };
 
-  const timeline = mount(<Timeline {...props} />);
+  const timeline = shallow(<Sidebar {...props} />);
 
   return {
     props,
