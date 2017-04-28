@@ -10,7 +10,7 @@ export default class Entries extends Component {
   }
 
   render() {
-    const { entries, onDelete, analysis, numSearchResults } = this.props;
+    const { entries, onDelete, analysis, numSearchResults } = this.props; 
     
     return (
       <div

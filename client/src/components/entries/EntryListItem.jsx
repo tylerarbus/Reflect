@@ -65,7 +65,7 @@ const Entry = ({ entryId, date, text, audio, onDelete, analysis }) => (
         onClick={() => { onDelete(entryId); }}
         style={hmm}
       >
-        <i className="trash icon" style={trash}/>
+        <i className="trash icon" style={trash} />
       </button>
     </div>
   </div>
