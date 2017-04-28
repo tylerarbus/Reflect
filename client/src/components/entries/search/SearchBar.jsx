@@ -11,6 +11,11 @@ const SearchBar = ({ dispatchNewSearch, query, isSearching, dispatchEndSearch })
       type="text"
       onChange={dispatchNewSearch}
       value={query}
+      onKeyDown={(e) => {
+        if (e.keyCode === 27) {
+          dispatchEndSearch();
+        }
+      }}
     />
     {!isSearching &&
       <i className="search icon" />
