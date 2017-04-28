@@ -1,3 +1,5 @@
+import { debounce } from 'lodash';
+
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const END_SEARCH = 'END_SEARCH';
@@ -17,6 +19,15 @@ const receiveSearch = results => (
   }
 );
 
+const searchRequest = debounce((config, dispatch) => (
+  fetch('/search', config)
+    .then(response => response.json())
+    .then((responseJSON) => {
+      dispatch(receiveSearch(responseJSON.hits));
+    })
+    .catch(error => console.error(error))
+), 500);
+
 export const newSearch = (e) => {
   const query = e.target.value;
   const config = {
@@ -27,15 +38,10 @@ export const newSearch = (e) => {
     },
     body: JSON.stringify({ query })
   };
-  
+
   return (dispatch) => {
     dispatch(requestSearch(query));
-    return fetch('/search', config)
-      .then(response => response.json())
-      .then((responseJSON) => {
-        dispatch(receiveSearch(responseJSON.hits));
-      })
-      .catch(error => console.error(error));
+    return searchRequest(config, dispatch);
   };
 };
 
