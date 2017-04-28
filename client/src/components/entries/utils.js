@@ -60,9 +60,9 @@ export const isInViewport = (element) => {
 
 export const getFaceIcon = (sentiment) => {
   if (sentiment >= 0.5) {
-    return 'smile';
+    return 'green smile';
   } else if (sentiment <= -0.5) {
-    return 'frown';
+    return 'red frown';
   }
-  return 'meh';
+  return 'grey meh';
 };

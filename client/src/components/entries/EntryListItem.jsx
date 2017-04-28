@@ -23,9 +23,25 @@ const test = {
 const please = {
   position: 'absolute',
   right: '5%',
-  bottom: '5%'
+  bottom: '5%',
+  width: '1px'
  // width: '30px'
 };
+
+const hmm = {
+  position: 'absolute',
+  height: '5px',
+  width: '5px',
+  bottom: '5%',
+  right: '3%'
+};
+
+const trash = {
+  position: 'absolute',
+  left: '15%',
+  bottom: '27%'
+};
+
 
 const Entry = ({ entryId, date, text, audio, onDelete, analysis }) => (
   <div className="ui container segment" style={test}>
@@ -43,15 +59,15 @@ const Entry = ({ entryId, date, text, audio, onDelete, analysis }) => (
         {keyword}
       </div>
     )}
-    <div className="ui buttons right" style={please}>
-     <button
-       className="ui button"
-       onClick={() => { onDelete(entryId); }}
-     //  style={please}
+    <div className="ui icon buttons right floated">
+      <button
+        className="ui small button"
+        onClick={() => { onDelete(entryId); }}
+        style={hmm}
       >
-       <i className="trash icon" />
-     </button>
-     </div>
+        <i className="trash icon" style={trash}/>
+      </button>
+    </div>
   </div>
 );
 
