@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { JournalView } from '../../client/src/components/entries/JournalView.jsx';
+import { EntriesIndex } from '../../client/src/components/entries/Index.jsx';
 
 const setup = () => {
   const props = {
@@ -10,22 +10,22 @@ const setup = () => {
     entries: [{}]
   };
 
-  const journalView = shallow(<JournalView {...props} />);
+  const entriesIndex = shallow(<EntriesIndex {...props} />);
 
   return {
     props,
-    journalView
+    entriesIndex
   };
 };
 
-describe('JournalView Component', () => {
+describe('entriesIndex Component', () => {
   it('should render without crashing', () => {
-    const { journalView } = setup();
-    expect(journalView.exists()).toBe(true);
+    const { entriesIndex } = setup();
+    expect(entriesIndex.exists()).toBe(true);
   });
 
-  it('JournalView renders nested components', () => {
-    const { journalView } = setup();
-    expect(journalView.find('Entries').length).toEqual(1);
+  it('entriesIndex renders nested components', () => {
+    const { entriesIndex } = setup();
+    expect(entriesIndex.find('Entries').length).toEqual(1);
   });
 });

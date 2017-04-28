@@ -9,7 +9,7 @@ const timelineStyle = {
   position: 'sticky'
 };
 
-const Sidebar = ({ byDate, onMonthClick, active, isSearching }) => {
+export const Sidebar = ({ byDate, onMonthClick, active, isSearching }) => {
   const activeStyle = { color: '#89EEB2', fontWeight: 'bold' };
 
   const sortedYears = Object.keys(byDate).sort((a, b) => b > a);
