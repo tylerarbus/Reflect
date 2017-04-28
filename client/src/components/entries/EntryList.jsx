@@ -10,8 +10,8 @@ export default class Entries extends Component {
   }
 
   render() {
-    const { entries, onDelete, analysis, numSearchResults } = this.props; 
-    
+    const { entries, onDelete, analysis, numSearchResults } = this.props;
+        
     return (
       <div
         className="ten wide column"
@@ -20,7 +20,7 @@ export default class Entries extends Component {
         {numSearchResults &&
           <SearchResults results={numSearchResults} />
         }
-        {entries.map(entry =>
+        {entries.filter(entry => analysis[entry.entry_id]).map(entry =>
           <EntryListItem
             date={entry.created}
             text={entry.text}
