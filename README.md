@@ -36,13 +36,17 @@ Reflective is a simple, yet powerful, journaling app. Here's how it works:
 
 [Insert screenshots here]
 
-TBD - Discuss scheduled calling feature and call me now.
+1. Scheduled Calls
+During signup, you give us a time to call you. Reflective will give you one call daily at that time for 60s for you to record your entry.
+
+2. Call Me Now
+At any point in the day, you can get Reflective to call you for your daily entry. If that call is successful, Reflective will not call you at your scheduled time.
 
 ### Journal
 
 [Insert screenshots here]
 
-TBD - Discuss entries view, including timeline and search.
+In your journal, you can view past entries and listen to the original recordings. You can also search for any entry based on the words in it.
 
 ### Insights
 
@@ -104,20 +108,25 @@ npm run dev
 Note: for the application to run correctly, you'll need to configure the following environment variables (these should be saved in a .env file in the root directory)
 
 ```sh
-JWT_SECRET= [TBD]
-TWILIO_SID= [TBD]
-TWILIO_AUTH_TOKEN= [TBD]
-AUTHY_KEY= [TBD]
-TWILIO_FROM= [TBD]
-TWILIO_XML_URL= [TBD]
+JWT_SECRET= [Secret key for JWT]
+TWILIO_SID= [Twilio App ID]
+TWILIO_AUTH_TOKEN= [Twilio Auth Token]
+AUTHY_KEY= [Authy Key]
+TWILIO_FROM= [Twilio Phone Number]
+TWILIO_XML_URL= [TwilioML Call Back URL]
 DATABASE_URL= [URL of PostgreSQL database]
-IS_ON= [TBD]
+IS_ON= [Application Environment]
 SPEECH_USERNAME= [Watson Speech to Text Username]
 SPEECH_PASSWORD= [Watson Speech to Text Password]
 SENTIMENT_USERNAME= [Watson Natural Language Understanding Username]
 SENTIMENT_PASSWORD= [Watson Natural Language Understanding Password]
 REDIS_URL= [URL of Redis database]
 SEARCH_URL= [URL of elasticsearch cluster]
+DB_LOGIN= [Postgres Database Login]
+DB_PASS= [Postgres Database Password]
+DB_URL= [Postgres Database URL]
+DEV_CODE= [Dev phone verify code]
+DEV_PHONE= [Dev phone verify number]
 ```
 
 ## :o: Requirements
