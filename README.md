@@ -34,17 +34,17 @@ Reflective is a simple, yet powerful, journaling app. Here's how it works:
 
 ### Journal
 
-![Screenshot](./docs/screenshots/journal_view)
+![Alt text](./docs/screenshots/journal_view.png?raw=true)
 
 ### Insights
 
-![Screenshot](./docs/screenshots/insights_view_1)
+![Alt text](./docs/screenshots/insights_view_1.png?raw=true)
 
-![Screenshot](./docs/screenshots/insights_view_2)
+![Alt text](./docs/screenshots/insights_view_2.png?raw=true)
 
 ## Architecture
 
-![Screenshot](./docs/screenshots/architecture)
+![Alt text](./docs/screenshots/architecture.png?raw=true)
 
 ## :busts_in_silhouette: Team
 
