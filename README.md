@@ -11,9 +11,9 @@ Reflective is a simple, yet powerful, journaling app. Here's how it works:
 ## Table of Contents
 
 1. [Features](#zap-features)
-    1. [Calling](#calling)
     1. [Journal](#journal)
     1. [Insights](#insights)
+1. [Architecture](#architecture)
 1. [Team](#busts_in_silhouette-team)
 1. [Tech Stack](#package-tech-stack)
     1. [Front-End](#front-end)
@@ -32,27 +32,19 @@ Reflective is a simple, yet powerful, journaling app. Here's how it works:
 
 ## :zap: Features
 
-### Calling
-
-[Insert screenshots here]
-
-1. Scheduled Calls
-During signup, you give us a time to call you. Reflective will give you one call daily at that time for 60s for you to record your entry.
-
-2. Call Me Now
-At any point in the day, you can get Reflective to call you for your daily entry. If that call is successful, Reflective will not call you at your scheduled time.
-
 ### Journal
 
-[Insert screenshots here]
-
-In your journal, you can view past entries and listen to the original recordings. You can also search for any entry based on the words in it.
+![Screenshot](./docs/screenshots/journal_view)
 
 ### Insights
 
-[Insert screenshots here]
+![Screenshot](./docs/screenshots/insights_view_1)
 
-TBD - Discuss insights feature.
+![Screenshot](./docs/screenshots/insights_view_2)
+
+## Architecture
+
+![Screenshot](./docs/screenshots/architecture)
 
 ## :busts_in_silhouette: Team
 
